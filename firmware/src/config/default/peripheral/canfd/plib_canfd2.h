@@ -82,6 +82,7 @@ void CAN2_MessageAcceptanceFilterSet(uint8_t filterNum, uint32_t id);
 uint32_t CAN2_MessageAcceptanceFilterGet(uint8_t filterNum);
 void CAN2_MessageAcceptanceFilterMaskSet(uint8_t acceptanceFilterMaskNum, uint32_t id);
 uint32_t CAN2_MessageAcceptanceFilterMaskGet(uint8_t acceptanceFilterMaskNum);
+bool CAN2_TransmitEventFIFOElementGet(uint32_t *id, uint32_t *sequence, uint32_t *timestamp);
 CANFD_ERROR CAN2_ErrorGet(void);
 void CAN2_ErrorCountGet(uint8_t *txErrorCount, uint8_t *rxErrorCount);
 bool CAN2_InterruptGet(uint8_t fifoQueueNum, CANFD_FIFO_INTERRUPT_FLAG_MASK fifoInterruptFlagMask);

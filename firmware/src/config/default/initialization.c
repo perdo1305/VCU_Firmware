@@ -217,9 +217,11 @@ void SYS_Initialize ( void* data )
 
     CAN2_Initialize();
 
-    TMR6_Initialize();
+	UART3_Initialize();
 
     CORETIMER_Initialize();
+    TMR6_Initialize();
+
     ADCHS_Initialize();
 
     TMR4_Initialize();

@@ -53,6 +53,10 @@
 #endif
 
 float PDM_Current = 0;
+HV500 myHV500;
+bool CANRX_ON[3] = {0, 0, 0};
+bool CANTX_ON[3] = {0, 0, 0};
+
 
 // ############# CANSART ######################################
 #if CANSART
@@ -110,11 +114,16 @@ void CANSART_SETUP(void);
 void TMR1_5ms(uint32_t status, uintptr_t context) {                                // 200Hz
     CAN_Send_VCU_Datadb_1(Current_Power, Target_Power, Brake_Pressure, Throttle);  // ID 0x20 to DATA_BUS
     CAN_Send_VCU_Datadb_4(RPM, Inverter_Voltage);                                  // ID 0x23 to DATA_BUS
-    static uint8_t data[8] = {0};
-    Send_CAN_BUS_2(0x20, data, 8);
-    Send_CAN_BUS_2(0x21, data, 8);
-    Send_CAN_BUS_2(0x22, data, 8);
-    Send_CAN_BUS_2(0x23, data, 8);
+    static uint8_t data[64];
+    
+    Send_CAN_BUS_2(0x20, data, 64);
+    Send_CAN_BUS_2(0x21, data, 64);
+    Send_CAN_BUS_2(0x22, data, 64);
+    Send_CAN_BUS_2(0x23, data, 64);
+
+    
+    Send_CAN_BUS_3(0x20, data, 8);
+    Send_CAN_BUS_3(0x21, data, 8);
 }
 
 void TMR2_100ms(uint32_t status, uintptr_t context) {                // 10Hz
@@ -321,6 +330,9 @@ void PrintToConsole(uint8_t time) {
         printf("APPSA%dAPPSB%dAPPST%dAPPS_ERROR%dAPPS_Perc%d", ADC[0], ADC[10], APPS_Mean, APPS_Error, APPS_Percentage);
         printf("APPS_MIN%dAPPS_MAX%dAPPS_TOL%d", APPS_MIN_bits, APPS_MAX_bits, APPS_Tolerance_bits);
         printf("CURRENT%fADC%d", PDM_Current, ADC[15]);
+        printf("ACtualDUTTY%d",myHV500.Actual_Duty);
+        printf("C1R%dC2R%dC3R%d",CANRX_ON[1],CANRX_ON[2],CANRX_ON[3]);
+        printf("C1T%dC2T%dC3T%d",CANTX_ON[1],CANTX_ON[2],CANTX_ON[3]);
         printf("\r\n");
 
         previousMillis[3] = currentMillis[3];
@@ -388,10 +400,11 @@ bool IGNITION_R2D(void) {
 
 void MeasureCurrent(void) {
     static float voltsperamp = 0.0125;
-    static uint8_t N = 3;
+    static uint8_t N = 5;
     static float volts = 0;
-    static voltageDivider = 0.5;
+    //static float voltageDivider = 0.5;
 
-    volts = (float)ADC[15]*3.3 / 4095.0;
+    volts = (float)ADC[15]*3.300 / 4095.000;
+    volts = volts - 2.5;
     PDM_Current = (float) (volts/voltsperamp)/N;
 }

@@ -13,9 +13,9 @@
 #include <stdint.h>
 #include <stdlib.h>  // Defines EXIT_FAILURE
 
-#include "../../../../Documents/git/VCU_BANCADA/firmware/VCU_BANCADA.X/Can-Header-Map/CAN_asdb.h"
-#include "../../../../Documents/git/VCU_BANCADA/firmware/VCU_BANCADA.X/Can-Header-Map/CAN_datadb.h"
-#include "../../../../Documents/git/VCU_BANCADA/firmware/VCU_BANCADA.X/Can-Header-Map/CAN_pwtdb.h"
+#include "../../../../2_FIRMWARE/VCU_BANCADA/firmware/VCU_BANCADA.X/Can-Header-Map/CAN_asdb.h"
+#include "../../../../2_FIRMWARE/VCU_BANCADA/firmware/VCU_BANCADA.X/Can-Header-Map/CAN_datadb.h"
+#include "../../../../2_FIRMWARE/VCU_BANCADA/firmware/VCU_BANCADA.X/Can-Header-Map/CAN_pwtdb.h"
 #include "definitions.h"
 
 void Read_CAN_BUS_1(void);                                         // Read CAN 1 function
@@ -69,20 +69,54 @@ typedef struct {
     uint32_t Power_limit;
     uint32_t CAN_map_version;
 
-    uint8_t SetCurrent[2] = {0, 0};
-    uint8_t SetBrakeCurrent[2] = {0, 0};
-    uint8_t SetERPM[4] = {0, 0, 0, 0};
-    uint8_t SetPosition[2] = {0, 0};
-    uint8_t SetRelativeCurrent[2] = {0, 0};
-    uint8_t SetRelativeBrakeCurrent[2] = {0, 0};
-    uint8_t SetDigitalOutput[4] = {0, 0, 0, 0};
-    uint8_t SetMaxACCurrent[2] = {0, 0};
-    uint8_t SetMaxACBrakeCurrent[2] = {0, 0};
-    uint8_t SetMaxDCCurrent[2] = {0, 0};
-    uint8_t SetMaxDCBrakeCurrent[2] = {0, 0};
-    uint8_t DriveEnable[1] = {0};
+    uint8_t SetCurrent[2];
+    uint8_t SetBrakeCurrent[2];
+    uint8_t SetERPM[4];
+    uint8_t SetPosition[2];
+    uint8_t SetRelativeCurrent[2];
+    uint8_t SetRelativeBrakeCurrent[2];
+    uint8_t SetDigitalOutput[4];
+    uint8_t SetMaxACCurrent[2];
+    uint8_t SetMaxACBrakeCurrent[2];
+    uint8_t SetMaxDCCurrent[2];
+    uint8_t SetMaxDCBrakeCurrent[2];
+    uint8_t DriveEnable[1];
 } HV500;
 extern HV500 myHV500;
+
+typedef struct {
+    bool VCU;
+    bool PDM;
+    bool IMU;
+    bool DynamicsRear;
+    bool DynamicsFront;
+} CAN1;
+
+typedef struct {
+    bool VCU;
+    bool Inverter;
+    bool TCU;
+    bool BMS;
+} CAN2;
+
+typedef struct {
+    bool ACU;
+    bool FSG_Datalogger;
+    bool ALC;
+    bool SteeringWheel;
+} CAN3;
+
+typedef struct {
+    CAN1 can1;
+    CAN2 can2;
+    CAN3 can3;
+} BoardStatus;
+extern BoardStatus myboardStatus;
+
+extern bool CANRX_ON[3];  // flag to check if CAN is receiving
+extern bool CANTX_ON[3];  // flag to check if CAN is transmitting
+
+
 
 #ifdef __cplusplus
 extern "C" {

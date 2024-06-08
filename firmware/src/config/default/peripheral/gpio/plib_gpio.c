@@ -63,6 +63,7 @@ void GPIO_Initialize ( void )
     /* PORTA Initialization */
     LATA = 0x0U; /* Initial Latch Value */
     TRISACLR = 0xc00U; /* Direction Control */
+    ANSELACLR = 0x10U; /* Digital Mode Enable */
     /* PORTB Initialization */
     LATB = 0x0U; /* Initial Latch Value */
     TRISBCLR = 0x3c02U; /* Direction Control */
@@ -90,12 +91,14 @@ void GPIO_Initialize ( void )
     U1RXR = 6;
     C2RXR = 10;
     C3RXR = 10;
+    U3RXR = 2;
 
     /* PPS Output Remapping */
     RPB15R = 12;
     RPC0R = 1;
     RPB14R = 12;
     RPG8R = 12;
+    RPA4R = 1;
 
         /* Lock back the system after PPS configuration */
     CFGCONbits.IOLOCK = 1U;

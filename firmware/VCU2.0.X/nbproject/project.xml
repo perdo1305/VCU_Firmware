@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>VCU2.0</name>
+            <name>VCU_firmware</name>
             <creation-uuid>de93f871-8b7f-411c-b33b-2c9a0dc8da50</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

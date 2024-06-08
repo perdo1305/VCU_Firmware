@@ -44,8 +44,7 @@ CAN_Buffer tx[3] = {
      .messageID = 0,
      .messageLength = 0}};
 
-bool CANRX_ON[3] = {0, 0, 0};  // flag to check if CAN is receiving
-bool CANTX_ON[3] = {0, 0, 0};  // flag to check if CAN is transmitting
+
 
 uint32_t status[3] = {0, 0, 0};  // CAN error status
 
@@ -75,6 +74,7 @@ void Read_CAN_BUS_1() {
 
 void Send_CAN_BUS_1(uint32_t id, uint8_t* message, uint8_t size) {
     uint8_t Z = CAN_BUS1;
+    
     if (CAN1_TxFIFOQueueIsFull(0)) {
         CANTX_ON[Z] = 0;
     } else {
@@ -100,11 +100,11 @@ void Read_CAN_BUS_2() {
         memset(rx[Z].message, 0x00, sizeof(rx[Z].message));
         if (CAN2_MessageReceive(&rx[Z].messageID, &rx[Z].messageLength, rx[Z].message, 0, 2, &msgAttr)) {
             CANRX_ON[Z] = 1;
-            // CAN_Filter_IDS_BUS2(rx[Z].messageID);
-            GPIO_RB11_LED4_Toggle();
+            CAN_Filter_IDS_BUS2(rx[Z].messageID);
+           //GPIO_RB11_LED4_Toggle();
         }
     } else {
-        GPIO_RB11_LED4_Clear();
+        //GPIO_RB11_LED4_Clear();
         CANRX_ON[Z] = 0;
     }
 }
@@ -114,12 +114,13 @@ void Send_CAN_BUS_2(uint32_t id, uint8_t* message, uint8_t size) {
     if (CAN2_TxFIFOQueueIsFull(0)) {
         CANTX_ON[Z] = 0;
     } else {
-        if (CAN2_MessageTransmit(id, size, message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
+        if (CAN2_MessageTransmit(id, size, message, 0,CANFD_MODE_FD_WITH_BRS, CANFD_MSG_TX_DATA_FRAME)) {
+        //if (CAN2_MessageTransmit(id, size, message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
             CANTX_ON[Z] = 1;
-            // GPIO_RB10_LED5_Toggle();
+            //GPIO_RB10_LED5_Toggle();
         } else {
             CANTX_ON[Z] = 0;
-            // GPIO_RB10_LED5_Clear();
+            //GPIO_RB10_LED5_Clear();
         }
     }
 }
@@ -132,10 +133,10 @@ void Read_CAN_BUS_3() {
         if (CAN3_MessageReceive(&rx[Z].messageID, &rx[Z].messageLength, rx[Z].message, 0, 2, &msgAttr)) {
             CANRX_ON[Z] = 1;
             // CAN_Filter_IDS_BUS2(rx[Z].messageID);
-            // GPIO_RB11_LED4_Toggle();
+            GPIO_RB11_LED4_Toggle();
         }
     } else {
-        // GPIO_RB11_LED4_Clear();
+         GPIO_RB11_LED4_Clear();
         CANRX_ON[Z] = 0;
     }
 }
@@ -143,9 +144,10 @@ void Read_CAN_BUS_3() {
 void Send_CAN_BUS_3(uint32_t id, uint8_t* message, uint8_t size) {
     uint8_t Z = CAN_BUS3;
     if (CAN3_TxFIFOQueueIsFull(0)) {
-        CANTX_ON[Z] = 0;
+        CANTX_ON[Z] = 0; 
     } else {
         if (CAN3_MessageTransmit(id, size, message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
+        //if (CAN3_MessageTransmit(id, size, message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
             CANTX_ON[Z] = 1;
             GPIO_RB10_LED5_Toggle();
         } else {
