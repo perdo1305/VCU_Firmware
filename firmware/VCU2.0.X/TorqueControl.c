@@ -1,12 +1,13 @@
 #include "TorqueControl.h"
 
 
-void InitTorqueControl(float peakTorque, float continuosTorque, float targetCurrent){
-    
-    torqueControl.PeakTorque = peakTorque;
-    torqueControl.ContinuosTorque = continuosTorque;
-    torqueControl.Kt = torqueControl.ContinuosTorque/torqueControl.TargetCurrent;
-    torqueControl.TargetCurrent = targetCurrent;
+void InitTorqueControl(TorqueControl *torqueControl){
+    torqueControl->APPS = 0f;
+    torqueControl->TargetCurrent = 0f;
+    torqueControl->ActualCurrent = 0f;
+    torqueControl->ContinuosTorque = 0f;
+    torqueControl->PeakTorque = 0f;
+    torqueControl->Kt = 0f;
 }
 
 float ConvertAPPSToTorque(float APPS){

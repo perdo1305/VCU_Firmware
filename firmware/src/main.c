@@ -33,6 +33,11 @@
 // #include "../VCU_BANCADA.X/cansart_db_lc.h"
 #include "../VCU2.0.X/utils.h"
 
+#define AUTONOMOUS_MODE 0U
+#define MANUAL_MODE 1U
+
+#define DRIVING_MODE MANUAL_MODE
+
 // Define a macro DEBUG para ativar ou desativar o debug_printf
 #define DEBUG 0
 #define LABVIEW 0
@@ -56,6 +61,8 @@ float PDM_Current = 0;
 HV500 myHV500;
 bool CANRX_ON[3] = {0, 0, 0};
 bool CANTX_ON[3] = {0, 0, 0};
+
+bool Ready2Drive = 0;
 
 
 // ############# CANSART ######################################
@@ -195,6 +202,9 @@ void ADCHS_CH15_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
     ADC[channel] = sum / 4;
 }
 
+    /*#############################################################################################################################*/
+    /*######################################################### SETUP ########################################################*/
+    /*#############################################################################################################################*/
 int main(void) {
     /* Initialize all modules */
     SYS_Initialize(NULL);
@@ -225,7 +235,7 @@ int main(void) {
     VcuState = 1;       // Set VCU state to 1
 
     GPIO_RD5_Set();
-    IGNITION_R2D();
+    
 
     TMR1_Start();
     TMR2_Start();
@@ -233,6 +243,14 @@ int main(void) {
     TMR4_Start();
     TMR5_Start();
     TMR6_Start();
+
+
+    //the car does not start until the start button is pressed a the brake is pressed
+    do{
+
+    }while( !GPIO_RB5_IGN_Get() || !GPIO_RB6_BRAKE_Get())
+    Ready2Drive = true; // the car is ready to drive
+    IGNITION_R2D(); //ready to drive sound
 
 #if CANSART
     CANSART_SETUP();
@@ -329,7 +347,7 @@ void PrintToConsole(uint8_t time) {
         // APPS_PrintValues();
         printf("APPSA%dAPPSB%dAPPST%dAPPS_ERROR%dAPPS_Perc%d", ADC[0], ADC[10], APPS_Mean, APPS_Error, APPS_Percentage);
         printf("APPS_MIN%dAPPS_MAX%dAPPS_TOL%d", APPS_MIN_bits, APPS_MAX_bits, APPS_Tolerance_bits);
-        printf("CURRENT%fADC%d", PDM_Current, ADC[15]);
+        printf("I%f",PDM_Current);
         printf("ACtualDUTTY%d",myHV500.Actual_Duty);
         printf("C1R%dC2R%dC3R%d",CANRX_ON[1],CANRX_ON[2],CANRX_ON[3]);
         printf("C1T%dC2T%dC3T%d",CANTX_ON[1],CANTX_ON[2],CANTX_ON[3]);

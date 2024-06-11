@@ -34,7 +34,6 @@ typedef struct {
 
 
 } TorqueControl;
-TorqueControl torqueControl;
 
 
 #ifdef	__cplusplus
