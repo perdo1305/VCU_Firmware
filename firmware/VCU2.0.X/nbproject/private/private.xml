@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/firmware/src/config/default/peripheral/wdt/plib_wdt.c</file>
             <file>file:/C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/firmware/VCU2.0.X/CAN_utils.c</file>
+            <file>file:/C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/firmware/src/config/default/definitions.h</file>
+            <file>file:/C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/firmware/src/config/default/peripheral/wdt/plib_wdt.h</file>
             <file>file:/C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/firmware/src/main.c</file>
         </group>
     </open-files>

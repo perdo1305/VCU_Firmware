@@ -76,7 +76,7 @@
 #pragma config POSCMOD =    HS
 #pragma config OSCIOFNC =   OFF
 #pragma config FCKSM =      CSECME
-#pragma config WDTPS =      PS1048576
+#pragma config WDTPS =      PS1024
 #pragma config WDTSPGM =    STOP
 #pragma config FWDTEN =     OFF
 #pragma config WINDIS =     NORMAL
@@ -217,16 +217,16 @@ void SYS_Initialize ( void* data )
 
     CAN2_Initialize();
 
+    TMR6_Initialize();
+
 	UART3_Initialize();
 
     CORETIMER_Initialize();
-    TMR6_Initialize();
-
     ADCHS_Initialize();
 
-    TMR4_Initialize();
-
 	UART1_Initialize();
+
+    TMR4_Initialize();
 
     TMR5_Initialize();
 

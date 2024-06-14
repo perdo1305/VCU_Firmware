@@ -57,13 +57,15 @@
 #define labview_printf(fmt, ...)
 #endif
 
-float PDM_Current = 0;
+// ############################################################
+float PDM_Current = 0; // current supplied by the low voltage battery
+float PDM_Voltage = 0; // voltage supplied by the low voltage battery
+
 HV500 myHV500;
 bool CANRX_ON[3] = {0, 0, 0};
 bool CANTX_ON[3] = {0, 0, 0};
 
-bool Ready2Drive = 0;
-
+bool Ready2Drive = 0; //indicates if the car is ready to drive
 
 // ############# CANSART ######################################
 #if CANSART
@@ -74,8 +76,8 @@ struct frame121 frames121;
 
 // ############# ADC ########################################
 
-uint8_t message_ADC[64];      // CAN message to send ADC data
-__COHERENT uint16_t ADC[64];  // ADC raw data
+uint8_t message_ADC[64]; // CAN message to send ADC data
+__COHERENT uint16_t ADC[64]; // ADC raw data
 
 // ############# MILIS #######################################
 unsigned int previousMillis[10] = {};
@@ -83,33 +85,34 @@ unsigned int currentMillis[10] = {};
 // ############# MILIS #######################################
 
 unsigned int millis() {
-    return (unsigned int)(CORETIMER_CounterGet() / (CORE_TIMER_FREQUENCY / 1000));
+    return (unsigned int) (CORETIMER_CounterGet() / (CORE_TIMER_FREQUENCY / 1000));
 }
 
 // ############# VCU DATABUS VARS ############################
 /* ID 0x20 */
-uint8_t Throttle = 0;        // 0-100   |Byte 0
-uint8_t Brake_Pressure = 0;  // 0-50    |Byte 1
-uint32_t Target_Power = 0;   // 0-85000 |Byte 2-4
-uint32_t Current_Power = 0;  // 0-85000 |Byte 5-7
+uint8_t Throttle = 0; // 0-100   |Byte 0
+uint8_t Brake_Pressure = 0; // 0-50    |Byte 1
+uint32_t Target_Power = 0; // 0-85000 |Byte 2-4
+uint32_t Current_Power = 0; // 0-85000 |Byte 5-7
 /* ID 0x21 */
-uint16_t Inverter_Temperature = 0;  // 0-300  |Byte 0-12
-uint16_t Motor_Temperature = 0;     // 0 -100 |Byte 2-3
+uint16_t Inverter_Temperature = 0; // 0-300  |Byte 0-12
+uint16_t Motor_Temperature = 0; // 0 -100 |Byte 2-3
 /* ID 0x22 */
-uint16_t Inverter_Faults = 0;  // 0-65535  |Byte 0-1
-uint8_t LMT1 = 0;              // 0-255    |Byte 2
-uint8_t LMT2 = 0;              // 0-255    |Byte 3
-uint8_t VcuState = 0;          // 0-255    |Byte 4
+uint16_t Inverter_Faults = 0; // 0-65535  |Byte 0-1
+uint8_t LMT1 = 0; // 0-255    |Byte 2
+uint8_t LMT2 = 0; // 0-255    |Byte 3
+uint8_t VcuState = 0; // 0-255    |Byte 4
 /* ID 0x23 */
-uint16_t Inverter_Voltage = 0;  // 0-65535 |Byte 0-1
-uint16_t RPM = 0;               // 0-65535 |Byte 2-32
+uint16_t Inverter_Voltage = 0; // 0-65535 |Byte 0-1
+uint16_t RPM = 0; // 0-65535 |Byte 2-32
 // ############# FUNCTIONS ##################################
 // bool APPS_Function(uint16_t APPS1, uint16_t APPS2); // APPS function to calculate average and percentage
 
-void startupSequence(void);    // Startup sequence
-void PrintToConsole(uint8_t);  // Print data to console
+void startupSequence(void); // Startup sequence
+void PrintToConsole(uint8_t); // Print data to console
 bool IGNITION_R2D(void);
 void MeasureCurrent(void);
+void MissionEMergencyStop(void);
 
 #if CANSART
 void CANSART_TASKS(void);
@@ -118,31 +121,30 @@ void CANSART_SETUP(void);
 
 // ############# TMR FUNCTIONS ###############################
 
-void TMR1_5ms(uint32_t status, uintptr_t context) {                                // 200Hz
-    CAN_Send_VCU_Datadb_1(Current_Power, Target_Power, Brake_Pressure, Throttle);  // ID 0x20 to DATA_BUS
-    CAN_Send_VCU_Datadb_4(RPM, Inverter_Voltage);                                  // ID 0x23 to DATA_BUS
+void TMR1_5ms(uint32_t status, uintptr_t context) { // 200Hz
+    CAN_Send_VCU_Datadb_1(Current_Power, Target_Power, Brake_Pressure, Throttle); // ID 0x20 to DATA_BUS
+    CAN_Send_VCU_Datadb_4(RPM, Inverter_Voltage); // ID 0x23 to DATA_BUS
     static uint8_t data[64];
-    
+
     Send_CAN_BUS_2(0x20, data, 64);
     Send_CAN_BUS_2(0x21, data, 64);
     Send_CAN_BUS_2(0x22, data, 64);
     Send_CAN_BUS_2(0x23, data, 64);
 
-    
     Send_CAN_BUS_3(0x20, data, 8);
     Send_CAN_BUS_3(0x21, data, 8);
 }
 
-void TMR2_100ms(uint32_t status, uintptr_t context) {                // 10Hz
-    CAN_Send_VCU_Datadb_2(myHV500.Actual_TempMotor, myHV500.Actual_TempController);  // ID 0x21 to DATA_BUS
-    CAN_Send_VCU_Datadb_3(VcuState, LMT2, LMT1, Inverter_Faults);    // ID 0x22 to DATA_BUS
+void TMR2_100ms(uint32_t status, uintptr_t context) { // 10Hz
+    CAN_Send_VCU_Datadb_2(myHV500.Actual_TempMotor, myHV500.Actual_TempController); // ID 0x21 to DATA_BUS
+    CAN_Send_VCU_Datadb_3(VcuState, LMT2, LMT1, Inverter_Faults); // ID 0x22 to DATA_BUS
     static uint8_t data[8] = {0};
     Send_CAN_BUS_3(0x23, data, 8);
     Send_CAN_BUS_3(0x24, data, 8);
 }
 
-void TMR4_500ms(uint32_t status, uintptr_t context) {  // 2Hz
-    GPIO_RB1_ONBOARDLED_Toggle();                      // Heartbeat led
+void TMR4_500ms(uint32_t status, uintptr_t context) { // 2Hz
+    GPIO_RB1_ONBOARDLED_Toggle(); // Heartbeat led
     GPIO_RA10_LED1_Toggle();
 }
 
@@ -202,9 +204,10 @@ void ADCHS_CH15_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
     ADC[channel] = sum / 4;
 }
 
-    /*#############################################################################################################################*/
-    /*######################################################### SETUP ########################################################*/
-    /*#############################################################################################################################*/
+/*#############################################################################################################################*/
+/*######################################################### SETUP ########################################################*/
+
+/*#############################################################################################################################*/
 int main(void) {
     /* Initialize all modules */
     SYS_Initialize(NULL);
@@ -214,43 +217,45 @@ int main(void) {
     ADCHS_ModulesEnable(ADCHS_MODULE4_MASK);
     ADCHS_ModulesEnable(ADCHS_MODULE7_MASK);
 
-    ADCHS_CallbackRegister(ADCHS_CH0, ADCHS_CH0_Callback, (uintptr_t)NULL);    // APPS1 callback
-    ADCHS_CallbackRegister(ADCHS_CH10, ADCHS_CH10_Callback, (uintptr_t)NULL);  // APPS2 callback
-    ADCHS_CallbackRegister(ADCHS_CH15, ADCHS_CH15_Callback, (uintptr_t)NULL);  // APPS3 callback
+    ADCHS_CallbackRegister(ADCHS_CH0, ADCHS_CH0_Callback, (uintptr_t) NULL); // APPS1 callback
+    ADCHS_CallbackRegister(ADCHS_CH10, ADCHS_CH10_Callback, (uintptr_t) NULL); // APPS2 callback
+    ADCHS_CallbackRegister(ADCHS_CH15, ADCHS_CH15_Callback, (uintptr_t) NULL); // APPS3 callback
 
     ADCHS_ChannelResultInterruptEnable(ADCHS_CH9);
     ADCHS_ChannelResultInterruptEnable(ADCHS_CH10);
 
-    TMR1_CallbackRegister(TMR1_5ms, (uintptr_t)NULL);    // 200Hz
-    TMR2_CallbackRegister(TMR2_100ms, (uintptr_t)NULL);  // 10Hz
-    TMR4_CallbackRegister(TMR4_500ms, (uintptr_t)NULL);  // 2Hz heartbeat led
-    TMR5_CallbackRegister(TMR5_100ms, (uintptr_t)NULL);  // 10Hz
-    TMR6_CallbackRegister(TMR6_5ms, (uintptr_t)NULL);    // 200Hz to send data to the inverter
+    TMR1_CallbackRegister(TMR1_5ms, (uintptr_t) NULL); // 200Hz
+    TMR2_CallbackRegister(TMR2_100ms, (uintptr_t) NULL); // 10Hz
+    TMR4_CallbackRegister(TMR4_500ms, (uintptr_t) NULL); // 2Hz heartbeat led
+    TMR5_CallbackRegister(TMR5_100ms, (uintptr_t) NULL); // 10Hz
+    TMR6_CallbackRegister(TMR6_5ms, (uintptr_t) NULL); // 200Hz to send data to the inverter
 
     fflush(stdout);
 
-    APPS_Init(0.3, 3.0, 0.2);  // Initialize APPS
+    APPS_Init(0.3, 3.0, 0.2); // Initialize APPS
 
-    startupSequence();  // led sequence
-    VcuState = 1;       // Set VCU state to 1
+    startupSequence(); // led sequence
+    VcuState = 1; // Set VCU state to 1
 
     GPIO_RD5_Set();
-    
 
     TMR1_Start();
     TMR2_Start();
-    TMR3_Start();  // Used trigger source for ADC conversion
+    TMR3_Start(); // Used trigger source for ADC conversion
     TMR4_Start();
     TMR5_Start();
     TMR6_Start();
 
+    WDT_Enable();
 
-    //the car does not start until the start button is pressed a the brake is pressed
-    do{
-
-    }while( !GPIO_RB5_IGN_Get() || !GPIO_RB6_BRAKE_Get())
+    // the car does not start until the start button is pressed a the brake is pressed
+    /*
+     do{
+        WDT_Clear();
+    }while( !GPIO_RB5_IGN_Get() || (Brake_Pressure>=100) );
     Ready2Drive = true; // the car is ready to drive
     IGNITION_R2D(); //ready to drive sound
+     */
 
 #if CANSART
     CANSART_SETUP();
@@ -261,6 +266,7 @@ int main(void) {
     /*#############################################################################################################################*/
 
     while (true) {
+        WDT_Clear();
         if (!GPIO_RB5_IGN_Get()) {
             GPIO_RB10_LED5_Set();
         } else {
@@ -273,9 +279,9 @@ int main(void) {
 #if CANSART
         CANSART_TASKS();
 #endif
-        Read_CAN_BUS_1();  // Read DataBus
-        Read_CAN_BUS_2();  // Read PowerTrainBus
-        Read_CAN_BUS_3();  // Read AutonomousBus
+        Read_CAN_BUS_1(); // Read DataBus
+        Read_CAN_BUS_2(); // Read PowerTrainBus
+        Read_CAN_BUS_3(); // Read AutonomousBus
 
 #if !CANSART
         if (UART1_ReceiverIsReady()) {
@@ -289,7 +295,7 @@ int main(void) {
 
             APPS_Init(apps_min, apps_max, apps_error);
         }
-        PrintToConsole(33);  // Print data to console time in ms
+        PrintToConsole(50); // Print data to console time in ms
 #endif
     }
     /* Execution should not come here during normal operation */
@@ -344,15 +350,16 @@ void PrintToConsole(uint8_t time) {
     // Print data-----
     currentMillis[3] = millis();
     if (currentMillis[3] - previousMillis[3] >= time) {
-        // APPS_PrintValues();
+        //APPS_PrintValues();
+        
         printf("APPSA%dAPPSB%dAPPST%dAPPS_ERROR%dAPPS_Perc%d", ADC[0], ADC[10], APPS_Mean, APPS_Error, APPS_Percentage);
         printf("APPS_MIN%dAPPS_MAX%dAPPS_TOL%d", APPS_MIN_bits, APPS_MAX_bits, APPS_Tolerance_bits);
-        printf("I%f",PDM_Current);
-        printf("ACtualDUTTY%d",myHV500.Actual_Duty);
-        printf("C1R%dC2R%dC3R%d",CANRX_ON[1],CANRX_ON[2],CANRX_ON[3]);
-        printf("C1T%dC2T%dC3T%d",CANTX_ON[1],CANTX_ON[2],CANTX_ON[3]);
+        printf("I%f", PDM_Current);
+        printf("ACtualDUTTY%d", myHV500.Actual_Duty);
+        printf("C1R%dC2R%dC3R%d", CANRX_ON[1], CANRX_ON[2], CANRX_ON[3]);
+        printf("C1T%dC2T%dC3T%d", CANTX_ON[1], CANTX_ON[2], CANTX_ON[3]);
         printf("\r\n");
-
+         
         previousMillis[3] = currentMillis[3];
     }
 }
@@ -420,9 +427,27 @@ void MeasureCurrent(void) {
     static float voltsperamp = 0.0125;
     static uint8_t N = 5;
     static float volts = 0;
-    //static float voltageDivider = 0.5;
+    // static float voltageDivider = 0.5;
 
-    volts = (float)ADC[15]*3.300 / 4095.000;
+    volts = (float) ADC[15] * 3.300 / 4095.000;
     volts = volts - 2.5;
-    PDM_Current = (float) (volts/voltsperamp)/N;
+    PDM_Current = (float) (volts / voltsperamp) / N;
+}
+
+void MeasureVoltage(void) {
+
+}
+
+void MissionEMergencyStop(void) {
+    // TODO apitar buzzer quando receber o comando de emergencia
+
+    /*
+      The status “AS Emergency” has to be indicated by an intermittent sound with the following
+    parameters:
+    • on-/off-frequency: 1 Hz to 5 Hz
+    • duty cycle 50 %
+    • sound level between 80 dBA and 90 dBA, fast weighting in a radius of 2 m around the
+    vehicle.
+    • duration between 8 s and 10 s after entering “AS Emergency”
+     */
 }

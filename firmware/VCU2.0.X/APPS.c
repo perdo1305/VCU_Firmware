@@ -237,5 +237,5 @@ void APPS_PrintValues(void) {
     printf("APPS_MAX_bits %d ", APPS_MAX_bits);
     printf("APPS_Tolerance_bits %d ", APPS_Tolerance_bits);
     printf("APPS_functional_region %d ", APPS_functional_region);
-
+    printf("\r\n");
 }
