@@ -23808,7 +23808,7 @@
    <generatedFileHashHistoryMap class="java.util.TreeMap">
       <entry>
          <file>..\src\config\default\definitions.h</file>
-         <hash>111421c343ad8542bed17fd9548d6c958c2ab11576cf9216ceeca9b0fa6803db</hash>
+         <hash>40fb76e616ef481f0e33e4f5a0a244b9f7292adba118ea0b6c4cc503a299c697</hash>
       </entry>
       <entry>
          <file>..\src\config\default\device.h</file>
@@ -23820,7 +23820,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\initialization.c</file>
-         <hash>bbb0dae557ca150bfacf3b5d337e01f1af0bf9e97851cead77b587327dd89fda</hash>
+         <hash>2779074ebf6da8da21f8a06102ce0ffeb7849234d76afb1517afdecf75520f2e</hash>
       </entry>
       <entry>
          <file>..\src\config\default\interrupts.c</file>

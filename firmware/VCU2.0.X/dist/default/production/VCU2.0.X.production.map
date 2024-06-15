@@ -3,17 +3,17 @@ Optional file vector_offset_init.o not found
 Archive member included to satisfy reference by file (symbol)
 
 c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
-                              C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o (_on_reset)
+                              C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o (_on_reset)
 c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
-                              C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o (_on_bootstrap)
+                              C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o (_on_bootstrap)
 c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-nmi-handler.o)
-                              C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o (_nmi_handler)
+                              C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o (_nmi_handler)
 c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init_core.o)
-                              C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o (__pic32_data_init)
+                              C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o (__pic32_data_init)
 c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(general-exception.o)
-                              C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o (_general_exception_context)
+                              C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o (_general_exception_context)
 c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
-                              C:\Users\pedro\AppData\Local\Temp\cc8eL4Z8.o (_DefaultInterrupt)
+                              C:\Users\pedro\AppData\Local\Temp\ccxmix3y.o (_DefaultInterrupt)
 c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__sio_printf_deEfFgGn.o)
                               (_printf_deEfFgGn)
 c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__fmt_d.o)
@@ -432,10 +432,10 @@ Microchip PIC32 Memory-Usage Report By Module
            8         108        1032        1148         47c    stdin.o                 libc-musl.a
          956           0           0         956         3bc    _udivdi3.o              libgcc.a
          952           0           0         952         3b8    _umoddi3.o              libgcc.a
-           0         920           0         920         398    ccK6f1XW.o              C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
+           0         920           0         920         398    ccaKXIas.o              C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
          680           6          23         709         2c5    APPS.o                  build/default/production/APPS.o
          560           0          36         596         254    sbrk.o                  libpic32.a
-         536           0           0         536         218    ccSDd3pZ.o              C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o
+         536           0           0         536         218    ccQWft7P.o              C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o
          536           0           0         536         218    __stdio_write.o         libc-musl.a
          452           0           0         452         1c4    plib_uart3.o            build/default/production/_ext/1865657120/plib_uart3.o
          392           0           0         392         188    __pop_int.o             libc-musl.a
@@ -1047,31 +1047,31 @@ Discarded input sections
                 0x0000000000000000        0x8 build/default/production/_ext/772537440/cansartP.o
  .sdata.BUS_Available_B
                 0x0000000000000000        0x1 build/default/production/_ext/772537440/cansartP.o
- .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o
- .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o
- .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o
- .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o
+ .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o
+ .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o
+ .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o
+ .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o
  .MIPS.abiflags
-                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o
- .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cc3XBuuQ.o
- .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cc3XBuuQ.o
- .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cc3XBuuQ.o
- .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\cc3XBuuQ.o
+                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o
+ .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cc7zuzjx.o
+ .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cc7zuzjx.o
+ .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cc7zuzjx.o
+ .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\cc7zuzjx.o
  .MIPS.abiflags
-                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\cc3XBuuQ.o
- .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
- .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
- .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
- .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
+                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\cc7zuzjx.o
+ .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
+ .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
+ .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
+ .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
  .MIPS.abiflags
-                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
- .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cc8eL4Z8.o
- .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cc8eL4Z8.o
- .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cc8eL4Z8.o
- .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\cc8eL4Z8.o
+                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
+ .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccxmix3y.o
+ .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccxmix3y.o
+ .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccxmix3y.o
+ .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccxmix3y.o
  .MIPS.abiflags
-                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\cc8eL4Z8.o
- .discard       0x0000000000000000        0x4 C:\Users\pedro\AppData\Local\Temp\cc8eL4Z8.o
+                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccxmix3y.o
+ .discard       0x0000000000000000        0x4 C:\Users\pedro\AppData\Local\Temp\ccxmix3y.o
  .data          0x0000000000000000        0x0 c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
  .bss           0x0000000000000000        0x0 c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
  .reginfo       0x0000000000000000       0x18 c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
@@ -2314,20 +2314,20 @@ END GROUP
 
 .reset          0x00000000bfc00000      0x1a4
  *(.reset)
- .reset         0x00000000bfc00000       0x18 C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o
+ .reset         0x00000000bfc00000       0x18 C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o
                 0x00000000bfc00000                _reset
  *(.reset.startup)
  .reset.startup
-                0x00000000bfc00018      0x18c C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o
+                0x00000000bfc00018      0x18c C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o
                 0x00000000bfc00018                _startup
 
 .bev_excpt      0x00000000bfc00380       0x10
  *(.bev_handler)
- .bev_handler   0x00000000bfc00380       0x10 C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o
+ .bev_handler   0x00000000bfc00380       0x10 C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o
 
 .app_excpt      0x000000009d000180       0x10
  *(.gen_handler)
- .gen_handler   0x000000009d000180       0x10 C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o
+ .gen_handler   0x000000009d000180       0x10 C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o
 
 .vectors        0x000000009d000200       0x98
                 0x000000009d000200                . = ALIGN (0x4)
@@ -4569,13 +4569,13 @@ END GROUP
  .gnu.attributes
                 0x00000000000001a0       0x10 build/default/production/_ext/772537440/cansartP.o
  .gnu.attributes
-                0x00000000000001b0       0x10 C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o
+                0x00000000000001b0       0x10 C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o
  .gnu.attributes
-                0x00000000000001c0       0x10 C:\Users\pedro\AppData\Local\Temp\cc3XBuuQ.o
+                0x00000000000001c0       0x10 C:\Users\pedro\AppData\Local\Temp\cc7zuzjx.o
  .gnu.attributes
-                0x00000000000001d0       0x10 C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
+                0x00000000000001d0       0x10 C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
  .gnu.attributes
-                0x00000000000001e0       0x10 C:\Users\pedro\AppData\Local\Temp\cc8eL4Z8.o
+                0x00000000000001e0       0x10 C:\Users\pedro\AppData\Local\Temp\ccxmix3y.o
  .gnu.attributes
                 0x00000000000001f0       0x10 c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
  .gnu.attributes
@@ -4725,10 +4725,10 @@ END GROUP
  .gnu.attributes
                 0x0000000000000680       0x10 c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init_copy.o)
                 0x0000000000000200                _min_heap_size = 0x200
-LOAD C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o
-LOAD C:\Users\pedro\AppData\Local\Temp\cc3XBuuQ.o
-LOAD C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
-LOAD C:\Users\pedro\AppData\Local\Temp\cc8eL4Z8.o
+LOAD C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o
+LOAD C:\Users\pedro\AppData\Local\Temp\cc7zuzjx.o
+LOAD C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
+LOAD C:\Users\pedro\AppData\Local\Temp\ccxmix3y.o
 LOAD c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
 LOAD c:/program files/microchip/xc32/v4.35/bin/bin/../../lib/gcc/pic32mx/8.3.1/fpu64\libgcc.a
 START GROUP
@@ -4794,47 +4794,47 @@ __xc_reference_data
 .__vector_offset_BF8105B8_data
                 0x00000000bf8105b8       0xfc
  .__vector_offset_BF8105B8_data
-                0x00000000bf8105b8       0xfc C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
+                0x00000000bf8105b8       0xfc C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
 
 .__vector_offset_BF8106B8_data
                 0x00000000bf8106b8       0xa0
  .__vector_offset_BF8106B8_data
-                0x00000000bf8106b8       0xa0 C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
+                0x00000000bf8106b8       0xa0 C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
 
 .__vector_offset_BF810848_data
                 0x00000000bf810848       0x94
  .__vector_offset_BF810848_data
-                0x00000000bf810848       0x94 C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
+                0x00000000bf810848       0x94 C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
 
 .__vector_offset_BF8107D0_data
                 0x00000000bf8107d0       0x74
  .__vector_offset_BF8107D0_data
-                0x00000000bf8107d0       0x74 C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
+                0x00000000bf8107d0       0x74 C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
 
 .__vector_offset_BF810540_data
                 0x00000000bf810540       0x70
  .__vector_offset_BF810540_data
-                0x00000000bf810540       0x70 C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
+                0x00000000bf810540       0x70 C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
 
 .__vector_offset_BF81079C_data
                 0x00000000bf81079c       0x30
  .__vector_offset_BF81079C_data
-                0x00000000bf81079c       0x30 C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
+                0x00000000bf81079c       0x30 C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
 
 .__vector_offset_BF8108F8_data
                 0x00000000bf8108f8       0x28
  .__vector_offset_BF8108F8_data
-                0x00000000bf8108f8       0x28 C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
+                0x00000000bf8108f8       0x28 C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
 
 .__vector_offset_BF81076C_data
                 0x00000000bf81076c       0x24
  .__vector_offset_BF81076C_data
-                0x00000000bf81076c       0x24 C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
+                0x00000000bf81076c       0x24 C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
 
 .__vector_offset_BF810938_data
                 0x00000000bf810938        0x8
  .__vector_offset_BF810938_data
-                0x00000000bf810938        0x8 C:\Users\pedro\AppData\Local\Temp\ccK6f1XW.o
+                0x00000000bf810938        0x8 C:\Users\pedro\AppData\Local\Temp\ccaKXIas.o
 
 .COHERENTBSS$   0x00000000a00000a0     0x5190
  .COHERENTBSS$  0x00000000a00000a0     0x1b08 build/default/production/_ext/1984168316/plib_canfd2.o
@@ -5506,7 +5506,7 @@ __xc_reference_data
 .text.main_entry
                 0x000000009d0074a8       0x54
  .text.main_entry
-                0x000000009d0074a8       0x54 C:\Users\pedro\AppData\Local\Temp\ccSDd3pZ.o
+                0x000000009d0074a8       0x54 C:\Users\pedro\AppData\Local\Temp\ccQWft7P.o
                 0x000000009d0074dc                __crt0_exit
 
 .text.read      0x000000009d0074fc       0x4c
