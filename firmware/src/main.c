@@ -144,9 +144,7 @@ void TMR1_5ms(uint32_t status, uintptr_t context) {                             
 void TMR2_100ms(uint32_t status, uintptr_t context) {                                // 10Hz
     CAN_Send_VCU_Datadb_2(myHV500.Actual_TempMotor, myHV500.Actual_TempController);  // ID 0x21 to DATA_BUS
     CAN_Send_VCU_Datadb_3(VcuState, LMT2, LMT1, Inverter_Faults);                    // ID 0x22 to DATA_BUS
-    static uint8_t data[8] = {0};
-    Send_CAN_BUS_3(0x23, data, 8);
-    Send_CAN_BUS_3(0x24, data, 8);
+
 }
 
 void TMR4_500ms(uint32_t status, uintptr_t context) {  // 2Hz
@@ -500,4 +498,10 @@ void MeasureBrakePressure(uint16_t channel) {
     volts = (float)ADC[channel] * 3.300 / 4095.000;
     pressure = (volts - 0.5) / 0.02857;
     Brake_Pressure = (uint8_t)pressure;
+}
+
+void Is_Autonomous(void) {
+    if (DRIVING_MODE == AUTONOMOUS_MODE) {
+        // TODO read TCU msg to switch between manual and autonomous mode
+    }
 }
