@@ -16,6 +16,7 @@
               <itemPath>../src/config/default/peripheral/canfd/plib_canfd1.h</itemPath>
               <itemPath>../src/config/default/peripheral/canfd/plib_canfd2.h</itemPath>
               <itemPath>../src/config/default/peripheral/canfd/plib_canfd3.h</itemPath>
+              <itemPath>../src/config/default/peripheral/canfd/plib_canfd4.h</itemPath>
             </logicalFolder>
             <logicalFolder name="clk" displayName="clk" projectFiles="true">
               <itemPath>../src/config/default/peripheral/clk/plib_clk.h</itemPath>
@@ -28,6 +29,16 @@
             </logicalFolder>
             <logicalFolder name="gpio" displayName="gpio" projectFiles="true">
               <itemPath>../src/config/default/peripheral/gpio/plib_gpio.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="i2c" displayName="i2c" projectFiles="true">
+              <logicalFolder name="master" displayName="master" projectFiles="true">
+                <itemPath>../src/config/default/peripheral/i2c/master/plib_i2c4_master.h</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/master/plib_i2c_master_common.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="mcpwm" displayName="mcpwm" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/mcpwm/plib_mcpwm.h</itemPath>
+              <itemPath>../src/config/default/peripheral/mcpwm/plib_mcpwm_common.h</itemPath>
             </logicalFolder>
             <logicalFolder name="tmr" displayName="tmr" projectFiles="true">
               <itemPath>../src/config/default/peripheral/tmr/plib_tmr6.h</itemPath>
@@ -84,6 +95,7 @@
               <itemPath>../src/config/default/peripheral/canfd/plib_canfd1.c</itemPath>
               <itemPath>../src/config/default/peripheral/canfd/plib_canfd3.c</itemPath>
               <itemPath>../src/config/default/peripheral/canfd/plib_canfd2.c</itemPath>
+              <itemPath>../src/config/default/peripheral/canfd/plib_canfd4.c</itemPath>
             </logicalFolder>
             <logicalFolder name="clk" displayName="clk" projectFiles="true">
               <itemPath>../src/config/default/peripheral/clk/plib_clk.c</itemPath>
@@ -96,6 +108,14 @@
             </logicalFolder>
             <logicalFolder name="gpio" displayName="gpio" projectFiles="true">
               <itemPath>../src/config/default/peripheral/gpio/plib_gpio.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="i2c" displayName="i2c" projectFiles="true">
+              <logicalFolder name="master" displayName="master" projectFiles="true">
+                <itemPath>../src/config/default/peripheral/i2c/master/plib_i2c4_master.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="mcpwm" displayName="mcpwm" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/mcpwm/plib_mcpwm.c</itemPath>
             </logicalFolder>
             <logicalFolder name="tmr" displayName="tmr" projectFiles="true">
               <itemPath>../src/config/default/peripheral/tmr/plib_tmr2.c</itemPath>

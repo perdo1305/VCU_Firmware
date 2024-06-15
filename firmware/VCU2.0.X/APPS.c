@@ -239,3 +239,32 @@ void APPS_PrintValues(void) {
     printf("APPS_functional_region %d ", APPS_functional_region);
     printf("\r\n");
 }
+
+
+//TODO auto calibration mode
+void AUTO_CALIBRATION(uint16_t APPS1, uint16_t APPS2) {
+
+    static uint16_t APPS1_MIN = 0;
+    static uint16_t APPS1_MAX = 0;
+    static uint16_t APPS2_MIN = 0;
+    static uint16_t APPS2_MAX = 0;
+
+    if (APPS1 < APPS1_MIN) {
+        APPS1_MIN = APPS1;
+    }
+    if (APPS1 > APPS1_MAX) {
+        APPS1_MAX = APPS1;
+    }
+    if (APPS2 < APPS2_MIN) {
+        APPS2_MIN = APPS2;
+    }
+    if (APPS2 > APPS2_MAX) {
+        APPS2_MAX = APPS2;
+    }
+
+    printf("APPS1_MIN %d ", APPS1_MIN);
+    printf("APPS1_MAX %d ", APPS1_MAX);
+    printf("APPS2_MIN %d ", APPS2_MIN);
+    printf("APPS2_MAX %d ", APPS2_MAX);
+}
+

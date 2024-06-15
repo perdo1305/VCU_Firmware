@@ -213,6 +213,8 @@ void SYS_Initialize ( void* data )
 
     CAN3_Initialize();
 
+    CAN4_Initialize();
+
     CAN1_Initialize();
 
     CAN2_Initialize();
@@ -230,11 +232,15 @@ void SYS_Initialize ( void* data )
 
     TMR5_Initialize();
 
+    I2C4_Initialize();
+
     TMR2_Initialize();
 
     TMR3_Initialize();
 
     TMR1_Initialize();
+
+    MCPWM_Initialize();
 
 
 

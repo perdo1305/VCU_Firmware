@@ -64,8 +64,12 @@ void TIMER_4_InterruptHandler( void );
 void TIMER_5_InterruptHandler( void );
 void TIMER_6_InterruptHandler( void );
 void ADC_DATA0_InterruptHandler( void );
-void ADC_DATA10_InterruptHandler( void );
+void ADC_DATA4_InterruptHandler( void );
+void ADC_DATA8_InterruptHandler( void );
+void ADC_DATA14_InterruptHandler( void );
 void ADC_DATA15_InterruptHandler( void );
+void I2C4_BUS_InterruptHandler( void );
+void I2C4_MASTER_InterruptHandler( void );
 
 
 

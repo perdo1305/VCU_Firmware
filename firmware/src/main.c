@@ -58,14 +58,14 @@
 #endif
 
 // ############################################################
-float PDM_Current = 0; // current supplied by the low voltage battery
-float PDM_Voltage = 0; // voltage supplied by the low voltage battery
+float PDM_Current = 0;  // current supplied by the low voltage battery
+float PDM_Voltage = 0;  // voltage supplied by the low voltage battery
 
 HV500 myHV500;
 bool CANRX_ON[3] = {0, 0, 0};
 bool CANTX_ON[3] = {0, 0, 0};
 
-bool Ready2Drive = 0; //indicates if the car is ready to drive
+bool Ready2Drive = 0;  // indicates if the car is ready to drive
 
 // ############# CANSART ######################################
 #if CANSART
@@ -76,8 +76,8 @@ struct frame121 frames121;
 
 // ############# ADC ########################################
 
-uint8_t message_ADC[64]; // CAN message to send ADC data
-__COHERENT uint16_t ADC[64]; // ADC raw data
+uint8_t message_ADC[64];      // CAN message to send ADC data
+__COHERENT uint16_t ADC[64];  // ADC raw data
 
 // ############# MILIS #######################################
 unsigned int previousMillis[10] = {};
@@ -85,34 +85,40 @@ unsigned int currentMillis[10] = {};
 // ############# MILIS #######################################
 
 unsigned int millis() {
-    return (unsigned int) (CORETIMER_CounterGet() / (CORE_TIMER_FREQUENCY / 1000));
+    return (unsigned int)(CORETIMER_CounterGet() / (CORE_TIMER_FREQUENCY / 1000));
 }
 
 // ############# VCU DATABUS VARS ############################
 /* ID 0x20 */
-uint8_t Throttle = 0; // 0-100   |Byte 0
-uint8_t Brake_Pressure = 0; // 0-50    |Byte 1
-uint32_t Target_Power = 0; // 0-85000 |Byte 2-4
-uint32_t Current_Power = 0; // 0-85000 |Byte 5-7
+uint8_t Throttle = 0;        // 0-100   |Byte 0
+uint8_t Brake_Pressure = 0;  // 0-50    |Byte 1
+uint32_t Target_Power = 0;   // 0-85000 |Byte 2-4
+uint32_t Current_Power = 0;  // 0-85000 |Byte 5-7
 /* ID 0x21 */
-uint16_t Inverter_Temperature = 0; // 0-300  |Byte 0-12
-uint16_t Motor_Temperature = 0; // 0 -100 |Byte 2-3
+uint16_t Inverter_Temperature = 0;  // 0-300  |Byte 0-12
+uint16_t Motor_Temperature = 0;     // 0 -100 |Byte 2-3
 /* ID 0x22 */
-uint16_t Inverter_Faults = 0; // 0-65535  |Byte 0-1
-uint8_t LMT1 = 0; // 0-255    |Byte 2
-uint8_t LMT2 = 0; // 0-255    |Byte 3
-uint8_t VcuState = 0; // 0-255    |Byte 4
+uint16_t Inverter_Faults = 0;  // 0-65535  |Byte 0-1
+uint8_t LMT1 = 0;              // 0-255    |Byte 2
+uint8_t LMT2 = 0;              // 0-255    |Byte 3
+uint8_t VcuState = 0;          // 0-255    |Byte 4
 /* ID 0x23 */
-uint16_t Inverter_Voltage = 0; // 0-65535 |Byte 0-1
-uint16_t RPM = 0; // 0-65535 |Byte 2-32
+uint16_t Inverter_Voltage = 0;  // 0-65535 |Byte 0-1
+uint16_t RPM = 0;               // 0-65535 |Byte 2-32
 // ############# FUNCTIONS ##################################
 // bool APPS_Function(uint16_t APPS1, uint16_t APPS2); // APPS function to calculate average and percentage
 
-void startupSequence(void); // Startup sequence
-void PrintToConsole(uint8_t); // Print data to console
-bool IGNITION_R2D(void);
-void MeasureCurrent(void);
-void MissionEMergencyStop(void);
+void startupSequence(void);    // Startup sequence
+void PrintToConsole(uint8_t);  // Print data to console
+
+void MeasureCurrent(uint16_t channel);
+void MeasureVoltage(uint16_t channel);
+void MeasureBrakePressure(uint16_t channel);
+
+void MissionEmergencyStop(void);
+bool AS_Emergency = false;
+void IsR2D(void);
+void SOUND_R2DS(void);
 
 #if CANSART
 void CANSART_TASKS(void);
@@ -121,9 +127,9 @@ void CANSART_SETUP(void);
 
 // ############# TMR FUNCTIONS ###############################
 
-void TMR1_5ms(uint32_t status, uintptr_t context) { // 200Hz
-    CAN_Send_VCU_Datadb_1(Current_Power, Target_Power, Brake_Pressure, Throttle); // ID 0x20 to DATA_BUS
-    CAN_Send_VCU_Datadb_4(RPM, Inverter_Voltage); // ID 0x23 to DATA_BUS
+void TMR1_5ms(uint32_t status, uintptr_t context) {                                // 200Hz
+    CAN_Send_VCU_Datadb_1(Current_Power, Target_Power, Brake_Pressure, Throttle);  // ID 0x20 to DATA_BUS
+    CAN_Send_VCU_Datadb_4(RPM, Inverter_Voltage);                                  // ID 0x23 to DATA_BUS
     static uint8_t data[64];
 
     Send_CAN_BUS_2(0x20, data, 64);
@@ -135,17 +141,16 @@ void TMR1_5ms(uint32_t status, uintptr_t context) { // 200Hz
     Send_CAN_BUS_3(0x21, data, 8);
 }
 
-void TMR2_100ms(uint32_t status, uintptr_t context) { // 10Hz
-    CAN_Send_VCU_Datadb_2(myHV500.Actual_TempMotor, myHV500.Actual_TempController); // ID 0x21 to DATA_BUS
-    CAN_Send_VCU_Datadb_3(VcuState, LMT2, LMT1, Inverter_Faults); // ID 0x22 to DATA_BUS
+void TMR2_100ms(uint32_t status, uintptr_t context) {                                // 10Hz
+    CAN_Send_VCU_Datadb_2(myHV500.Actual_TempMotor, myHV500.Actual_TempController);  // ID 0x21 to DATA_BUS
+    CAN_Send_VCU_Datadb_3(VcuState, LMT2, LMT1, Inverter_Faults);                    // ID 0x22 to DATA_BUS
     static uint8_t data[8] = {0};
     Send_CAN_BUS_3(0x23, data, 8);
     Send_CAN_BUS_3(0x24, data, 8);
 }
 
-void TMR4_500ms(uint32_t status, uintptr_t context) { // 2Hz
-    GPIO_RB1_ONBOARDLED_Toggle(); // Heartbeat led
-    GPIO_RA10_LED1_Toggle();
+void TMR4_500ms(uint32_t status, uintptr_t context) {  // 2Hz
+    GPIO_RC11_LED_HeartBeat_Toggle();
 }
 
 void TMR5_100ms(uint32_t status, uintptr_t context) {
@@ -176,7 +181,7 @@ void ADCHS_CH0_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
     ADC[channel] = sum / 4;
 }
 
-void ADCHS_CH10_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
+void ADCHS_CH3_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
     static int samples[4] = {0};
     static int i = 0;
 
@@ -190,7 +195,35 @@ void ADCHS_CH10_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
     ADC[channel] = sum / 4;
 }
 
-void ADCHS_CH15_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
+void ADCHS_CH8_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
+    static int samples[4] = {0};
+    static int i = 0;
+
+    samples[i] = ADCHS_ChannelResultGet(channel);
+    i = (i + 1) % 4;
+
+    int sum = 0;
+    for (int j = 0; j < 4; j++) {
+        sum += samples[j];
+    }
+    ADC[channel] = sum / 4;
+}
+
+void ADCHS_CH9_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
+    static int samples[4] = {0};
+    static int i = 0;
+
+    samples[i] = ADCHS_ChannelResultGet(channel);
+    i = (i + 1) % 4;
+
+    int sum = 0;
+    for (int j = 0; j < 4; j++) {
+        sum += samples[j];
+    }
+    ADC[channel] = sum / 4;
+}
+
+void ADCHS_CH14_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
     static int samples[4] = {0};
     static int i = 0;
 
@@ -214,34 +247,41 @@ int main(void) {
 
     printf("\r\n------RESET------");
 
-    ADCHS_ModulesEnable(ADCHS_MODULE4_MASK);
-    ADCHS_ModulesEnable(ADCHS_MODULE7_MASK);
+    ADCHS_ModulesEnable(ADCHS_MODULE0_MASK);  // AN0
+    ADCHS_ModulesEnable(ADCHS_MODULE3_MASK);  // AN3
+    ADCHS_ModulesEnable(ADCHS_MODULE4_MASK);  // AN9
+    ADCHS_ModulesEnable(ADCHS_MODULE7_MASK);  // AN8, AN14, AN15
 
-    ADCHS_CallbackRegister(ADCHS_CH0, ADCHS_CH0_Callback, (uintptr_t) NULL); // APPS1 callback
-    ADCHS_CallbackRegister(ADCHS_CH10, ADCHS_CH10_Callback, (uintptr_t) NULL); // APPS2 callback
-    ADCHS_CallbackRegister(ADCHS_CH15, ADCHS_CH15_Callback, (uintptr_t) NULL); // APPS3 callback
+    ADCHS_CallbackRegister(ADCHS_CH0, ADCHS_CH0_Callback, (uintptr_t)NULL);  // APPS1
+    ADCHS_CallbackRegister(ADCHS_CH3, ADCHS_CH3_Callback, (uintptr_t)NULL);  // APPS2
 
+    ADCHS_CallbackRegister(ADCHS_CH8, ADCHS_CH8_Callback, (uintptr_t)NULL);  // Voltage Measurement
+    ADCHS_CallbackRegister(ADCHS_CH9, ADCHS_CH9_Callback, (uintptr_t)NULL);  // Current Measurement
+
+    ADCHS_CallbackRegister(ADCHS_CH14, ADCHS_CH14_Callback, (uintptr_t)NULL);  // Brake Pressure
+    // ADCHS_CallbackRegister(ADCHS_CH15, ADCHS_CH15_Callback, (uintptr_t) NULL); //extra ADC channel
+
+    ADCHS_ChannelResultInterruptEnable(ADCHS_CH0);
+    ADCHS_ChannelResultInterruptEnable(ADCHS_CH3);
+    ADCHS_ChannelResultInterruptEnable(ADCHS_CH8);
     ADCHS_ChannelResultInterruptEnable(ADCHS_CH9);
-    ADCHS_ChannelResultInterruptEnable(ADCHS_CH10);
 
-    TMR1_CallbackRegister(TMR1_5ms, (uintptr_t) NULL); // 200Hz
-    TMR2_CallbackRegister(TMR2_100ms, (uintptr_t) NULL); // 10Hz
-    TMR4_CallbackRegister(TMR4_500ms, (uintptr_t) NULL); // 2Hz heartbeat led
-    TMR5_CallbackRegister(TMR5_100ms, (uintptr_t) NULL); // 10Hz
-    TMR6_CallbackRegister(TMR6_5ms, (uintptr_t) NULL); // 200Hz to send data to the inverter
+    TMR1_CallbackRegister(TMR1_5ms, (uintptr_t)NULL);    // 200Hz
+    TMR2_CallbackRegister(TMR2_100ms, (uintptr_t)NULL);  // 10Hz
+    TMR4_CallbackRegister(TMR4_500ms, (uintptr_t)NULL);  // 2Hz heartbeat led
+    TMR5_CallbackRegister(TMR5_100ms, (uintptr_t)NULL);  // 10Hz
+    TMR6_CallbackRegister(TMR6_5ms, (uintptr_t)NULL);    // 200Hz to send data to the inverter
 
     fflush(stdout);
 
-    APPS_Init(0.3, 3.0, 0.2); // Initialize APPS
+    APPS_Init(0.3, 3.0, 0.2);  // Initialize APPS
 
-    startupSequence(); // led sequence
-    VcuState = 1; // Set VCU state to 1
-
-    GPIO_RD5_Set();
+    startupSequence();  // led sequence
+    VcuState = 1;       // Set VCU state to 1
 
     TMR1_Start();
     TMR2_Start();
-    TMR3_Start(); // Used trigger source for ADC conversion
+    TMR3_Start();  // Used trigger source for ADC conversion
     TMR4_Start();
     TMR5_Start();
     TMR6_Start();
@@ -267,23 +307,24 @@ int main(void) {
 
     while (true) {
         WDT_Clear();
-        if (!GPIO_RB5_IGN_Get()) {
-            GPIO_RB10_LED5_Set();
-        } else {
-            GPIO_RB10_LED5_Clear();
-        }
 
-        SYS_Tasks();
-        MeasureCurrent();
+        IsR2D();
+        SOUND_R2DS();            // ready to drive sound (3sec)
+        MissionEmergencyStop();  // emergency stop sound (8sec)
+
+        MeasureCurrent(ADCHS_CH9);
+        MeasureVoltage(ADCHS_CH8);
+        MeasureBrakePressure(ADCHS_CH14);
 
 #if CANSART
         CANSART_TASKS();
 #endif
-        Read_CAN_BUS_1(); // Read DataBus
-        Read_CAN_BUS_2(); // Read PowerTrainBus
-        Read_CAN_BUS_3(); // Read AutonomousBus
+        Read_CAN_BUS_1();  // Read DataBus
+        Read_CAN_BUS_2();  // Read PowerTrainBus
+        Read_CAN_BUS_3();  // Read ACU BUS
 
 #if !CANSART
+
         if (UART1_ReceiverIsReady()) {
             uint8_t data2[8];
             UART1_Read(data2, 8);
@@ -295,8 +336,10 @@ int main(void) {
 
             APPS_Init(apps_min, apps_max, apps_error);
         }
-        PrintToConsole(50); // Print data to console time in ms
+
+        PrintToConsole(50);  // Print data to console time in ms
 #endif
+        SYS_Tasks();
     }
     /* Execution should not come here during normal operation */
     return (EXIT_FAILURE);
@@ -304,54 +347,29 @@ int main(void) {
 
 void startupSequence() {
     /*LEDs Start up sequence*/
-    GPIO_RA10_LED1_Set();
-    CORETIMER_DelayMs(75);
-    GPIO_RB13_LED2_Set();
-    CORETIMER_DelayMs(75);
-    GPIO_RB12_LED3_Set();
-    CORETIMER_DelayMs(75);
-    GPIO_RB11_LED4_Set();
-    CORETIMER_DelayMs(75);
-    GPIO_RB10_LED5_Set();
-    CORETIMER_DelayMs(75);
-    GPIO_RA10_LED1_Clear();
-    CORETIMER_DelayMs(75);
-    GPIO_RB13_LED2_Clear();
-    CORETIMER_DelayMs(75);
-    GPIO_RB12_LED3_Clear();
-    CORETIMER_DelayMs(75);
-    GPIO_RB11_LED4_Clear();
-    CORETIMER_DelayMs(75);
-    GPIO_RB10_LED5_Clear();
-    CORETIMER_DelayMs(75);
-    GPIO_RA10_LED1_Set();
-    CORETIMER_DelayMs(75);
-    GPIO_RB13_LED2_Set();
-    CORETIMER_DelayMs(75);
-    GPIO_RB12_LED3_Set();
-    CORETIMER_DelayMs(75);
-    GPIO_RB11_LED4_Set();
-    CORETIMER_DelayMs(75);
-    GPIO_RB10_LED5_Set();
-    CORETIMER_DelayMs(75);
-    GPIO_RA10_LED1_Clear();
-    CORETIMER_DelayMs(75);
-    GPIO_RB13_LED2_Clear();
-    CORETIMER_DelayMs(75);
-    GPIO_RB12_LED3_Clear();
-    CORETIMER_DelayMs(75);
-    GPIO_RB11_LED4_Clear();
-    CORETIMER_DelayMs(75);
-    GPIO_RB10_LED5_Clear();
-    CORETIMER_DelayMs(75);
+    GPIO_RA10_LED_CAN1_Set();
+    GPIO_RB13_LED_CAN2_Set();
+    GPIO_RB12_LED_CAN3_Set();
+    GPIO_RB11_LED_CAN4_Set();
+    GPIO_RC11_LED_HeartBeat_Set();
+    GPIO_RB10_LED_Set();
+    GPIO_RF1_LED_Set();
+    CORETIMER_DelayMs(250);
+    GPIO_RA10_LED_CAN1_Clear();
+    GPIO_RB13_LED_CAN2_Clear();
+    GPIO_RB12_LED_CAN3_Clear();
+    GPIO_RB11_LED_CAN4_Clear();
+    GPIO_RC11_LED_HeartBeat_Clear();
+    GPIO_RB10_LED_Clear();
+    GPIO_RF1_LED_Clear();
 }
 
 void PrintToConsole(uint8_t time) {
     // Print data-----
     currentMillis[3] = millis();
     if (currentMillis[3] - previousMillis[3] >= time) {
-        //APPS_PrintValues();
-        
+        // APPS_PrintValues();
+
         printf("APPSA%dAPPSB%dAPPST%dAPPS_ERROR%dAPPS_Perc%d", ADC[0], ADC[10], APPS_Mean, APPS_Error, APPS_Percentage);
         printf("APPS_MIN%dAPPS_MAX%dAPPS_TOL%d", APPS_MIN_bits, APPS_MAX_bits, APPS_Tolerance_bits);
         printf("I%f", PDM_Current);
@@ -359,7 +377,7 @@ void PrintToConsole(uint8_t time) {
         printf("C1R%dC2R%dC3R%d", CANRX_ON[1], CANRX_ON[2], CANRX_ON[3]);
         printf("C1T%dC2T%dC3T%d", CANTX_ON[1], CANTX_ON[2], CANTX_ON[3]);
         printf("\r\n");
-         
+
         previousMillis[3] = currentMillis[3];
     }
 }
@@ -408,37 +426,22 @@ void CANSART_TASKS() {
 }
 #endif
 
-bool IGNITION_R2D(void) {
-    GPIO_RD5_Clear();
-    CORETIMER_DelayMs(10);
-    GPIO_RD5_Set();
-    CORETIMER_DelayMs(200);
-    GPIO_RD5_Clear();
-    CORETIMER_DelayMs(100);
-    GPIO_RD5_Set();
-    CORETIMER_DelayMs(100);
-    GPIO_RD5_Clear();
-    CORETIMER_DelayMs(1000);
-    GPIO_RD5_Set();
-    return true;
-}
-
-void MeasureCurrent(void) {
+void MeasureCurrent(uint16_t channel) {
     static float voltsperamp = 0.0125;
     static uint8_t N = 5;
     static float volts = 0;
     // static float voltageDivider = 0.5;
 
-    volts = (float) ADC[15] * 3.300 / 4095.000;
+    volts = (float)ADC[channel] * 3.300 / 4095.000;
     volts = volts - 2.5;
-    PDM_Current = (float) (volts / voltsperamp) / N;
+    PDM_Current = (float)(volts / voltsperamp) / N;
 }
 
-void MeasureVoltage(void) {
-
+void MeasureVoltage(uint16_t channel) {
+    PDM_Voltage = (float)ADC[channel] * 3.300 / 4095.000;
 }
 
-void MissionEMergencyStop(void) {
+void MissionEmergencyStop(void) {
     // TODO apitar buzzer quando receber o comando de emergencia
 
     /*
@@ -450,4 +453,51 @@ void MissionEMergencyStop(void) {
     vehicle.
     • duration between 8 s and 10 s after entering “AS Emergency”
      */
+    if (AS_Emergency) {
+        static bool buzzer_as_played = false;
+        if (!buzzer_as_played) {
+            MCPWM_Start();
+            static unsigned int previousMillis = 0;
+            unsigned int currentMillis = millis();
+            if (currentMillis - previousMillis >= 8000) {
+                previousMillis = currentMillis;
+                buzzer_as_played = true;
+            }
+        } else {
+            MCPWM_Stop();
+        }
+    }
+}
+
+void IsR2D(void) {
+    if (!GPIO_RB5_START_BUTTON_Get() || (Brake_Pressure >= 100)) {
+        Ready2Drive = true;  // the car is ready to drive
+    }
+}
+
+void SOUND_R2DS(void) {
+    if (Ready2Drive) {
+        static bool R2DS_as_played = false;
+        static unsigned int previousMillis = 0;
+        static unsigned int currentMillis = 0;
+
+        if (!R2DS_as_played) {
+            currentMillis = millis();
+            MCPWM_Start();
+            if (currentMillis - previousMillis >= 3000) {
+                previousMillis = currentMillis;
+                R2DS_as_played = true;
+                MCPWM_Stop();
+            }
+        }
+    }
+}
+
+/*(28.57mV/bar  + 500mv)*/
+void MeasureBrakePressure(uint16_t channel) {
+    static float volts = 0;
+    static float pressure = 0;
+    volts = (float)ADC[channel] * 3.300 / 4095.000;
+    pressure = (volts - 0.5) / 0.02857;
+    Brake_Pressure = (uint8_t)pressure;
 }

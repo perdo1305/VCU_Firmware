@@ -62,77 +62,138 @@
 // *****************************************************************************
 
 
-/*** Macros for GPIO_RB1_ONBOARDLED pin ***/
-#define GPIO_RB1_ONBOARDLED_Set()               (LATBSET = (1U<<1))
-#define GPIO_RB1_ONBOARDLED_Clear()             (LATBCLR = (1U<<1))
-#define GPIO_RB1_ONBOARDLED_Toggle()            (LATBINV= (1U<<1))
-#define GPIO_RB1_ONBOARDLED_OutputEnable()      (TRISBCLR = (1U<<1))
-#define GPIO_RB1_ONBOARDLED_InputEnable()       (TRISBSET = (1U<<1))
-#define GPIO_RB1_ONBOARDLED_Get()               ((PORTB >> 1) & 0x1U)
-#define GPIO_RB1_ONBOARDLED_PIN                  GPIO_PIN_RB1
+/*** Macros for AN9_CurrentSensor pin ***/
+#define AN9_CurrentSensor_Get()               ((PORTA >> 11) & 0x1U)
+#define AN9_CurrentSensor_PIN                  GPIO_PIN_RA11
 
-/*** Macros for GPIO_RB5_IGN pin ***/
-#define GPIO_RB5_IGN_Set()               (LATBSET = (1U<<5))
-#define GPIO_RB5_IGN_Clear()             (LATBCLR = (1U<<5))
-#define GPIO_RB5_IGN_Toggle()            (LATBINV= (1U<<5))
-#define GPIO_RB5_IGN_OutputEnable()      (TRISBCLR = (1U<<5))
-#define GPIO_RB5_IGN_InputEnable()       (TRISBSET = (1U<<5))
-#define GPIO_RB5_IGN_Get()               ((PORTB >> 5) & 0x1U)
-#define GPIO_RB5_IGN_PIN                  GPIO_PIN_RB5
+/*** Macros for AN0_APPS1 pin ***/
+#define AN0_APPS1_Get()               ((PORTA >> 0) & 0x1U)
+#define AN0_APPS1_PIN                  GPIO_PIN_RA0
 
-/*** Macros for GPIO_RD5 pin ***/
-#define GPIO_RD5_Set()               (LATDSET = (1U<<5))
-#define GPIO_RD5_Clear()             (LATDCLR = (1U<<5))
-#define GPIO_RD5_Toggle()            (LATDINV= (1U<<5))
-#define GPIO_RD5_OutputEnable()      (TRISDCLR = (1U<<5))
-#define GPIO_RD5_InputEnable()       (TRISDSET = (1U<<5))
-#define GPIO_RD5_Get()               ((PORTD >> 5) & 0x1U)
-#define GPIO_RD5_PIN                  GPIO_PIN_RD5
+/*** Macros for AN3_APPS2 pin ***/
+#define AN3_APPS2_Get()               ((PORTB >> 1) & 0x1U)
+#define AN3_APPS2_PIN                  GPIO_PIN_RB1
 
-/*** Macros for GPIO_RB10_LED5 pin ***/
-#define GPIO_RB10_LED5_Set()               (LATBSET = (1U<<10))
-#define GPIO_RB10_LED5_Clear()             (LATBCLR = (1U<<10))
-#define GPIO_RB10_LED5_Toggle()            (LATBINV= (1U<<10))
-#define GPIO_RB10_LED5_OutputEnable()      (TRISBCLR = (1U<<10))
-#define GPIO_RB10_LED5_InputEnable()       (TRISBSET = (1U<<10))
-#define GPIO_RB10_LED5_Get()               ((PORTB >> 10) & 0x1U)
-#define GPIO_RB10_LED5_PIN                  GPIO_PIN_RB10
+/*** Macros for AN8_VoltageSensor pin ***/
+#define AN8_VoltageSensor_Get()               ((PORTC >> 2) & 0x1U)
+#define AN8_VoltageSensor_PIN                  GPIO_PIN_RC2
 
-/*** Macros for GPIO_RB11_LED4 pin ***/
-#define GPIO_RB11_LED4_Set()               (LATBSET = (1U<<11))
-#define GPIO_RB11_LED4_Clear()             (LATBCLR = (1U<<11))
-#define GPIO_RB11_LED4_Toggle()            (LATBINV= (1U<<11))
-#define GPIO_RB11_LED4_OutputEnable()      (TRISBCLR = (1U<<11))
-#define GPIO_RB11_LED4_InputEnable()       (TRISBSET = (1U<<11))
-#define GPIO_RB11_LED4_Get()               ((PORTB >> 11) & 0x1U)
-#define GPIO_RB11_LED4_PIN                  GPIO_PIN_RB11
+/*** Macros for GPIO_RC11_LED_HeartBeat pin ***/
+#define GPIO_RC11_LED_HeartBeat_Set()               (LATCSET = (1U<<11))
+#define GPIO_RC11_LED_HeartBeat_Clear()             (LATCCLR = (1U<<11))
+#define GPIO_RC11_LED_HeartBeat_Toggle()            (LATCINV= (1U<<11))
+#define GPIO_RC11_LED_HeartBeat_OutputEnable()      (TRISCCLR = (1U<<11))
+#define GPIO_RC11_LED_HeartBeat_InputEnable()       (TRISCSET = (1U<<11))
+#define GPIO_RC11_LED_HeartBeat_Get()               ((PORTC >> 11) & 0x1U)
+#define GPIO_RC11_LED_HeartBeat_PIN                  GPIO_PIN_RC11
 
-/*** Macros for GPIO_RB12_LED3 pin ***/
-#define GPIO_RB12_LED3_Set()               (LATBSET = (1U<<12))
-#define GPIO_RB12_LED3_Clear()             (LATBCLR = (1U<<12))
-#define GPIO_RB12_LED3_Toggle()            (LATBINV= (1U<<12))
-#define GPIO_RB12_LED3_OutputEnable()      (TRISBCLR = (1U<<12))
-#define GPIO_RB12_LED3_InputEnable()       (TRISBSET = (1U<<12))
-#define GPIO_RB12_LED3_Get()               ((PORTB >> 12) & 0x1U)
-#define GPIO_RB12_LED3_PIN                  GPIO_PIN_RB12
+/*** Macros for GPIO_RD8_ONBOARD_BUTTON pin ***/
+#define GPIO_RD8_ONBOARD_BUTTON_Set()               (LATDSET = (1U<<8))
+#define GPIO_RD8_ONBOARD_BUTTON_Clear()             (LATDCLR = (1U<<8))
+#define GPIO_RD8_ONBOARD_BUTTON_Toggle()            (LATDINV= (1U<<8))
+#define GPIO_RD8_ONBOARD_BUTTON_OutputEnable()      (TRISDCLR = (1U<<8))
+#define GPIO_RD8_ONBOARD_BUTTON_InputEnable()       (TRISDSET = (1U<<8))
+#define GPIO_RD8_ONBOARD_BUTTON_Get()               ((PORTD >> 8) & 0x1U)
+#define GPIO_RD8_ONBOARD_BUTTON_PIN                  GPIO_PIN_RD8
 
-/*** Macros for GPIO_RB13_LED2 pin ***/
-#define GPIO_RB13_LED2_Set()               (LATBSET = (1U<<13))
-#define GPIO_RB13_LED2_Clear()             (LATBCLR = (1U<<13))
-#define GPIO_RB13_LED2_Toggle()            (LATBINV= (1U<<13))
-#define GPIO_RB13_LED2_OutputEnable()      (TRISBCLR = (1U<<13))
-#define GPIO_RB13_LED2_InputEnable()       (TRISBSET = (1U<<13))
-#define GPIO_RB13_LED2_Get()               ((PORTB >> 13) & 0x1U)
-#define GPIO_RB13_LED2_PIN                  GPIO_PIN_RB13
+/*** Macros for GPIO_RB5_START_BUTTON pin ***/
+#define GPIO_RB5_START_BUTTON_Set()               (LATBSET = (1U<<5))
+#define GPIO_RB5_START_BUTTON_Clear()             (LATBCLR = (1U<<5))
+#define GPIO_RB5_START_BUTTON_Toggle()            (LATBINV= (1U<<5))
+#define GPIO_RB5_START_BUTTON_OutputEnable()      (TRISBCLR = (1U<<5))
+#define GPIO_RB5_START_BUTTON_InputEnable()       (TRISBSET = (1U<<5))
+#define GPIO_RB5_START_BUTTON_Get()               ((PORTB >> 5) & 0x1U)
+#define GPIO_RB5_START_BUTTON_PIN                  GPIO_PIN_RB5
 
-/*** Macros for GPIO_RA10_LED1 pin ***/
-#define GPIO_RA10_LED1_Set()               (LATASET = (1U<<10))
-#define GPIO_RA10_LED1_Clear()             (LATACLR = (1U<<10))
-#define GPIO_RA10_LED1_Toggle()            (LATAINV= (1U<<10))
-#define GPIO_RA10_LED1_OutputEnable()      (TRISACLR = (1U<<10))
-#define GPIO_RA10_LED1_InputEnable()       (TRISASET = (1U<<10))
-#define GPIO_RA10_LED1_Get()               ((PORTA >> 10) & 0x1U)
-#define GPIO_RA10_LED1_PIN                  GPIO_PIN_RA10
+/*** Macros for GPIO_RC10_DIP4 pin ***/
+#define GPIO_RC10_DIP4_Set()               (LATCSET = (1U<<10))
+#define GPIO_RC10_DIP4_Clear()             (LATCCLR = (1U<<10))
+#define GPIO_RC10_DIP4_Toggle()            (LATCINV= (1U<<10))
+#define GPIO_RC10_DIP4_OutputEnable()      (TRISCCLR = (1U<<10))
+#define GPIO_RC10_DIP4_InputEnable()       (TRISCSET = (1U<<10))
+#define GPIO_RC10_DIP4_Get()               ((PORTC >> 10) & 0x1U)
+#define GPIO_RC10_DIP4_PIN                  GPIO_PIN_RC10
+
+/*** Macros for GPIO_RB7_DIP3 pin ***/
+#define GPIO_RB7_DIP3_Set()               (LATBSET = (1U<<7))
+#define GPIO_RB7_DIP3_Clear()             (LATBCLR = (1U<<7))
+#define GPIO_RB7_DIP3_Toggle()            (LATBINV= (1U<<7))
+#define GPIO_RB7_DIP3_OutputEnable()      (TRISBCLR = (1U<<7))
+#define GPIO_RB7_DIP3_InputEnable()       (TRISBSET = (1U<<7))
+#define GPIO_RB7_DIP3_Get()               ((PORTB >> 7) & 0x1U)
+#define GPIO_RB7_DIP3_PIN                  GPIO_PIN_RB7
+
+/*** Macros for GPIO_RC13_DIP2 pin ***/
+#define GPIO_RC13_DIP2_Set()               (LATCSET = (1U<<13))
+#define GPIO_RC13_DIP2_Clear()             (LATCCLR = (1U<<13))
+#define GPIO_RC13_DIP2_Toggle()            (LATCINV= (1U<<13))
+#define GPIO_RC13_DIP2_OutputEnable()      (TRISCCLR = (1U<<13))
+#define GPIO_RC13_DIP2_InputEnable()       (TRISCSET = (1U<<13))
+#define GPIO_RC13_DIP2_Get()               ((PORTC >> 13) & 0x1U)
+#define GPIO_RC13_DIP2_PIN                  GPIO_PIN_RC13
+
+/*** Macros for GPIO_RB8_DIP1 pin ***/
+#define GPIO_RB8_DIP1_Set()               (LATBSET = (1U<<8))
+#define GPIO_RB8_DIP1_Clear()             (LATBCLR = (1U<<8))
+#define GPIO_RB8_DIP1_Toggle()            (LATBINV= (1U<<8))
+#define GPIO_RB8_DIP1_OutputEnable()      (TRISBCLR = (1U<<8))
+#define GPIO_RB8_DIP1_InputEnable()       (TRISBSET = (1U<<8))
+#define GPIO_RB8_DIP1_Get()               ((PORTB >> 8) & 0x1U)
+#define GPIO_RB8_DIP1_PIN                  GPIO_PIN_RB8
+
+/*** Macros for GPIO_RF1_LED pin ***/
+#define GPIO_RF1_LED_Set()               (LATFSET = (1U<<1))
+#define GPIO_RF1_LED_Clear()             (LATFCLR = (1U<<1))
+#define GPIO_RF1_LED_Toggle()            (LATFINV= (1U<<1))
+#define GPIO_RF1_LED_OutputEnable()      (TRISFCLR = (1U<<1))
+#define GPIO_RF1_LED_InputEnable()       (TRISFSET = (1U<<1))
+#define GPIO_RF1_LED_Get()               ((PORTF >> 1) & 0x1U)
+#define GPIO_RF1_LED_PIN                  GPIO_PIN_RF1
+
+/*** Macros for GPIO_RB10_LED pin ***/
+#define GPIO_RB10_LED_Set()               (LATBSET = (1U<<10))
+#define GPIO_RB10_LED_Clear()             (LATBCLR = (1U<<10))
+#define GPIO_RB10_LED_Toggle()            (LATBINV= (1U<<10))
+#define GPIO_RB10_LED_OutputEnable()      (TRISBCLR = (1U<<10))
+#define GPIO_RB10_LED_InputEnable()       (TRISBSET = (1U<<10))
+#define GPIO_RB10_LED_Get()               ((PORTB >> 10) & 0x1U)
+#define GPIO_RB10_LED_PIN                  GPIO_PIN_RB10
+
+/*** Macros for GPIO_RB11_LED_CAN4 pin ***/
+#define GPIO_RB11_LED_CAN4_Set()               (LATBSET = (1U<<11))
+#define GPIO_RB11_LED_CAN4_Clear()             (LATBCLR = (1U<<11))
+#define GPIO_RB11_LED_CAN4_Toggle()            (LATBINV= (1U<<11))
+#define GPIO_RB11_LED_CAN4_OutputEnable()      (TRISBCLR = (1U<<11))
+#define GPIO_RB11_LED_CAN4_InputEnable()       (TRISBSET = (1U<<11))
+#define GPIO_RB11_LED_CAN4_Get()               ((PORTB >> 11) & 0x1U)
+#define GPIO_RB11_LED_CAN4_PIN                  GPIO_PIN_RB11
+
+/*** Macros for GPIO_RB12_LED_CAN3 pin ***/
+#define GPIO_RB12_LED_CAN3_Set()               (LATBSET = (1U<<12))
+#define GPIO_RB12_LED_CAN3_Clear()             (LATBCLR = (1U<<12))
+#define GPIO_RB12_LED_CAN3_Toggle()            (LATBINV= (1U<<12))
+#define GPIO_RB12_LED_CAN3_OutputEnable()      (TRISBCLR = (1U<<12))
+#define GPIO_RB12_LED_CAN3_InputEnable()       (TRISBSET = (1U<<12))
+#define GPIO_RB12_LED_CAN3_Get()               ((PORTB >> 12) & 0x1U)
+#define GPIO_RB12_LED_CAN3_PIN                  GPIO_PIN_RB12
+
+/*** Macros for GPIO_RB13_LED_CAN2 pin ***/
+#define GPIO_RB13_LED_CAN2_Set()               (LATBSET = (1U<<13))
+#define GPIO_RB13_LED_CAN2_Clear()             (LATBCLR = (1U<<13))
+#define GPIO_RB13_LED_CAN2_Toggle()            (LATBINV= (1U<<13))
+#define GPIO_RB13_LED_CAN2_OutputEnable()      (TRISBCLR = (1U<<13))
+#define GPIO_RB13_LED_CAN2_InputEnable()       (TRISBSET = (1U<<13))
+#define GPIO_RB13_LED_CAN2_Get()               ((PORTB >> 13) & 0x1U)
+#define GPIO_RB13_LED_CAN2_PIN                  GPIO_PIN_RB13
+
+/*** Macros for GPIO_RA10_LED_CAN1 pin ***/
+#define GPIO_RA10_LED_CAN1_Set()               (LATASET = (1U<<10))
+#define GPIO_RA10_LED_CAN1_Clear()             (LATACLR = (1U<<10))
+#define GPIO_RA10_LED_CAN1_Toggle()            (LATAINV= (1U<<10))
+#define GPIO_RA10_LED_CAN1_OutputEnable()      (TRISACLR = (1U<<10))
+#define GPIO_RA10_LED_CAN1_InputEnable()       (TRISASET = (1U<<10))
+#define GPIO_RA10_LED_CAN1_Get()               ((PORTA >> 10) & 0x1U)
+#define GPIO_RA10_LED_CAN1_PIN                  GPIO_PIN_RA10
 
 
 // *****************************************************************************

@@ -74,8 +74,12 @@ void TIMER_5_Handler (void);
 void TIMER_6_Handler (void);
 void ADC_DATA0_Handler (void);
 void ADC_DATA4_Handler (void);
+void ADC_DATA8_Handler (void);
 void ADC_DATA10_Handler (void);
+void ADC_DATA14_Handler (void);
 void ADC_DATA15_Handler (void);
+void I2C4_BUS_Handler (void);
+void I2C4_MASTER_Handler (void);
 
 
 // *****************************************************************************
@@ -120,16 +124,36 @@ void __ISR(_ADC_DATA0_VECTOR, ipl1SRS) ADC_DATA0_Handler (void)
 
 void __ISR(_ADC_DATA4_VECTOR, ipl1SRS) ADC_DATA4_Handler (void)
 {
+    ADC_DATA4_InterruptHandler();
+}
+
+void __ISR(_ADC_DATA8_VECTOR, ipl1SRS) ADC_DATA8_Handler (void)
+{
+    ADC_DATA8_InterruptHandler();
 }
 
 void __ISR(_ADC_DATA10_VECTOR, ipl1SRS) ADC_DATA10_Handler (void)
 {
-    ADC_DATA10_InterruptHandler();
+}
+
+void __ISR(_ADC_DATA14_VECTOR, ipl1SRS) ADC_DATA14_Handler (void)
+{
+    ADC_DATA14_InterruptHandler();
 }
 
 void __ISR(_ADC_DATA15_VECTOR, ipl1SRS) ADC_DATA15_Handler (void)
 {
     ADC_DATA15_InterruptHandler();
+}
+
+void __ISR(_I2C4_BUS_VECTOR, ipl1SRS) I2C4_BUS_Handler (void)
+{
+    I2C4_BUS_InterruptHandler();
+}
+
+void __ISR(_I2C4_MASTER_VECTOR, ipl1SRS) I2C4_MASTER_Handler (void)
+{
+    I2C4_MASTER_InterruptHandler();
 }
 
 

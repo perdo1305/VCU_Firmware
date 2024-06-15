@@ -44,8 +44,6 @@ CAN_Buffer tx[3] = {
      .messageID = 0,
      .messageLength = 0}};
 
-
-
 uint32_t status[3] = {0, 0, 0};  // CAN error status
 
 // ############# TX CAN FRAME ###############################
@@ -64,26 +62,25 @@ void Read_CAN_BUS_1() {
         if (CAN1_MessageReceive(&rx[Z].messageID, &rx[Z].messageLength, rx[Z].message, 0, 2, &msgAttr)) {
             CANRX_ON[Z] = 1;
             CAN_Filter_IDS_BUS1(rx[Z].messageID);
-            GPIO_RB13_LED2_Toggle();
+            GPIO_RA10_LED_CAN1_Toggle();
         }
     } else {
-        GPIO_RB13_LED2_Clear();
+        GPIO_RA10_LED_CAN1_Clear();
         CANRX_ON[Z] = 0;
     }
 }
 
 void Send_CAN_BUS_1(uint32_t id, uint8_t* message, uint8_t size) {
     uint8_t Z = CAN_BUS1;
-    
+
     if (CAN1_TxFIFOQueueIsFull(0)) {
         CANTX_ON[Z] = 0;
     } else {
         if (CAN1_MessageTransmit(id, size, message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
             CANTX_ON[Z] = 1;
-            GPIO_RB12_LED3_Toggle();
+
         } else {
             CANTX_ON[Z] = 0;
-            GPIO_RB12_LED3_Clear();
         }
     }
 }
@@ -101,10 +98,10 @@ void Read_CAN_BUS_2() {
         if (CAN2_MessageReceive(&rx[Z].messageID, &rx[Z].messageLength, rx[Z].message, 0, 2, &msgAttr)) {
             CANRX_ON[Z] = 1;
             CAN_Filter_IDS_BUS2(rx[Z].messageID);
-           //GPIO_RB11_LED4_Toggle();
+            GPIO_RB13_LED_CAN2_Toggle();
         }
     } else {
-        //GPIO_RB11_LED4_Clear();
+        GPIO_RB13_LED_CAN2_Clear();
         CANRX_ON[Z] = 0;
     }
 }
@@ -114,13 +111,13 @@ void Send_CAN_BUS_2(uint32_t id, uint8_t* message, uint8_t size) {
     if (CAN2_TxFIFOQueueIsFull(0)) {
         CANTX_ON[Z] = 0;
     } else {
-        if (CAN2_MessageTransmit(id, size, message, 0,CANFD_MODE_FD_WITH_BRS, CANFD_MSG_TX_DATA_FRAME)) {
-        //if (CAN2_MessageTransmit(id, size, message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
+        if (CAN2_MessageTransmit(id, size, message, 0, CANFD_MODE_FD_WITH_BRS, CANFD_MSG_TX_DATA_FRAME)) {
+            // if (CAN2_MessageTransmit(id, size, message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
             CANTX_ON[Z] = 1;
-            //GPIO_RB10_LED5_Toggle();
+            // GPIO_RB10_LED5_Toggle();
         } else {
             CANTX_ON[Z] = 0;
-            //GPIO_RB10_LED5_Clear();
+            // GPIO_RB10_LED5_Clear();
         }
     }
 }
@@ -133,10 +130,10 @@ void Read_CAN_BUS_3() {
         if (CAN3_MessageReceive(&rx[Z].messageID, &rx[Z].messageLength, rx[Z].message, 0, 2, &msgAttr)) {
             CANRX_ON[Z] = 1;
             // CAN_Filter_IDS_BUS2(rx[Z].messageID);
-            GPIO_RB11_LED4_Toggle();
+            GPIO_RB12_LED_CAN3_Toggle();
         }
     } else {
-         GPIO_RB11_LED4_Clear();
+        GPIO_RB12_LED_CAN3_Clear();
         CANRX_ON[Z] = 0;
     }
 }
@@ -144,15 +141,15 @@ void Read_CAN_BUS_3() {
 void Send_CAN_BUS_3(uint32_t id, uint8_t* message, uint8_t size) {
     uint8_t Z = CAN_BUS3;
     if (CAN3_TxFIFOQueueIsFull(0)) {
-        CANTX_ON[Z] = 0; 
+        CANTX_ON[Z] = 0;
     } else {
         if (CAN3_MessageTransmit(id, size, message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
-        //if (CAN3_MessageTransmit(id, size, message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
+            // if (CAN3_MessageTransmit(id, size, message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
             CANTX_ON[Z] = 1;
-            GPIO_RB10_LED5_Toggle();
+            // GPIO_RB10_LED5_Toggle();
         } else {
             CANTX_ON[Z] = 0;
-            GPIO_RB10_LED5_Clear();
+            // GPIO_RB10_LED5_Clear();
         }
     }
 }
@@ -240,7 +237,6 @@ void CAN_Send_VCU_PWTDB_4(uint32_t max_ac_current, uint32_t max_ac_brake_current
 
  */
 
-
 // TODO ACABAR ISTO
 uint32_t WheelSpeed_RL = 0;
 uint32_t WheelSpeed_RR = 0;
@@ -273,7 +269,6 @@ void CAN_Filter_IDS_BUS1(uint32_t id) {
 }
 
 // ############# PWTDB CAN VARS ###################################
-
 
 // Receive
 
@@ -332,8 +327,7 @@ void CAN_Filter_IDS_BUS2(uint32_t id) {
     }
 }
 
-//send
-
+// send
 
 void Send_CAN_HV500_SetAcCurrent(uint16_t ac_current) {
     MAP_ENCODE_CMD_AcCurrent(tx[CAN_BUS2].message, ac_current);
