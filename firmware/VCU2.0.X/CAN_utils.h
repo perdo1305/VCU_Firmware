@@ -8,6 +8,10 @@
 #ifndef CAN_UTILS_H
 #define CAN_UTILS_H
 
+#define CAN_BUS1 0U
+#define CAN_BUS2 1U
+#define CAN_BUS3 2U
+
 #include <stdbool.h>  // Defines true
 #include <stddef.h>   // Defines NULL
 #include <stdint.h>
@@ -18,21 +22,21 @@
 #include "../../../../2_FIRMWARE/VCU_BANCADA/firmware/VCU_BANCADA.X/Can-Header-Map/CAN_pwtdb.h"
 #include "definitions.h"
 
-void Read_CAN_BUS_1(void);                                         // Read CAN 1 function
-void Send_CAN_BUS_1(uint32_t id, uint8_t* message, uint8_t size);  // Send CAN 1 function
+typedef struct {
+    uint32_t id;
+    uint8_t message[8];
+    uint8_t length;
+} can_data_t;
 
-void Read_CAN_BUS_2(void);                                         // Read CAN 2 function
-void Send_CAN_BUS_2(uint32_t id, uint8_t* message, uint8_t size);  // Send CAN 2 function
-
-void Read_CAN_BUS_3(void);                                         // Read CAN 2 function
-void Send_CAN_BUS_3(uint32_t id, uint8_t* message, uint8_t size);  // Send CAN 2 function
+can_data_t can_bus_read(uint8_t bus);
+void can_bus_send(uint8_t bus, can_data_t* data);
 
 void CAN_Send_VCU_Datadb_1(uint16_t consumed_power, uint16_t target_power, uint8_t brake_pressure, uint8_t throttle_position);
 void CAN_Send_VCU_Datadb_2(uint16_t motor_temperature, uint16_t inverter_temperature);
 void CAN_Send_VCU_Datadb_3(uint8_t vcu_state, uint8_t lmt2, uint8_t lmt1, uint16_t inverter_error);
 void CAN_Send_VCU_Datadb_4(uint16_t rpm, uint16_t inverter_voltage);
-void CAN_Filter_IDS_BUS1(uint32_t id);
-void CAN_Filter_IDS_BUS2(uint32_t id);
+void CAN_Filter_IDS_BUS1(can_data_t* data);
+void CAN_Filter_IDS_BUS2(can_data_t* data);
 
 typedef struct {
     uint32_t Actual_ERPM;

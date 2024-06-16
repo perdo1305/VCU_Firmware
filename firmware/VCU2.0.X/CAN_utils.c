@@ -1,156 +1,91 @@
 
-
 #include "CAN_utils.h"
 
 // ############# RX CAN FRAME ###############################
 
-#define CAN_BUS1 0U
-#define CAN_BUS2 1U
-#define CAN_BUS3 2U
-
 CANFD_MSG_RX_ATTRIBUTE msgAttr = CANFD_MSG_RX_DATA_FRAME;  // RX message attribute
-
-typedef struct {
-    uint8_t message[8];
-    uint32_t messageID;
-    uint8_t messageLength;
-} CAN_Buffer;
-
-CAN_Buffer rx[3] = {
-    {.message =
-         {0},
-     .messageID = 0,
-     .messageLength = 0},
-    {.message =
-         {0},
-     .messageID = 0,
-     .messageLength = 0},
-    {.message =
-         {0},
-     .messageID = 0,
-     .messageLength = 0}};
-
-CAN_Buffer tx[3] = {
-    {.message =
-         {0},
-     .messageID = 0,
-     .messageLength = 0},
-    {.message =
-         {0},
-     .messageID = 0,
-     .messageLength = 0},
-    {.message =
-         {0},
-     .messageID = 0,
-     .messageLength = 0}};
 
 uint32_t status[3] = {0, 0, 0};  // CAN error status
 
-// ############# TX CAN FRAME ###############################
-uint8_t message_CAN_TX[8] = {};  // TX message buffer
-uint8_t cantx_message[8] = {};   // TX message buffer
-
-/*
-█▀▀ ▄▀█ █▄░█ ▄█ ▄▄ █▀▄ ▄▀█ ▀█▀ ▄▀█ █▄▄ █░█ █▀   █▀▀ █▀█ █▄░█ █▀▀ █ █▀▀ █░█ █▀█ ▄▀█ ▀█▀ █ █▀█ █▄░█
-█▄▄ █▀█ █░▀█ ░█ ░░ █▄▀ █▀█ ░█░ █▀█ █▄█ █▄█ ▄█   █▄▄ █▄█ █░▀█ █▀░ █ █▄█ █▄█ █▀▄ █▀█ ░█░ █ █▄█ █░▀█
- */
-void Read_CAN_BUS_1() {
-    uint8_t Z = CAN_BUS1;
-    status[Z] = CAN1_ErrorGet();
-    if (status[Z] == CANFD_ERROR_NONE) {
-        memset(rx[Z].message, 0x00, sizeof(rx[Z].message));
-        if (CAN1_MessageReceive(&rx[Z].messageID, &rx[Z].messageLength, rx[Z].message, 0, 2, &msgAttr)) {
-            CANRX_ON[Z] = 1;
-            CAN_Filter_IDS_BUS1(rx[Z].messageID);
-            GPIO_RA10_LED_CAN1_Toggle();
-        }
-    } else {
-        GPIO_RA10_LED_CAN1_Clear();
-        CANRX_ON[Z] = 0;
+can_data_t can_bus_read(uint8_t bus) {
+    static can_data_t data;
+    switch (bus) {
+        case CAN_BUS1:
+            status[CAN_BUS1] = CAN1_ErrorGet();
+            if (status[CAN_BUS1] == CANFD_ERROR_NONE) {
+                memset(data.message, 0x00, sizeof(data.message));
+                if (CAN1_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
+                    CANRX_ON[CAN_BUS1] = 1;
+                }
+            } else {
+                CANRX_ON[CAN_BUS1] = 0;
+            }
+            return data;
+        case CAN_BUS2:
+            status[CAN_BUS2] = CAN2_ErrorGet();
+            if (status[CAN_BUS2] == CANFD_ERROR_NONE) {
+                memset(data.message, 0x00, sizeof(data.message));
+                if (CAN2_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
+                    CANRX_ON[CAN_BUS2] = 1;
+                }
+            } else {
+                CANRX_ON[CAN_BUS2] = 0;
+            }
+            return data;
+        case CAN_BUS3:
+            status[CAN_BUS3] = CAN3_ErrorGet();
+            if (status[CAN_BUS3] == CANFD_ERROR_NONE) {
+                memset(data.message, 0x00, sizeof(data.message));
+                if (CAN3_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
+                    CANRX_ON[CAN_BUS3] = 1;
+                }
+            } else {
+                CANRX_ON[CAN_BUS3] = 0;
+            }
+            return data;
+        default:
+            break;
     }
+    return data;
 }
 
-void Send_CAN_BUS_1(uint32_t id, uint8_t* message, uint8_t size) {
-    uint8_t Z = CAN_BUS1;
-
-    if (CAN1_TxFIFOQueueIsFull(0)) {
-        CANTX_ON[Z] = 0;
-    } else {
-        if (CAN1_MessageTransmit(id, size, message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
-            CANTX_ON[Z] = 1;
-
-        } else {
-            CANTX_ON[Z] = 0;
-        }
-    }
-}
-
-/*
-█▀▀ ▄▀█ █▄░█ ▀█ ▄▄ █▀█ █▀█ █░█░█ █▀▀ █▀█ ▀█▀ █▀█ ▄▀█ █ █▄░█   █▀▀ █▀█ █▄░█ █▀▀ █ █▀▀ █░█ █▀█ ▄▀█ ▀█▀ █ █▀█ █▄░█
-█▄▄ █▀█ █░▀█ █▄ ░░ █▀▀ █▄█ ▀▄▀▄▀ ██▄ █▀▄ ░█░ █▀▄ █▀█ █ █░▀█   █▄▄ █▄█ █░▀█ █▀░ █ █▄█ █▄█ █▀▄ █▀█ ░█░ █ █▄█ █░▀█
- */
-
-void Read_CAN_BUS_2() {
-    uint8_t Z = CAN_BUS2;
-    status[Z] = CAN2_ErrorGet();
-    if (status[Z] == CANFD_ERROR_NONE) {
-        memset(rx[Z].message, 0x00, sizeof(rx[Z].message));
-        if (CAN2_MessageReceive(&rx[Z].messageID, &rx[Z].messageLength, rx[Z].message, 0, 2, &msgAttr)) {
-            CANRX_ON[Z] = 1;
-            CAN_Filter_IDS_BUS2(rx[Z].messageID);
-            GPIO_RB13_LED_CAN2_Toggle();
-        }
-    } else {
-        GPIO_RB13_LED_CAN2_Clear();
-        CANRX_ON[Z] = 0;
-    }
-}
-
-void Send_CAN_BUS_2(uint32_t id, uint8_t* message, uint8_t size) {
-    uint8_t Z = CAN_BUS2;
-    if (CAN2_TxFIFOQueueIsFull(0)) {
-        CANTX_ON[Z] = 0;
-    } else {
-        if (CAN2_MessageTransmit(id, size, message, 0, CANFD_MODE_FD_WITH_BRS, CANFD_MSG_TX_DATA_FRAME)) {
-            // if (CAN2_MessageTransmit(id, size, message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
-            CANTX_ON[Z] = 1;
-            // GPIO_RB10_LED5_Toggle();
-        } else {
-            CANTX_ON[Z] = 0;
-            // GPIO_RB10_LED5_Clear();
-        }
-    }
-}
-
-void Read_CAN_BUS_3() {
-    uint8_t Z = CAN_BUS3;
-    status[Z] = CAN3_ErrorGet();
-    if (status[Z] == CANFD_ERROR_NONE) {
-        memset(rx[Z].message, 0x00, sizeof(rx[Z].message));
-        if (CAN3_MessageReceive(&rx[Z].messageID, &rx[Z].messageLength, rx[Z].message, 0, 2, &msgAttr)) {
-            CANRX_ON[Z] = 1;
-            // CAN_Filter_IDS_BUS2(rx[Z].messageID);
-            GPIO_RB12_LED_CAN3_Toggle();
-        }
-    } else {
-        GPIO_RB12_LED_CAN3_Clear();
-        CANRX_ON[Z] = 0;
-    }
-}
-
-void Send_CAN_BUS_3(uint32_t id, uint8_t* message, uint8_t size) {
-    uint8_t Z = CAN_BUS3;
-    if (CAN3_TxFIFOQueueIsFull(0)) {
-        CANTX_ON[Z] = 0;
-    } else {
-        if (CAN3_MessageTransmit(id, size, message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
-            // if (CAN3_MessageTransmit(id, size, message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
-            CANTX_ON[Z] = 1;
-            // GPIO_RB10_LED5_Toggle();
-        } else {
-            CANTX_ON[Z] = 0;
-            // GPIO_RB10_LED5_Clear();
-        }
+void can_bus_send(uint8_t bus, can_data_t* data) {
+    switch (bus) {
+        case CAN_BUS1:
+            if (CAN1_TxFIFOQueueIsFull(0)) {
+                CANTX_ON[CAN_BUS1] = 0;
+            } else {
+                if (CAN1_MessageTransmit(data->id, data->length, data->message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
+                    CANTX_ON[CAN_BUS1] = 1;
+                } else {
+                    CANTX_ON[CAN_BUS1] = 0;
+                }
+            }
+            break;
+        case CAN_BUS2:
+            if (CAN2_TxFIFOQueueIsFull(0)) {
+                CANTX_ON[CAN_BUS2] = 0;
+            } else {
+                if (CAN2_MessageTransmit(data->id, data->length, data->message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
+                    CANTX_ON[CAN_BUS2] = 1;
+                } else {
+                    CANTX_ON[CAN_BUS2] = 0;
+                }
+            }
+            break;
+        case CAN_BUS3:
+            if (CAN3_TxFIFOQueueIsFull(0)) {
+                CANTX_ON[CAN_BUS3] = 0;
+            } else {
+                if (CAN3_MessageTransmit(data->id, data->length, data->message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
+                    CANTX_ON[CAN_BUS3] = 1;
+                } else {
+                    CANTX_ON[CAN_BUS3] = 0;
+                }
+            }
+            break;
+        default:
+            break;
     }
 }
 
@@ -164,36 +99,52 @@ void Send_CAN_BUS_3(uint32_t id, uint8_t* message, uint8_t size) {
 ░╚════╝░╚═╝░░╚═╝╚═╝░░╚══╝  ╚══════╝  ░░░░░░  ╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═════╝░░╚═════╝░╚═════╝░
  */
 void CAN_Send_VCU_Datadb_1(uint16_t consumed_power, uint16_t target_power, uint8_t brake_pressure, uint8_t throttle_position) {
-    MAP_ENCODE_CONSUMED_POWER(tx[CAN_BUS1].message, consumed_power);
-    MAP_ENCODE_TARGET_POWER(tx[CAN_BUS1].message, target_power);
-    MAP_ENCODE_BRAKE_PRESSURE(tx[CAN_BUS1].message, brake_pressure);
-    MAP_ENCODE_THROTTLE_POSITION(tx[CAN_BUS1].message, throttle_position);
+    can_data_t data;
+    data.id = CAN_VCU_ID_1;
+    data.length = 8;
 
-    Send_CAN_BUS_1(CAN_VCU_ID_1, tx[CAN_BUS1].message, 8);
+    MAP_ENCODE_CONSUMED_POWER(data.message, consumed_power);
+    MAP_ENCODE_TARGET_POWER(data.message, target_power);
+    MAP_ENCODE_BRAKE_PRESSURE(data.message, brake_pressure);
+    MAP_ENCODE_THROTTLE_POSITION(data.message, throttle_position);
+
+    can_bus_send(CAN_BUS1, &data);
 }
 
 void CAN_Send_VCU_Datadb_2(uint16_t motor_temperature, uint16_t inverter_temperature) {
-    MAP_ENCODE_MOTOR_TEMPERATURE(tx[CAN_BUS1].message, motor_temperature);
-    MAP_ENCODE_INVERTER_TEMPERATURE(tx[CAN_BUS1].message, inverter_temperature);
+    can_data_t data;
+    data.id = CAN_VCU_ID_2;
+    data.length = 8;
 
-    Send_CAN_BUS_1(CAN_VCU_ID_2, tx[CAN_BUS1].message, 8);
+    MAP_ENCODE_MOTOR_TEMPERATURE(data.message, motor_temperature);
+    MAP_ENCODE_INVERTER_TEMPERATURE(data.message, inverter_temperature);
+
+    can_bus_send(CAN_BUS1, &data);
 }
 
 void CAN_Send_VCU_Datadb_3(uint8_t vcu_state, uint8_t lmt2, uint8_t lmt1, uint16_t inverter_error) {
-    MAP_ENCODE_VCU_STATE(tx[CAN_BUS1].message, vcu_state);
-    MAP_ENCODE_LMT2(tx[CAN_BUS1].message, lmt2);
-    MAP_ENCODE_LMT1(tx[CAN_BUS1].message, lmt1);
+    can_data_t data;
+    data.id = CAN_VCU_ID_3;
+    data.length = 8;
 
-    MAP_ENCODE_INVERTER_ERROR(tx[CAN_BUS1].message, inverter_error);
+    MAP_ENCODE_VCU_STATE(data.message, vcu_state);
+    MAP_ENCODE_LMT2(data.message, lmt2);
+    MAP_ENCODE_LMT1(data.message, lmt1);
 
-    Send_CAN_BUS_1(CAN_VCU_ID_3, tx[CAN_BUS1].message, 8);
+    MAP_ENCODE_INVERTER_ERROR(data.message, inverter_error);
+
+    can_bus_send(CAN_BUS1, &data);
 }
 
 void CAN_Send_VCU_Datadb_4(uint16_t rpm, uint16_t inverter_voltage) {
-    MAP_ENCODE_RPM(tx[CAN_BUS1].message, rpm);
-    MAP_ENCODE_INVERTER_VOLTAGE(tx[CAN_BUS1].message, inverter_voltage);
+    can_data_t data;
+    data.id = CAN_VCU_ID_4;
+    data.length = 8;
 
-    Send_CAN_BUS_1(CAN_VCU_ID_4, tx[CAN_BUS1].message, 8);
+    MAP_ENCODE_RPM(data.message, rpm);
+    MAP_ENCODE_INVERTER_VOLTAGE(data.message, inverter_voltage);
+
+    can_bus_send(CAN_BUS1, &data);
 }
 
 /*
@@ -245,34 +196,15 @@ uint32_t SusPOS_RR = 0;
 uint32_t BRK_State = 0;
 uint32_t DY_REAR_STATE = 0;
 
-void CAN_Filter_IDS_BUS1(uint32_t id) {
-    switch (id) {
-        case CAN_PDM_ID_1:
-            break;
-        case CAN_PDM_ID_2:
-            break;
-        case CAN_PDM_ID_3:
-            break;
-        case CAN_PDM_ID_4:
-            break;
-        case CAN_IMU_ID_1:
-            break;
-        case CAN_IMU_ID_2:
-            break;
-        case CAN_DYNAMICS_REAR_ID_1:
-            break;
-        case CAN_DYNAMICS_REAR_ID_2:
-            break;
-        default:
-            break;
-    }
+void CAN_Filter_IDS_BUS1(can_data_t* data) {
 }
 
 // ############# PWTDB CAN VARS ###################################
 
 // Receive
-
+/*
 void CAN_Filter_IDS_BUS2(uint32_t id) {
+
     switch (id) {
         case CAN_HV500_ERPM_DUTY_VOLTAGE_ID:
             myHV500.Actual_ERPM = MAP_DECODE_Actual_ERPM(rx[CAN_BUS2].message);
@@ -325,9 +257,10 @@ void CAN_Filter_IDS_BUS2(uint32_t id) {
         default:
             break;
     }
-}
+}*/
 
 // send
+/*
 
 void Send_CAN_HV500_SetAcCurrent(uint16_t ac_current) {
     MAP_ENCODE_CMD_AcCurrent(tx[CAN_BUS2].message, ac_current);
@@ -377,5 +310,5 @@ void Send_CAN_HV500_SetMaxDcCurrent(uint32_t max_dc_current) {
 void Send_CAN_HV500_SetDriveEnable(uint32_t drive_enable) {
     MAP_ENCODE_CMD_DriveEnable(tx[CAN_BUS2].message, drive_enable);
     Send_CAN_BUS_1(CAN_HV500_SetDriveEnable_ID, tx[CAN_BUS2].message, 8);
-}
+}*/
 // #####################################################################

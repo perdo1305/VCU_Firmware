@@ -249,9 +249,9 @@ void AUTO_CALIBRATION(uint16_t APPS1, uint16_t APPS2) {
     static uint16_t APPS2_MIN = 0;
     static uint16_t APPS2_MAX = 0;
     //tolerance 5%
-    static float TOLERANCE = 0.05;
-    static uint16_t APPS1_TOLERANCE;
-    static uint16_t APPS2_TOLERANCE;
+   // static float TOLERANCE = 0.05;
+    //static uint16_t APPS1_TOLERANCE;
+    //static uint16_t APPS2_TOLERANCE;
 
     if (APPS1 < APPS1_MIN) {
         APPS1_MIN = APPS1;
@@ -269,9 +269,9 @@ void AUTO_CALIBRATION(uint16_t APPS1, uint16_t APPS2) {
     printf("APPS1_MIN %d ", APPS1_MIN);
     printf("APPS1_MAX %d ", APPS1_MAX);
     printf("APPS2_MIN %d ", APPS2_MIN);
-    printf("APPS2_MAX %d ", APPS2_MAX);
+    printf("APPS2_MAX %d ", APPS2_MAX); 
 
-    APPS1_TOLERANCE = (APPS1_MAX - APPS1_MIN) * TOLERANCE;
-    APPS2_TOLERANCE = (APPS2_MAX - APPS2_MIN) * TOLERANCE;
+    //return values
+
+
 }
-

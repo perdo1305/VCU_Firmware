@@ -129,16 +129,7 @@ void CANSART_SETUP(void);
 
 void TMR1_5ms(uint32_t status, uintptr_t context) {                                // 200Hz
     CAN_Send_VCU_Datadb_1(Current_Power, Target_Power, Brake_Pressure, Throttle);  // ID 0x20 to DATA_BUS
-    CAN_Send_VCU_Datadb_4(RPM, Inverter_Voltage);                                  // ID 0x23 to DATA_BUS
-    static uint8_t data[64];
-
-    Send_CAN_BUS_2(0x20, data, 64);
-    Send_CAN_BUS_2(0x21, data, 64);
-    Send_CAN_BUS_2(0x22, data, 64);
-    Send_CAN_BUS_2(0x23, data, 64);
-
-    Send_CAN_BUS_3(0x20, data, 8);
-    Send_CAN_BUS_3(0x21, data, 8);
+    CAN_Send_VCU_Datadb_4(RPM, Inverter_Voltage);  
 }
 
 void TMR2_100ms(uint32_t status, uintptr_t context) {                                // 10Hz
@@ -317,9 +308,11 @@ int main(void) {
 #if CANSART
         CANSART_TASKS();
 #endif
-        Read_CAN_BUS_1();  // Read DataBus
-        Read_CAN_BUS_2();  // Read PowerTrainBus
-        Read_CAN_BUS_3();  // Read ACU BUS
+        
+        can_bus_read(CAN_BUS1);
+
+        can_bus_read(CAN_BUS2);
+        can_bus_read(CAN_BUS3);
 
 #if !CANSART
 
@@ -503,5 +496,23 @@ void MeasureBrakePressure(uint16_t channel) {
 void Is_Autonomous(void) {
     if (DRIVING_MODE == AUTONOMOUS_MODE) {
         // TODO read TCU msg to switch between manual and autonomous mode
+    }
+}
+
+// when received AT command to autocalibrate APPS
+void Autocalibrate(void) {
+    static bool autocalibrate = false;
+    if (UART1_ReceiverIsReady()) {
+        uint8_t byte;
+        byte = UART1_ReadByte();
+        UART1_WriteByte(byte);
+            if (byte == 'A') {
+                autocalibrate = true;
+            }else if (byte == 'B') {
+                autocalibrate = false;
+            }
+    }
+    if (autocalibrate) {
+        //APPS_Autocalibrate(ADC[0], ADC[3]);
     }
 }
