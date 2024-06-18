@@ -24,7 +24,7 @@
 
 typedef struct {
     uint32_t id;
-    uint8_t message[8];
+    uint8_t message[64];
     uint8_t length;
 } can_data_t;
 

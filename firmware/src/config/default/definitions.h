@@ -50,13 +50,13 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "peripheral/canfd/plib_canfd3.h"
-#include "peripheral/canfd/plib_canfd4.h"
 #include "peripheral/canfd/plib_canfd1.h"
 #include "peripheral/canfd/plib_canfd2.h"
 #include "peripheral/clk/plib_clk.h"
 #include "peripheral/gpio/plib_gpio.h"
 #include "peripheral/evic/plib_evic.h"
 #include "peripheral/wdt/plib_wdt.h"
+#include "peripheral/dmac/plib_dmac.h"
 #include "peripheral/uart/plib_uart3.h"
 #include "peripheral/coretimer/plib_coretimer.h"
 #include "peripheral/tmr/plib_tmr6.h"
@@ -64,11 +64,9 @@
 #include "peripheral/uart/plib_uart1.h"
 #include "peripheral/tmr/plib_tmr4.h"
 #include "peripheral/tmr/plib_tmr5.h"
-#include "peripheral/i2c/master/plib_i2c4_master.h"
 #include "peripheral/tmr/plib_tmr2.h"
 #include "peripheral/tmr/plib_tmr3.h"
 #include "peripheral/tmr1/plib_tmr1.h"
-#include "peripheral/mcpwm/plib_mcpwm.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

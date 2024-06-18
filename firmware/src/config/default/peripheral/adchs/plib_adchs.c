@@ -60,11 +60,9 @@ void ADCHS_Initialize(void)
 {
     ADCCON1bits.ON = 0;
     ADC0CFG = DEVADC0;
-    ADC0TIME = 0x3010001U;
+    ADC0TIME = 0x3810001U;
     ADC3CFG = DEVADC3;
     ADC3TIME = 0x3010001U;
-    ADC4CFG = DEVADC4;
-    ADC4TIME = 0x3010001U;
 
     ADC7CFG = DEVADC7;
 
@@ -72,12 +70,12 @@ void ADCHS_Initialize(void)
     ADCCON2 = 0x20001U;
     ADCCON3 = 0x1000000U;
 
-    ADCTRGMODE = 0x2000000U;
+    ADCTRGMODE = 0x0U;
 
     ADCTRG1 = 0x6000006U; 
     ADCTRG2 = 0x6U; 
     ADCTRG3 = 0x6U; 
-    ADCTRG4 = 0x6060000U; 
+    ADCTRG4 = 0x60000U; 
     ADCTRG5 = 0x0U; 
     
     ADCTRG7 = 0x0U; 
@@ -93,14 +91,14 @@ void ADCHS_Initialize(void)
     ADCCSS1 = 0x0U;
     ADCCSS2 = 0x0U; 
 
-
+ADCDSTAT = 0x80000000U;
 
 
 /* Result interrupt enable */
-ADCGIRQEN1 = 0xc119U;
+ADCGIRQEN1 = 0x4110U;
 ADCGIRQEN2 = 0x0U;
 /* Interrupt Enable */
-IEC3SET = 0x3046400U;
+IEC3SET = 0x1044000U;
 IEC4SET = 0x0U;
 
 
@@ -131,14 +129,6 @@ IEC4SET = 0x0U;
         /* Nothing to do */
     }
     ADCCON3bits.DIGEN3 = 1;      // Enable ADC
-
-    /* ADC 4 */
-    ADCANCONbits.ANEN4 = 1;      // Enable the clock to analog bias
-    while(ADCANCONbits.WKRDY4 == 0U) // Wait until ADC is ready
-    {
-        /* Nothing to do */
-    }
-    ADCCON3bits.DIGEN4 = 1;      // Enable ADC
 
     /* ADC 7 */
     ADCANCONbits.ANEN7 = 1;      // Enable the clock to analog bias
@@ -263,6 +253,22 @@ void ADCHS_CallbackRegister(ADCHS_CHANNEL_NUM channel, ADCHS_CALLBACK callback, 
     ADCHS_CallbackObj[channel].context = context;
 }
 
+void ADCHS_DMASampleCountBaseAddrSet(uint32_t baseAddr)
+{
+    ADCCNTB = baseAddr;
+}
+
+void ADCHS_DMAResultBaseAddrSet(uint32_t baseAddr)
+{
+    ADCDMAB = baseAddr;
+}
+
+
+ADCHS_DMA_STATUS ADCHS_DMAStatusGet(void)
+{
+    return  ADCDSTAT & 0xBF003F;
+}
+
 
 
 
@@ -271,28 +277,6 @@ bool ADCHS_EOSStatusGet(void)
     return (bool)(ADCCON2bits.EOSRDY);
 }
 
-void __attribute__((used)) ADC_DATA0_InterruptHandler(void)
-{
-    if (ADCHS_CallbackObj[0].callback_fn != NULL)
-    {
-        uintptr_t context = ADCHS_CallbackObj[0].context;
-        ADCHS_CallbackObj[0].callback_fn(ADCHS_CH0, context);
-    }
-
-
-    IFS3CLR = _IFS3_AD1D0IF_MASK;
-}
-void __attribute__((used)) ADC_DATA3_InterruptHandler(void)
-{
-    if (ADCHS_CallbackObj[3].callback_fn != NULL)
-    {
-        uintptr_t context = ADCHS_CallbackObj[3].context;
-        ADCHS_CallbackObj[3].callback_fn(ADCHS_CH3, context);
-    }
-
-
-    IFS3CLR = _IFS3_AD1D3IF_MASK;
-}
 void __attribute__((used)) ADC_DATA4_InterruptHandler(void)
 {
     if (ADCHS_CallbackObj[4].callback_fn != NULL)
@@ -325,16 +309,5 @@ void __attribute__((used)) ADC_DATA14_InterruptHandler(void)
 
 
     IFS3CLR = _IFS3_AD1D14IF_MASK;
-}
-void __attribute__((used)) ADC_DATA15_InterruptHandler(void)
-{
-    if (ADCHS_CallbackObj[15].callback_fn != NULL)
-    {
-        uintptr_t context = ADCHS_CallbackObj[15].context;
-        ADCHS_CallbackObj[15].callback_fn(ADCHS_CH15, context);
-    }
-
-
-    IFS3CLR = _IFS3_AD1D15IF_MASK;
 }
 

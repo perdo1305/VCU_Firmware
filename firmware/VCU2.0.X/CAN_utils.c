@@ -5,7 +5,7 @@
 
 CANFD_MSG_RX_ATTRIBUTE msgAttr = CANFD_MSG_RX_DATA_FRAME;  // RX message attribute
 
-uint32_t status[3] = {0, 0, 0};  // CAN error status
+uint32_t status[3] = {0, 0, 0};// CAN error status
 
 can_data_t can_bus_read(uint8_t bus) {
     static can_data_t data;
@@ -185,7 +185,6 @@ void CAN_Send_VCU_PWTDB_4(uint32_t max_ac_current, uint32_t max_ac_brake_current
 
     Send_CAN_BUS_2(CAN_HV500_SetMaxAcCurrent_ID, tx.message, 8);
 }
-
  */
 
 // TODO ACABAR ISTO

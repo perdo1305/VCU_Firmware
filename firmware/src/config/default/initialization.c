@@ -76,7 +76,7 @@
 #pragma config POSCMOD =    HS
 #pragma config OSCIOFNC =   OFF
 #pragma config FCKSM =      CSECME
-#pragma config WDTPS =      PS1024
+#pragma config WDTPS =      PS2048
 #pragma config WDTSPGM =    STOP
 #pragma config FWDTEN =     OFF
 #pragma config WINDIS =     NORMAL
@@ -213,11 +213,11 @@ void SYS_Initialize ( void* data )
 
     CAN3_Initialize();
 
-    CAN4_Initialize();
-
     CAN1_Initialize();
 
     CAN2_Initialize();
+
+    DMAC_Initialize();
 
 	UART3_Initialize();
 
@@ -232,15 +232,11 @@ void SYS_Initialize ( void* data )
 
     TMR5_Initialize();
 
-    I2C4_Initialize();
-
     TMR2_Initialize();
 
     TMR3_Initialize();
 
     TMR1_Initialize();
-
-    MCPWM_Initialize();
 
 
 

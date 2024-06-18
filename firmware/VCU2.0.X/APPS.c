@@ -272,6 +272,4 @@ void AUTO_CALIBRATION(uint16_t APPS1, uint16_t APPS2) {
     printf("APPS2_MAX %d ", APPS2_MAX); 
 
     //return values
-
-
 }

@@ -58,8 +58,8 @@
 #endif
 
 // ############################################################
-float PDM_Current = 0;  // current supplied by the low voltage battery
-float PDM_Voltage = 0;  // voltage supplied by the low voltage battery
+float PDM_Current = 0.0;  // current supplied by the low voltage battery
+float PDM_Voltage = 0.0;  // voltage supplied by the low voltage battery
 
 HV500 myHV500;
 bool CANRX_ON[3] = {0, 0, 0};
@@ -75,15 +75,21 @@ struct frame121 frames121;
 #endif
 
 // ############# ADC ########################################
-
 uint8_t message_ADC[64];      // CAN message to send ADC data
 __COHERENT uint16_t ADC[64];  // ADC raw data
+bool adc_flag[64] = {0};      // ADC flag
 
+__COHERENT uint16_t adc[10][10];
+/*
+The DMABL field can also be thought of as a “Left Shift Amount +1” needed for the channel ID to create the
+DMA byte address offset to be added to the contents of ADDMAB in order to obtain the byte address of the
+beginning of the System RAM buffer area allocated for the given channel.
+*/
 // ############# MILIS #######################################
 unsigned int previousMillis[10] = {};
 unsigned int currentMillis[10] = {};
-// ############# MILIS #######################################
 
+// ############# MILIS #######################################
 unsigned int millis() {
     return (unsigned int)(CORETIMER_CounterGet() / (CORE_TIMER_FREQUENCY / 1000));
 }
@@ -105,9 +111,8 @@ uint8_t VcuState = 0;          // 0-255    |Byte 4
 /* ID 0x23 */
 uint16_t Inverter_Voltage = 0;  // 0-65535 |Byte 0-1
 uint16_t RPM = 0;               // 0-65535 |Byte 2-32
-// ############# FUNCTIONS ##################################
-// bool APPS_Function(uint16_t APPS1, uint16_t APPS2); // APPS function to calculate average and percentage
 
+// ############# FUNCTIONS ##################################
 void startupSequence(void);    // Startup sequence
 void PrintToConsole(uint8_t);  // Print data to console
 
@@ -126,16 +131,14 @@ void CANSART_SETUP(void);
 #endif
 
 // ############# TMR FUNCTIONS ###############################
-
 void TMR1_5ms(uint32_t status, uintptr_t context) {                                // 200Hz
     CAN_Send_VCU_Datadb_1(Current_Power, Target_Power, Brake_Pressure, Throttle);  // ID 0x20 to DATA_BUS
-    CAN_Send_VCU_Datadb_4(RPM, Inverter_Voltage);  
+    CAN_Send_VCU_Datadb_4(RPM, Inverter_Voltage);
 }
 
 void TMR2_100ms(uint32_t status, uintptr_t context) {                                // 10Hz
     CAN_Send_VCU_Datadb_2(myHV500.Actual_TempMotor, myHV500.Actual_TempController);  // ID 0x21 to DATA_BUS
     CAN_Send_VCU_Datadb_3(VcuState, LMT2, LMT1, Inverter_Faults);                    // ID 0x22 to DATA_BUS
-
 }
 
 void TMR4_500ms(uint32_t status, uintptr_t context) {  // 2Hz
@@ -155,80 +158,36 @@ void TMR6_5ms(uint32_t status, uintptr_t context) {
 }
 
 // ############# ADC CALLBACKS ###############################
-
+/*
 void ADCHS_CH0_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
-    static int samples[4] = {0};
-    static int i = 0;
-
-    samples[i] = ADCHS_ChannelResultGet(channel);
-    i = (i + 1) % 4;
-
-    int sum = 0;
-    for (int j = 0; j < 4; j++) {
-        sum += samples[j];
-    }
-    ADC[channel] = sum / 4;
+    ADC[channel] = ADCHS_ChannelResultGet(channel);
+    adc_flag[channel] = 1;
 }
-
+*/
+/*
 void ADCHS_CH3_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
-    static int samples[4] = {0};
-    static int i = 0;
-
-    samples[i] = ADCHS_ChannelResultGet(channel);
-    i = (i + 1) % 4;
-
-    int sum = 0;
-    for (int j = 0; j < 4; j++) {
-        sum += samples[j];
-    }
-    ADC[channel] = sum / 4;
+    ADC[channel] = ADCHS_ChannelResultGet(channel);
+    adc_flag[channel] = 1;
 }
+*/
 
 void ADCHS_CH8_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
-    static int samples[4] = {0};
-    static int i = 0;
-
-    samples[i] = ADCHS_ChannelResultGet(channel);
-    i = (i + 1) % 4;
-
-    int sum = 0;
-    for (int j = 0; j < 4; j++) {
-        sum += samples[j];
-    }
-    ADC[channel] = sum / 4;
+    ADC[channel] = ADCHS_ChannelResultGet(channel);
+    adc_flag[channel] = 1;
 }
 
 void ADCHS_CH9_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
-    static int samples[4] = {0};
-    static int i = 0;
-
-    samples[i] = ADCHS_ChannelResultGet(channel);
-    i = (i + 1) % 4;
-
-    int sum = 0;
-    for (int j = 0; j < 4; j++) {
-        sum += samples[j];
-    }
-    ADC[channel] = sum / 4;
+    ADC[channel] = ADCHS_ChannelResultGet(channel);
+    adc_flag[channel] = 1;
 }
 
 void ADCHS_CH14_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
-    static int samples[4] = {0};
-    static int i = 0;
-
-    samples[i] = ADCHS_ChannelResultGet(channel);
-    i = (i + 1) % 4;
-
-    int sum = 0;
-    for (int j = 0; j < 4; j++) {
-        sum += samples[j];
-    }
-    ADC[channel] = sum / 4;
+    ADC[channel] = ADCHS_ChannelResultGet(channel);
+    adc_flag[channel] = 1;
 }
 
 /*#############################################################################################################################*/
-/*######################################################### SETUP ########################################################*/
-
+/*######################################################### SETUP #############################################################*/
 /*#############################################################################################################################*/
 int main(void) {
     /* Initialize all modules */
@@ -238,22 +197,24 @@ int main(void) {
 
     ADCHS_ModulesEnable(ADCHS_MODULE0_MASK);  // AN0
     ADCHS_ModulesEnable(ADCHS_MODULE3_MASK);  // AN3
-    ADCHS_ModulesEnable(ADCHS_MODULE4_MASK);  // AN9
+    //ADCHS_ModulesEnable(ADCHS_MODULE4_MASK);  // AN9
     ADCHS_ModulesEnable(ADCHS_MODULE7_MASK);  // AN8, AN14, AN15
 
-    ADCHS_CallbackRegister(ADCHS_CH0, ADCHS_CH0_Callback, (uintptr_t)NULL);  // APPS1
-    ADCHS_CallbackRegister(ADCHS_CH3, ADCHS_CH3_Callback, (uintptr_t)NULL);  // APPS2
+    ADCHS_DMAResultBaseAddrSet((uint32_t) KVA_TO_PA(adc));
+    
+    //ADCHS_CallbackRegister(ADCHS_CH0, ADCHS_CH0_Callback, (uintptr_t)NULL);  // APPS1
+    //ADCHS_CallbackRegister(ADCHS_CH3, ADCHS_CH3_Callback, (uintptr_t)NULL);  // APPS2
 
     ADCHS_CallbackRegister(ADCHS_CH8, ADCHS_CH8_Callback, (uintptr_t)NULL);  // Voltage Measurement
-    ADCHS_CallbackRegister(ADCHS_CH9, ADCHS_CH9_Callback, (uintptr_t)NULL);  // Current Measurement
+    //ADCHS_CallbackRegister(ADCHS_CH9, ADCHS_CH9_Callback, (uintptr_t)NULL);  // Current Measurement
 
     ADCHS_CallbackRegister(ADCHS_CH14, ADCHS_CH14_Callback, (uintptr_t)NULL);  // Brake Pressure
     // ADCHS_CallbackRegister(ADCHS_CH15, ADCHS_CH15_Callback, (uintptr_t) NULL); //extra ADC channel
 
-    ADCHS_ChannelResultInterruptEnable(ADCHS_CH0);
-    ADCHS_ChannelResultInterruptEnable(ADCHS_CH3);
+    //ADCHS_ChannelResultInterruptEnable(ADCHS_CH0);
+    //ADCHS_ChannelResultInterruptEnable(ADCHS_CH3);
     ADCHS_ChannelResultInterruptEnable(ADCHS_CH8);
-    ADCHS_ChannelResultInterruptEnable(ADCHS_CH9);
+    //ADCHS_ChannelResultInterruptEnable(ADCHS_CH9);
 
     TMR1_CallbackRegister(TMR1_5ms, (uintptr_t)NULL);    // 200Hz
     TMR2_CallbackRegister(TMR2_100ms, (uintptr_t)NULL);  // 10Hz
@@ -308,14 +269,10 @@ int main(void) {
 #if CANSART
         CANSART_TASKS();
 #endif
-        
         can_bus_read(CAN_BUS1);
-
         can_bus_read(CAN_BUS2);
         can_bus_read(CAN_BUS3);
-
 #if !CANSART
-
         if (UART1_ReceiverIsReady()) {
             uint8_t data2[8];
             UART1_Read(data2, 8);
@@ -444,10 +401,11 @@ void MissionEmergencyStop(void) {
     vehicle.
     • duration between 8 s and 10 s after entering “AS Emergency”
      */
+
     if (AS_Emergency) {
         static bool buzzer_as_played = false;
         if (!buzzer_as_played) {
-            MCPWM_Start();
+            //MCPWM_Start();
             static unsigned int previousMillis = 0;
             unsigned int currentMillis = millis();
             if (currentMillis - previousMillis >= 8000) {
@@ -455,7 +413,7 @@ void MissionEmergencyStop(void) {
                 buzzer_as_played = true;
             }
         } else {
-            MCPWM_Stop();
+           // MCPWM_Stop();
         }
     }
 }
@@ -474,11 +432,11 @@ void SOUND_R2DS(void) {
 
         if (!R2DS_as_played) {
             currentMillis = millis();
-            MCPWM_Start();
+           // MCPWM_Start();
             if (currentMillis - previousMillis >= 3000) {
                 previousMillis = currentMillis;
                 R2DS_as_played = true;
-                MCPWM_Stop();
+                //MCPWM_Stop();
             }
         }
     }
@@ -500,19 +458,22 @@ void Is_Autonomous(void) {
 }
 
 // when received AT command to autocalibrate APPS
+/*
 void Autocalibrate(void) {
     static bool autocalibrate = false;
     if (UART1_ReceiverIsReady()) {
         uint8_t byte;
         byte = UART1_ReadByte();
         UART1_WriteByte(byte);
-            if (byte == 'A') {
-                autocalibrate = true;
-            }else if (byte == 'B') {
-                autocalibrate = false;
-            }
+        if (byte == 'A') {
+            autocalibrate = true;
+        } else if (byte == 'B') {
+            autocalibrate = false;
+        }
     }
     if (autocalibrate) {
-        //APPS_Autocalibrate(ADC[0], ADC[3]);
+        // APPS_Autocalibrate(ADC[0], ADC[3]);
     }
 }
+*/
+
