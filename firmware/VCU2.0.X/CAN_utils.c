@@ -16,9 +16,11 @@ can_data_t can_bus_read(uint8_t bus) {
                 memset(data.message, 0x00, sizeof(data.message));
                 if (CAN1_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
                     CANRX_ON[CAN_BUS1] = 1;
+                    //GPIO_RA10_LED_CAN1_Toggle();
                 }
             } else {
                 CANRX_ON[CAN_BUS1] = 0;
+                //GPIO_RA10_LED_CAN1_Clear();
             }
             return data;
         case CAN_BUS2:
@@ -27,9 +29,11 @@ can_data_t can_bus_read(uint8_t bus) {
                 memset(data.message, 0x00, sizeof(data.message));
                 if (CAN2_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
                     CANRX_ON[CAN_BUS2] = 1;
+                    //GPIO_RB13_LED_CAN2_Toggle();
                 }
             } else {
                 CANRX_ON[CAN_BUS2] = 0;
+                //GPIO_RB13_LED_CAN2_Clear();
             }
             return data;
         case CAN_BUS3:
@@ -38,9 +42,11 @@ can_data_t can_bus_read(uint8_t bus) {
                 memset(data.message, 0x00, sizeof(data.message));
                 if (CAN3_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
                     CANRX_ON[CAN_BUS3] = 1;
+                    //GPIO_RB12_LED_CAN3_Toggle();
                 }
             } else {
                 CANRX_ON[CAN_BUS3] = 0;
+                //GPIO_RB12_LED_CAN3_Clear();
             }
             return data;
         default:
@@ -57,8 +63,11 @@ void can_bus_send(uint8_t bus, can_data_t* data) {
             } else {
                 if (CAN1_MessageTransmit(data->id, data->length, data->message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
                     CANTX_ON[CAN_BUS1] = 1;
+                    //GPIO_RA10_LED_CAN1_Toggle();
+
                 } else {
                     CANTX_ON[CAN_BUS1] = 0;
+                    //GPIO_RA10_LED_CAN1_Clear();
                 }
             }
             break;
@@ -68,8 +77,10 @@ void can_bus_send(uint8_t bus, can_data_t* data) {
             } else {
                 if (CAN2_MessageTransmit(data->id, data->length, data->message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
                     CANTX_ON[CAN_BUS2] = 1;
+                    //GPIO_RB13_LED_CAN2_Toggle();
                 } else {
                     CANTX_ON[CAN_BUS2] = 0;
+                    //GPIO_RB13_LED_CAN2_Clear();
                 }
             }
             break;
@@ -79,8 +90,10 @@ void can_bus_send(uint8_t bus, can_data_t* data) {
             } else {
                 if (CAN3_MessageTransmit(data->id, data->length, data->message, 0, CANFD_MODE_NORMAL, CANFD_MSG_TX_DATA_FRAME)) {
                     CANTX_ON[CAN_BUS3] = 1;
+                    //GPIO_RB12_LED_CAN3_Toggle();
                 } else {
                     CANTX_ON[CAN_BUS3] = 0;
+                    //GPIO_RB12_LED_CAN3_Clear();
                 }
             }
             break;

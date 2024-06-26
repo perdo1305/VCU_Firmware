@@ -141,6 +141,15 @@
 #define GPIO_RB8_DIP1_Get()               ((PORTB >> 8) & 0x1U)
 #define GPIO_RB8_DIP1_PIN                  GPIO_PIN_RB8
 
+/*** Macros for GPIO_RF0_pin pin ***/
+#define GPIO_RF0_pin_Set()               (LATFSET = (1U<<0))
+#define GPIO_RF0_pin_Clear()             (LATFCLR = (1U<<0))
+#define GPIO_RF0_pin_Toggle()            (LATFINV= (1U<<0))
+#define GPIO_RF0_pin_OutputEnable()      (TRISFCLR = (1U<<0))
+#define GPIO_RF0_pin_InputEnable()       (TRISFSET = (1U<<0))
+#define GPIO_RF0_pin_Get()               ((PORTF >> 0) & 0x1U)
+#define GPIO_RF0_pin_PIN                  GPIO_PIN_RF0
+
 /*** Macros for GPIO_RF1_LED pin ***/
 #define GPIO_RF1_LED_Set()               (LATFSET = (1U<<1))
 #define GPIO_RF1_LED_Clear()             (LATFCLR = (1U<<1))

@@ -65,17 +65,17 @@ void TMR5_Initialize(void)
     SIDL = 0
     SYNC = 0
     TGATE = 0
-    TCKPS =0
-    T32   = 0
+    TCKPS =7
+    T32   = 1
     TCS = 0
     */
-    T5CONSET = 0x0;
+    T5CONSET = 0x78;
 
     /* Clear counter */
     TMR5 = 0x0;
 
     /*Set period */
-    PR5 = 17999U;
+    PR5 = 703124U;
 
     IEC0SET = _IEC0_T5IE_MASK;
 
@@ -93,25 +93,25 @@ void TMR5_Stop (void)
     T5CONCLR = _T5CON_ON_MASK;
 }
 
-void TMR5_PeriodSet(uint16_t period)
+void TMR5_PeriodSet(uint32_t period)
 {
     PR5  = period;
 }
 
-uint16_t TMR5_PeriodGet(void)
+uint32_t TMR5_PeriodGet(void)
 {
-    return (uint16_t)PR5;
+    return PR5;
 }
 
-uint16_t TMR5_CounterGet(void)
+uint32_t TMR5_CounterGet(void)
 {
-    return (uint16_t)(TMR5);
+    return (TMR5);
 }
 
 
 uint32_t TMR5_FrequencyGet(void)
 {
-    return (60000000);
+    return (234375);
 }
 
 void __attribute__((used)) TIMER_5_InterruptHandler (void)

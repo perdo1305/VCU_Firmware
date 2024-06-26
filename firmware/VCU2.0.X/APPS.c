@@ -65,7 +65,8 @@ static void APPS_CalculateFunctionalRegion(void) {
 /// @return the inverted value of the APPS2
 
 static uint16_t APPS_InvertValue(uint16_t apps2) {
-    return APPS_Bit_Resolution - apps2;
+    uint16_t x = APPS_Bit_Resolution - apps2;
+    return x;
 }
 
 /// @brief convert the voltage to bits based on the resolution of the ADC and the power supply voltage
@@ -198,7 +199,7 @@ bool APPS_Function(uint16_t apps1, uint16_t apps2) {
     APPS_UpdateAPPS1(apps1);
     APPS_UpdateAPPS2(apps2);
 
-    if (APPS_TimedOut(apps1, apps2)) {
+    if (APPS_TimedOut(APPS1, APPS2)) {
         APPS_Percentage = 0;
         APPS_Percentage_1000 = 0;
         APPS_Mean = 0;
@@ -206,7 +207,7 @@ bool APPS_Function(uint16_t apps1, uint16_t apps2) {
         return 1;
     } else {
         // No Error
-        APPS_Mean = APPS_MeanValue(apps1, apps2);
+        APPS_Mean = APPS_MeanValue(APPS1, APPS2);
 
         if ((APPS_Mean >= APPS_MIN_bits) && (APPS_Mean <= (APPS_MIN_bits + APPS_Tolerance_bits))) {
             APPS_Percentage = 0;

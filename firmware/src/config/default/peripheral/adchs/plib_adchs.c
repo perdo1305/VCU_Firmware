@@ -60,7 +60,7 @@ void ADCHS_Initialize(void)
 {
     ADCCON1bits.ON = 0;
     ADC0CFG = DEVADC0;
-    ADC0TIME = 0x3810001U;
+    ADC0TIME = 0x3010001U;
     ADC3CFG = DEVADC3;
     ADC3TIME = 0x3010001U;
 
@@ -91,14 +91,14 @@ void ADCHS_Initialize(void)
     ADCCSS1 = 0x0U;
     ADCCSS2 = 0x0U; 
 
-ADCDSTAT = 0x80000000U;
+
 
 
 /* Result interrupt enable */
-ADCGIRQEN1 = 0x4110U;
+ADCGIRQEN1 = 0x4119U;
 ADCGIRQEN2 = 0x0U;
 /* Interrupt Enable */
-IEC3SET = 0x1044000U;
+IEC3SET = 0x1046400U;
 IEC4SET = 0x0U;
 
 
@@ -253,22 +253,6 @@ void ADCHS_CallbackRegister(ADCHS_CHANNEL_NUM channel, ADCHS_CALLBACK callback, 
     ADCHS_CallbackObj[channel].context = context;
 }
 
-void ADCHS_DMASampleCountBaseAddrSet(uint32_t baseAddr)
-{
-    ADCCNTB = baseAddr;
-}
-
-void ADCHS_DMAResultBaseAddrSet(uint32_t baseAddr)
-{
-    ADCDMAB = baseAddr;
-}
-
-
-ADCHS_DMA_STATUS ADCHS_DMAStatusGet(void)
-{
-    return  ADCDSTAT & 0xBF003F;
-}
-
 
 
 
@@ -277,6 +261,28 @@ bool ADCHS_EOSStatusGet(void)
     return (bool)(ADCCON2bits.EOSRDY);
 }
 
+void __attribute__((used)) ADC_DATA0_InterruptHandler(void)
+{
+    if (ADCHS_CallbackObj[0].callback_fn != NULL)
+    {
+        uintptr_t context = ADCHS_CallbackObj[0].context;
+        ADCHS_CallbackObj[0].callback_fn(ADCHS_CH0, context);
+    }
+
+
+    IFS3CLR = _IFS3_AD1D0IF_MASK;
+}
+void __attribute__((used)) ADC_DATA3_InterruptHandler(void)
+{
+    if (ADCHS_CallbackObj[3].callback_fn != NULL)
+    {
+        uintptr_t context = ADCHS_CallbackObj[3].context;
+        ADCHS_CallbackObj[3].callback_fn(ADCHS_CH3, context);
+    }
+
+
+    IFS3CLR = _IFS3_AD1D3IF_MASK;
+}
 void __attribute__((used)) ADC_DATA4_InterruptHandler(void)
 {
     if (ADCHS_CallbackObj[4].callback_fn != NULL)

@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/firmware/src/config/default/peripheral/uart/plib_uart3.c</file>
             <file>file:/C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/firmware/VCU2.0.X/CAN_utils.c</file>
+            <file>file:/C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/firmware/src/config/default/peripheral/gpio/plib_gpio.h</file>
             <file>file:/C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/firmware/src/config/default/interrupts.c</file>
             <file>file:/C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/firmware/src/main.c</file>
         </group>

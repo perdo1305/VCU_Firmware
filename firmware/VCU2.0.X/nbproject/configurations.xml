@@ -141,6 +141,7 @@
     </logicalFolder>
     <itemPath>../../../../Documents/git/CANSART/Controller Library/PIC32/Library/cansart.c</itemPath>
     <itemPath>../../../../Documents/git/CANSART/Controller Library/PIC32/Library/cansartP.c</itemPath>
+    <itemPath>VCU_config.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
