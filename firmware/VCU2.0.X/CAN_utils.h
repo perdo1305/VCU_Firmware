@@ -11,6 +11,7 @@
 #define CAN_BUS1 0U
 #define CAN_BUS2 1U
 #define CAN_BUS3 2U
+#define CAN_BUS4 3U
 
 #include <stdbool.h>  // Defines true
 #include <stddef.h>   // Defines NULL
@@ -31,14 +32,28 @@ typedef struct {
 can_data_t can_bus_read(uint8_t bus);
 void can_bus_send(uint8_t bus, can_data_t* data);
 
-void CAN_Send_VCU_Datadb_1(uint16_t consumed_power, uint16_t target_power, uint8_t brake_pressure, uint8_t throttle_position);
-void CAN_Send_VCU_Datadb_2(uint16_t motor_temperature, uint16_t inverter_temperature);
-void CAN_Send_VCU_Datadb_3(uint8_t vcu_state, uint8_t lmt2, uint8_t lmt1, uint16_t inverter_error);
-void CAN_Send_VCU_Datadb_4(uint16_t rpm, uint16_t inverter_voltage);
+/* Send to DataBus*/
+void can_bus_send_databus_1(uint16_t consumed_power, uint16_t target_power, uint8_t brake_pressure, uint8_t throttle_position);
+void can_bus_send_databus_2(uint16_t motor_temperature, uint16_t inverter_temperature);
+void can_bus_send_databus_3(uint8_t vcu_state, uint8_t lmt2, uint8_t lmt1, uint16_t inverter_error);
+void can_bus_send_databus_4(uint16_t rpm, uint16_t inverter_voltage);
+
+/* Send to PowerTrainBus*/
+void can_bus_send_pwtbus_1(uint16_t ac_current, uint16_t brake_current);
+void can_bus_send_pwtbus_2(uint32_t erpm, uint32_t position);
+void can_bus_send_pwtbus_3(uint32_t rel_current, uint32_t rel_brake_current);
+void can_bus_send_pwtbus_4(uint32_t max_ac_current, uint32_t max_ac_brake_current);
+
+/*Send Directly to AutonomousBus*/
+void CAN_Send_VCU_TOJAL(uint32_t rpm);
+void CAN_Send_VCU_TOJAL_POWERTRAIN(uint8_t* rpm);
+
 void CAN_Filter_IDS_BUS1(can_data_t* data);
 void CAN_Filter_IDS_BUS2(can_data_t* data);
 
+/*data stucture for interating with the HV500 inverter*/
 typedef struct {
+    // Received data
     uint32_t Actual_ERPM;
     uint32_t Actual_Duty;
     uint32_t Actual_InputVoltage;
@@ -73,18 +88,18 @@ typedef struct {
     uint32_t Power_limit;
     uint32_t CAN_map_version;
 
-    uint8_t SetCurrent[2];
-    uint8_t SetBrakeCurrent[2];
-    uint8_t SetERPM[4];
-    uint8_t SetPosition[2];
-    uint8_t SetRelativeCurrent[2];
-    uint8_t SetRelativeBrakeCurrent[2];
-    uint8_t SetDigitalOutput[4];
-    uint8_t SetMaxACCurrent[2];
-    uint8_t SetMaxACBrakeCurrent[2];
-    uint8_t SetMaxDCCurrent[2];
-    uint8_t SetMaxDCBrakeCurrent[2];
-    uint8_t DriveEnable[1];
+    uint16_t SetCurrent;
+    uint16_t SetBrakeCurrent;
+    uint32_t SetERPM;
+    uint16_t SetPosition;
+    uint16_t SetRelativeCurrent;
+    uint16_t SetRelativeBrakeCurrent;
+    uint32_t SetDigitalOutput;
+    uint16_t SetMaxACCurrent;
+    uint16_t SetMaxACBrakeCurrent;
+    uint16_t SetMaxDCCurrent;
+    uint16_t SetMaxDCBrakeCurrent;
+    uint8_t DriveEnable;
 } HV500;
 extern HV500 myHV500;
 
@@ -117,10 +132,13 @@ typedef struct {
 } BoardStatus;
 extern BoardStatus myboardStatus;
 
-extern bool CANRX_ON[3];  // flag to check if CAN is receiving
-extern bool CANTX_ON[3];  // flag to check if CAN is transmitting
+extern bool CANRX_ON[4];  // flag to check if CAN is receiving
+extern bool CANTX_ON[4];  // flag to check if CAN is transmitting
 
+extern uint16_t TOJAL_RX_RPM;
+extern uint16_t TOJAL_TX_RPM;
 
+extern bool AS_Emergency;
 
 #ifdef __cplusplus
 extern "C" {

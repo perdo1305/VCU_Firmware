@@ -1,5 +1,8 @@
 {
     "files.associations": {
         "can_asdb.h": "c"
-    }
+    },
+    "clangd.arguments": [
+        "--compile-commands-dir=c:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\_build_mplab\\VCU_firmware\\default\\image_default.elf"
+    ]
 }

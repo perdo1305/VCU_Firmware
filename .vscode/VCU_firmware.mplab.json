@@ -1,0 +1,686 @@
+{
+    "importedFrom": "file:///c:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/firmware/VCU2.0.X",
+    "version": "1.1",
+    "configurations": [
+        {
+            "name": "default",
+            "id": "conf1",
+            "targetDevice": "PIC32MK1024MCM064",
+            "imageType": "application",
+            "platformTool": "default-pickit3",
+            "packs": [
+                {
+                    "name": "PIC32MK-MC_DFP",
+                    "vendor": "Microchip",
+                    "version": "1.11.151"
+                }
+            ],
+            "fileSet": "MPLAB X Virtual Filesystem",
+            "outputFiles": [
+                {
+                    "name": "build",
+                    "toolchain": "default-XC32",
+                    "imagePath": "./out/VCU_firmware/default.elf"
+                }
+            ]
+        }
+    ],
+    "propertyGroups": [
+        {
+            "name": "default-XC32",
+            "type": "toolchain",
+            "provider": "microchip.toolchains:xc32-toolchain@4.35",
+            "properties": {
+                "compiler": "default-C32",
+                "compiler++": "default-C32CPP",
+                "assembler": "default-C32-AS",
+                "archiver": "default-C32-AR",
+                "linker": "default-C32-LD",
+                "coverage": "default-C32-CO",
+                "global": "default-C32Global"
+            }
+        },
+        {
+            "name": "default-C32",
+            "type": "translator",
+            "provider": "microchip.toolchains:xc32-compiler@4.35",
+            "properties": {
+                "additional-warnings": true,
+                "addresss-attribute-use": false,
+                "appendMe": "",
+                "enable-app-io": false,
+                "enable-omit-frame-pointer": false,
+                "enable-symbols": true,
+                "enable-unroll-loops": false,
+                "exclude-floating-point": false,
+                "extra-include-directories": "firmware/src;firmware/src/config/default",
+                "generate-16-bit-code": false,
+                "generate-micro-compressed-code": false,
+                "isolate-each-function": true,
+                "make-warnings-into-errors": true,
+                "optimization-level": "-O1",
+                "place-data-into-section": true,
+                "post-instruction-scheduling": "default",
+                "pre-instruction-scheduling": "default",
+                "preprocessor-macros": "",
+                "strict-ansi": false,
+                "support-ansi": false,
+                "tentative-definitions": "-fno-common",
+                "toplevel-reordering": "",
+                "unaligned-access": "",
+                "use-cci": false,
+                "use-iar": false,
+                "use-indirect-calls": false
+            }
+        },
+        {
+            "name": "default-C32CPP",
+            "type": "translator",
+            "provider": "microchip.toolchains:xc32-compiler++@4.35",
+            "properties": {
+                "additional-warnings": false,
+                "addresss-attribute-use": false,
+                "appendMe": "",
+                "check-new": false,
+                "eh-specs": true,
+                "enable-app-io": false,
+                "enable-omit-frame-pointer": false,
+                "enable-symbols": true,
+                "enable-unroll-loops": false,
+                "exceptions": true,
+                "exclude-floating-point": false,
+                "extra-include-directories": "firmware/src;firmware/src/config/default",
+                "generate-16-bit-code": false,
+                "generate-micro-compressed-code": false,
+                "isolate-each-function": true,
+                "make-warnings-into-errors": false,
+                "optimization-level": "-O1",
+                "place-data-into-section": false,
+                "post-instruction-scheduling": "default",
+                "pre-instruction-scheduling": "default",
+                "preprocessor-macros": "",
+                "rtti": true,
+                "strict-ansi": false,
+                "toplevel-reordering": "",
+                "unaligned-access": "",
+                "use-cci": false,
+                "use-iar": false,
+                "use-indirect-calls": false
+            }
+        },
+        {
+            "name": "default-C32-AS",
+            "type": "translator",
+            "provider": "microchip.toolchains:xc32-assembler@4.35",
+            "properties": {
+                "assembler-symbols": "",
+                "enable-symbols": true,
+                "exclude-floating-point-library": false,
+                "expand-macros": false,
+                "extra-include-directories-for-assembler": "",
+                "extra-include-directories-for-preprocessor": "",
+                "false-conditionals": false,
+                "generate-16-bit-code": false,
+                "generate-micro-compressed-code": false,
+                "keep-locals": false,
+                "list-assembly": false,
+                "list-source": false,
+                "list-symbols": false,
+                "oXC32asm-list-to-file": false,
+                "omit-debug-dirs": false,
+                "omit-forms": false,
+                "preprocessor-macros": "",
+                "warning-level": ""
+            }
+        },
+        {
+            "name": "default-C32-AR",
+            "type": "translator",
+            "provider": "microchip.toolchains:xc32-archiver@4.35",
+            "properties": {
+                "additional-options-chop-files": false
+            }
+        },
+        {
+            "name": "default-C32-LD",
+            "type": "translator",
+            "provider": "microchip.toolchains:xc32-linker@4.35",
+            "properties": {
+                "additional-options-use-response-files": false,
+                "additional-options-write-sla": false,
+                "allocate-dinit": false,
+                "appendMe": "",
+                "code-dinit": false,
+                "ebase-addr": "",
+                "enable-check-sections": false,
+                "exclude-floating-point-library": false,
+                "exclude-standard-libraries": false,
+                "extra-lib-directories": "",
+                "fill-flash-options-addr": "",
+                "fill-flash-options-const": "",
+                "fill-flash-options-how": "0",
+                "fill-flash-options-inc-const": "1",
+                "fill-flash-options-increment": "",
+                "fill-flash-options-seq": "",
+                "fill-flash-options-what": "0",
+                "generate-16-bit-code": false,
+                "generate-cross-reference-file": false,
+                "generate-micro-compressed-code": false,
+                "heap-size": "512",
+                "input-libraries": "",
+                "kseg-length": "",
+                "kseg-origin": "",
+                "linker-symbols": "",
+                "map-file": "",
+                "no-device-startup-code": true,
+                "no-startup-files": false,
+                "oXC32ld-extra-opts": "",
+                "optimization-level": "",
+                "preprocessor-macros": "",
+                "remove-unused-sections": true,
+                "report-memory-usage": false,
+                "serial-length": "",
+                "serial-origin": "",
+                "stack-size": "",
+                "symbol-stripping": "",
+                "trace-symbols": "",
+                "warn-section-align": false
+            }
+        },
+        {
+            "name": "default-C32-CO",
+            "type": "translator",
+            "provider": "microchip.toolchains:xc32-coverage@4.35",
+            "properties": {
+                "coverage-enable": "",
+                "stack-guidance": false
+            }
+        },
+        {
+            "name": "default-C32Global",
+            "type": "translator",
+            "provider": "microchip.toolchains:xc32-global@4.35",
+            "properties": {
+                "common-include-directories": "",
+                "gp-relative-option": "",
+                "legacy-libc": true,
+                "mdtcm": "",
+                "mitcm": "",
+                "mstacktcm": false,
+                "omit-pack-options": "1",
+                "relaxed-math": false,
+                "save-temps": false,
+                "stack-smashing": "",
+                "wpo-lto": false
+            }
+        },
+        {
+            "name": "tool-base",
+            "type": "tool",
+            "provider": "microchip.tool-*:generic",
+            "properties": {
+                "ADC": true,
+                "AutoSelectMemRanges": "auto",
+                "CAN1": true,
+                "CAN2": true,
+                "CAN3": true,
+                "CAN4": true,
+                "CHANGE NOTICE A": true,
+                "CHANGE NOTICE B": true,
+                "CHANGE NOTICE C": true,
+                "CHANGE NOTICE D": true,
+                "CHANGE NOTICE E": true,
+                "CHANGE NOTICE F": true,
+                "CHANGE NOTICE G": true,
+                "CMP": true,
+                "CTMU": true,
+                "DMA": true,
+                "Freeze All Other Peripherals": true,
+                "HLVD": true,
+                "I2C 1": true,
+                "I2C 2": true,
+                "I2C 3": true,
+                "I2C 4": true,
+                "INPUT CAPTURE 1": true,
+                "INPUT CAPTURE 10": true,
+                "INPUT CAPTURE 11": true,
+                "INPUT CAPTURE 12": true,
+                "INPUT CAPTURE 13": true,
+                "INPUT CAPTURE 14": true,
+                "INPUT CAPTURE 15": true,
+                "INPUT CAPTURE 16": true,
+                "INPUT CAPTURE 2": true,
+                "INPUT CAPTURE 3": true,
+                "INPUT CAPTURE 4": true,
+                "INPUT CAPTURE 5": true,
+                "INPUT CAPTURE 6": true,
+                "INPUT CAPTURE 7": true,
+                "INPUT CAPTURE 8": true,
+                "INPUT CAPTURE 9": true,
+                "INTERRUPT CONTROL": true,
+                "OUTPUT COMPARE 1": true,
+                "OUTPUT COMPARE 10": true,
+                "OUTPUT COMPARE 11": true,
+                "OUTPUT COMPARE 12": true,
+                "OUTPUT COMPARE 13": true,
+                "OUTPUT COMPARE 14": true,
+                "OUTPUT COMPARE 15": true,
+                "OUTPUT COMPARE 16": true,
+                "OUTPUT COMPARE 2": true,
+                "OUTPUT COMPARE 3": true,
+                "OUTPUT COMPARE 4": true,
+                "OUTPUT COMPARE 5": true,
+                "OUTPUT COMPARE 6": true,
+                "OUTPUT COMPARE 7": true,
+                "OUTPUT COMPARE 8": true,
+                "OUTPUT COMPARE 9": true,
+                "PARALLEL MASTER/SLAVE PORT": true,
+                "REAL TIME CLOCK": true,
+                "REFERENCE CLOCK1": true,
+                "REFERENCE CLOCK2": true,
+                "REFERENCE CLOCK3": true,
+                "REFERENCE CLOCK4": true,
+                "SPI/I2S 1": true,
+                "SPI/I2S 2": true,
+                "SPI/I2S 3": true,
+                "SPI/I2S 4": true,
+                "SPI/I2S 5": true,
+                "SPI/I2S 6": true,
+                "SecureSegment.SegmentProgramming": "FullChipProgramming",
+                "TIMER1": true,
+                "TIMER2": true,
+                "TIMER3": true,
+                "TIMER4": true,
+                "TIMER5": true,
+                "TIMER6": true,
+                "TIMER7": true,
+                "TIMER8": true,
+                "TIMER9": true,
+                "ToolFirmwareFilePath": "Press to browse for a specific firmware version",
+                "ToolFirmwareOption.UseLatestFirmware": true,
+                "UART1": true,
+                "UART2": true,
+                "UART3": true,
+                "UART4": true,
+                "UART5": true,
+                "UART6": true,
+                "debugoptions.debug-startup": "Use system settings",
+                "debugoptions.reset-behaviour": "Use system settings",
+                "debugoptions.useswbreakpoints": false,
+                "event.recorder.enabled": false,
+                "event.recorder.scvd.files": "",
+                "firmware.download.all": false,
+                "hwtoolclock.frcindebug": false,
+                "lastid": "",
+                "memories.aux": false,
+                "memories.bootflash": true,
+                "memories.configurationmemory": true,
+                "memories.configurationmemory2": true,
+                "memories.dataflash": true,
+                "memories.eeprom": true,
+                "memories.flashdata": true,
+                "memories.id": true,
+                "memories.instruction.ram": true,
+                "memories.instruction.ram.ranges": "${memories.instruction.ram.ranges}",
+                "memories.programmemory": true,
+                "memories.programmemory.ranges": "1d000000-1d0fffff",
+                "poweroptions.powerenable": false,
+                "programmertogo.imagename": "",
+                "programoptions.donoteraseauxmem": false,
+                "programoptions.eraseb4program": true,
+                "programoptions.pgmspeed": "2",
+                "programoptions.preservedataflash": false,
+                "programoptions.preservedataflash.ranges": "${programoptions.preservedataflash.ranges}",
+                "programoptions.preserveeeprom": false,
+                "programoptions.preserveeeprom.ranges": "",
+                "programoptions.preserveprogram.ranges": "",
+                "programoptions.preserveprogramrange": false,
+                "programoptions.preserveuserid": false,
+                "programoptions.programcalmem": false,
+                "programoptions.programuserotp": false,
+                "programoptions.testmodeentrymethod": "VDDFirst",
+                "programoptions.usehighvoltageonmclr": false,
+                "programoptions.uselvpprogramming": false,
+                "voltagevalue": "3.25"
+            }
+        },
+        {
+            "name": "default-tool-base",
+            "extend": "tool-base",
+            "type": "tool",
+            "provider": "microchip.tool-*:generic",
+            "properties": {}
+        },
+        {
+            "name": "default-pickit3",
+            "extend": "default-tool-base",
+            "type": "tool",
+            "provider": "microchip.tool-*:pickit3",
+            "properties": {}
+        }
+    ],
+    "fileSets": [
+        {
+            "name": "MPLAB X Virtual Filesystem",
+            "contains": [
+                "Header Files",
+                "Linker Files",
+                "Source Files",
+                "Important Files"
+            ],
+            "files": [
+                "../../Documents/git/CANSART/Controller Library/PIC32/Library/cansart.c",
+                "../../Documents/git/CANSART/Controller Library/PIC32/Library/cansartP.c",
+                "firmware/VCU2.0.X/VCU_config.h"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "Header Files",
+            "contains": [
+                "config"
+            ],
+            "files": [
+                "firmware/VCU2.0.X/APPS.h",
+                "firmware/VCU2.0.X/CAN_utils.h",
+                "firmware/VCU2.0.X/main.h",
+                "firmware/VCU2.0.X/utils.h",
+                "firmware/VCU2.0.X/cansart_db_lc.h"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "config",
+            "contains": [
+                "default"
+            ]
+        },
+        {
+            "name": "default",
+            "contains": [
+                "peripheral"
+            ],
+            "files": [
+                "firmware/src/config/default/device.h",
+                "firmware/src/config/default/definitions.h",
+                "firmware/src/config/default/toolchain_specifics.h",
+                "firmware/src/config/default/interrupts.h"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "peripheral",
+            "contains": [
+                "adchs",
+                "canfd",
+                "clk",
+                "coretimer",
+                "dmac",
+                "evic",
+                "gpio",
+                "tmr",
+                "tmr1",
+                "uart",
+                "wdt"
+            ]
+        },
+        {
+            "name": "adchs",
+            "files": [
+                "firmware/src/config/default/peripheral/adchs/plib_adchs_common.h",
+                "firmware/src/config/default/peripheral/adchs/plib_adchs.h"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "canfd",
+            "files": [
+                "firmware/src/config/default/peripheral/canfd/plib_canfd_common.h",
+                "firmware/src/config/default/peripheral/canfd/plib_canfd1.h",
+                "firmware/src/config/default/peripheral/canfd/plib_canfd2.h",
+                "firmware/src/config/default/peripheral/canfd/plib_canfd3.h",
+                "firmware/src/config/default/peripheral/canfd/plib_canfd4.h"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "clk",
+            "files": [
+                "firmware/src/config/default/peripheral/clk/plib_clk.h"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "coretimer",
+            "files": [
+                "firmware/src/config/default/peripheral/coretimer/plib_coretimer.h"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "dmac",
+            "files": [
+                "firmware/src/config/default/peripheral/dmac/plib_dmac.h"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "evic",
+            "files": [
+                "firmware/src/config/default/peripheral/evic/plib_evic.h"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "gpio",
+            "files": [
+                "firmware/src/config/default/peripheral/gpio/plib_gpio.h"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "tmr",
+            "files": [
+                "firmware/src/config/default/peripheral/tmr/plib_tmr6.h",
+                "firmware/src/config/default/peripheral/tmr/plib_tmr_common.h",
+                "firmware/src/config/default/peripheral/tmr/plib_tmr3.h",
+                "firmware/src/config/default/peripheral/tmr/plib_tmr2.h",
+                "firmware/src/config/default/peripheral/tmr/plib_tmr5.h",
+                "firmware/src/config/default/peripheral/tmr/plib_tmr4.h"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "tmr1",
+            "files": [
+                "firmware/src/config/default/peripheral/tmr1/plib_tmr1_common.h",
+                "firmware/src/config/default/peripheral/tmr1/plib_tmr1.h"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "uart",
+            "files": [
+                "firmware/src/config/default/peripheral/uart/plib_uart_common.h",
+                "firmware/src/config/default/peripheral/uart/plib_uart1.h",
+                "firmware/src/config/default/peripheral/uart/plib_uart3.h"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "wdt",
+            "files": [
+                "firmware/src/config/default/peripheral/wdt/plib_wdt.h"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "Linker Files",
+            "contains": [
+                "config_2"
+            ],
+            "translator": "toolchain:linker"
+        },
+        {
+            "name": "config_2",
+            "contains": [
+                "default_2"
+            ]
+        },
+        {
+            "name": "default_2",
+            "files": [
+                "firmware/src/config/default/p32MK1024MCM064.ld"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "Source Files",
+            "contains": [
+                "config_3"
+            ],
+            "files": [
+                "firmware/src/main.c",
+                "firmware/VCU2.0.X/APPS.c",
+                "firmware/VCU2.0.X/CAN_utils.c"
+            ],
+            "encoding": "ISO-8859-1",
+            "translator": "toolchain:compiler"
+        },
+        {
+            "name": "config_3",
+            "contains": [
+                "default_3"
+            ]
+        },
+        {
+            "name": "default_3",
+            "contains": [
+                "peripheral_2",
+                "stdio"
+            ],
+            "files": [
+                "firmware/src/config/default/initialization.c",
+                "firmware/src/config/default/interrupts.c",
+                "firmware/src/config/default/exceptions.c"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "peripheral_2",
+            "contains": [
+                "adchs_2",
+                "canfd_2",
+                "clk_2",
+                "coretimer_2",
+                "dmac_2",
+                "evic_2",
+                "gpio_2",
+                "tmr_2",
+                "tmr1_2",
+                "uart_2",
+                "wdt_2"
+            ]
+        },
+        {
+            "name": "adchs_2",
+            "files": [
+                "firmware/src/config/default/peripheral/adchs/plib_adchs.c"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "canfd_2",
+            "files": [
+                "firmware/src/config/default/peripheral/canfd/plib_canfd1.c",
+                "firmware/src/config/default/peripheral/canfd/plib_canfd3.c",
+                "firmware/src/config/default/peripheral/canfd/plib_canfd2.c",
+                "firmware/src/config/default/peripheral/canfd/plib_canfd4.c"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "clk_2",
+            "files": [
+                "firmware/src/config/default/peripheral/clk/plib_clk.c"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "coretimer_2",
+            "files": [
+                "firmware/src/config/default/peripheral/coretimer/plib_coretimer.c"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "dmac_2",
+            "files": [
+                "firmware/src/config/default/peripheral/dmac/plib_dmac.c"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "evic_2",
+            "files": [
+                "firmware/src/config/default/peripheral/evic/plib_evic.c"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "gpio_2",
+            "files": [
+                "firmware/src/config/default/peripheral/gpio/plib_gpio.c"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "tmr_2",
+            "files": [
+                "firmware/src/config/default/peripheral/tmr/plib_tmr2.c",
+                "firmware/src/config/default/peripheral/tmr/plib_tmr4.c",
+                "firmware/src/config/default/peripheral/tmr/plib_tmr3.c",
+                "firmware/src/config/default/peripheral/tmr/plib_tmr6.c",
+                "firmware/src/config/default/peripheral/tmr/plib_tmr5.c"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "tmr1_2",
+            "files": [
+                "firmware/src/config/default/peripheral/tmr1/plib_tmr1.c"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "uart_2",
+            "files": [
+                "firmware/src/config/default/peripheral/uart/plib_uart1.c",
+                "firmware/src/config/default/peripheral/uart/plib_uart3.c"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "wdt_2",
+            "files": [
+                "firmware/src/config/default/peripheral/wdt/plib_wdt.c"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "stdio",
+            "files": [
+                "firmware/src/config/default/stdio/xc32_monitor.c"
+            ],
+            "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "Important Files",
+            "files": [
+                "firmware/VCU2.0.X/Makefile",
+                "firmware/VCU2.0.X/VCU2.0.mc3"
+            ],
+            "encoding": "ISO-8859-1"
+        }
+    ]
+}

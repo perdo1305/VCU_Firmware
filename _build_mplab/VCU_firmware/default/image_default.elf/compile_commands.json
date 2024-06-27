@@ -1,0 +1,170 @@
+[
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller_Library\\PIC32\\Library\\cansart.c.obj -c \"C:\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller Library\\PIC32\\Library\\cansart.c\"",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller Library\\PIC32\\Library\\cansart.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller_Library\\PIC32\\Library\\cansart.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller_Library\\PIC32\\Library\\cansartP.c.obj -c \"C:\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller Library\\PIC32\\Library\\cansartP.c\"",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller Library\\PIC32\\Library\\cansartP.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller_Library\\PIC32\\Library\\cansartP.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\main.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\main.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\main.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\main.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\VCU2.0.X\\APPS.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\VCU2.0.X\\APPS.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\VCU2.0.X\\APPS.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\VCU2.0.X\\APPS.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\VCU2.0.X\\CAN_utils.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\VCU2.0.X\\CAN_utils.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\VCU2.0.X\\CAN_utils.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\VCU2.0.X\\CAN_utils.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\initialization.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\initialization.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\initialization.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\initialization.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\interrupts.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\interrupts.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\interrupts.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\interrupts.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\exceptions.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\exceptions.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\exceptions.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\exceptions.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\adchs\\plib_adchs.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\adchs\\plib_adchs.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\adchs\\plib_adchs.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\adchs\\plib_adchs.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd1.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd1.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd1.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd1.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd3.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd3.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd3.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd3.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd2.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd2.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd2.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd2.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd4.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd4.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd4.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\canfd\\plib_canfd4.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\clk\\plib_clk.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\clk\\plib_clk.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\clk\\plib_clk.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\clk\\plib_clk.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\285f9b7eacd0fc684d50d57a7aaf22a8\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\coretimer\\plib_coretimer.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\coretimer\\plib_coretimer.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\coretimer\\plib_coretimer.c",
+  "output": "CMakeFiles\\compile.dir\\285f9b7eacd0fc684d50d57a7aaf22a8\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\coretimer\\plib_coretimer.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\dmac\\plib_dmac.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\dmac\\plib_dmac.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\dmac\\plib_dmac.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\dmac\\plib_dmac.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\evic\\plib_evic.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\evic\\plib_evic.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\evic\\plib_evic.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\evic\\plib_evic.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\gpio\\plib_gpio.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\gpio\\plib_gpio.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\gpio\\plib_gpio.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\gpio\\plib_gpio.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr2.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr2.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr2.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr2.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr4.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr4.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr4.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr4.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr3.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr3.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr3.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr3.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr6.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr6.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr6.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr6.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr5.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr5.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr5.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr\\plib_tmr5.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr1\\plib_tmr1.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr1\\plib_tmr1.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr1\\plib_tmr1.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\tmr1\\plib_tmr1.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\uart\\plib_uart1.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\uart\\plib_uart1.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\uart\\plib_uart1.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\uart\\plib_uart1.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\uart\\plib_uart3.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\uart\\plib_uart3.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\uart\\plib_uart3.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\uart\\plib_uart3.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\wdt\\plib_wdt.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\wdt\\plib_wdt.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\wdt\\plib_wdt.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\wdt\\plib_wdt.c.obj"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build_mplab/VCU_firmware/default/image_default.elf",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.35\\bin\\xc32-gcc.exe -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -I../../../../firmware/src -I../../../../firmware/src/config/default -Werror -Wall -Ddefault=default -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\stdio\\xc32_monitor.c.obj -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\stdio\\xc32_monitor.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\stdio\\xc32_monitor.c",
+  "output": "CMakeFiles\\compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\stdio\\xc32_monitor.c.obj"
+}
+]
