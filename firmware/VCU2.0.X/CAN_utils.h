@@ -39,17 +39,20 @@ void can_bus_send_databus_3(uint8_t vcu_state, uint8_t lmt2, uint8_t lmt1, uint1
 void can_bus_send_databus_4(uint16_t rpm, uint16_t inverter_voltage);
 
 /* Send to PowerTrainBus*/
-void can_bus_send_pwtbus_1(uint16_t ac_current, uint16_t brake_current);
-void can_bus_send_pwtbus_2(uint32_t erpm, uint32_t position);
-void can_bus_send_pwtbus_3(uint32_t rel_current, uint32_t rel_brake_current);
-void can_bus_send_pwtbus_4(uint32_t max_ac_current, uint32_t max_ac_brake_current);
+void can_bus_send_HV500_SetAcCurrent(uint16_t ac_current);
+void can_bus_send_HV500_SetBrakeCurrent(uint16_t brake_current);
+void can_bus_send_HV500_SetERPM(uint32_t erpm);
+void can_bus_send_HV500_SetPosition(uint32_t position);
+void can_bus_send_HV500_SetRelCurrent(uint32_t rel_current);
+void can_bus_send_HV500_SetRelBrakeCurrent(uint32_t rel_brake_current);
+void can_bus_send_HV500_SetMaxAcCurrent(uint32_t max_ac_current);
+void can_bus_send_HV500_SetMaxAcBrakeCurrent(uint32_t max_ac_brake_current);
+void can_bus_send_HV500_SetMaxDcCurrent(uint32_t max_dc_current);
+void can_bus_send_HV500_SetMaxDcBrakeCurrent(uint32_t max_dc_brake_current);
+void can_bus_send_HV500_SetDriveEnable(uint32_t drive_enable);
 
 /*Send Directly to AutonomousBus*/
-void CAN_Send_VCU_TOJAL(uint32_t rpm);
-void CAN_Send_VCU_TOJAL_POWERTRAIN(uint8_t* rpm);
-
-void CAN_Filter_IDS_BUS1(can_data_t* data);
-void CAN_Filter_IDS_BUS2(can_data_t* data);
+void can_bus_send_AdBus_RPM(uint32_t rpm);
 
 /*data stucture for interating with the HV500 inverter*/
 typedef struct {
@@ -135,10 +138,9 @@ extern BoardStatus myboardStatus;
 extern bool CANRX_ON[4];  // flag to check if CAN is receiving
 extern bool CANTX_ON[4];  // flag to check if CAN is transmitting
 
-extern uint16_t TOJAL_RX_RPM;
-extern uint16_t TOJAL_TX_RPM;
-
 extern bool AS_Emergency;
+extern uint16_t TOJAL_RX_RPM;
+extern uint32_t RPM_TOJAL;
 
 #ifdef __cplusplus
 extern "C" {

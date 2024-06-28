@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <project>                                  
-  <executable name="dist/default/debug/VCU2.0.X.debug.elf">                 
+  <executable name="dist/default/production/VCU2.0.X.production.elf">                 
     <memory name="program">                 
       <units>bytes</units>                 
       <length>1049728</length>                 
-      <used>33820</used>                     
-      <free>1015908</free>                     
+      <used>35060</used>                     
+      <free>1014668</free>                     
     </memory>                              
     <memory name="data">              
       <units>bytes</units>                 
-      <length>263024</length>                 
-      <used>34632</used>                     
-      <free>228392</free>                     
+      <length>262144</length>                 
+      <used>31124</used>                     
+      <free>231020</free>                     
     </memory>                              
   </executable>                            
 </project>                                 

@@ -1,6 +1,14 @@
 
 #include "CAN_utils.h"
 
+void can_filter_id_bus1(can_data_t* data);
+void can_filter_id_bus2(can_data_t* data);
+void can_filter_id_bus3(can_data_t* data);
+void can_filter_id_bus4(can_data_t* data);
+
+uint16_t TOJAL_RX_RPM = 0;
+uint32_t RPM_TOJAL = 0;
+
 // ############# RX CAN FRAME ###############################
 
 CANFD_MSG_RX_ATTRIBUTE msgAttr = CANFD_MSG_RX_DATA_FRAME;  // RX message attribute
@@ -16,6 +24,8 @@ can_data_t can_bus_read(uint8_t bus) {
                 memset(data.message, 0x00, sizeof(data.message));
                 if (CAN1_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
                     CANRX_ON[CAN_BUS1] = 1;
+
+                    can_filter_id_bus1(&data);
                 }
             } else {
                 CANRX_ON[CAN_BUS1] = 0;
@@ -28,7 +38,7 @@ can_data_t can_bus_read(uint8_t bus) {
                 if (CAN2_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
                     CANRX_ON[CAN_BUS2] = 1;
 
-                    CAN_Filter_IDS_BUS2(&data);
+                    can_filter_id_bus2(&data);
                 }
             } else {
                 CANRX_ON[CAN_BUS2] = 0;
@@ -40,7 +50,7 @@ can_data_t can_bus_read(uint8_t bus) {
                 memset(data.message, 0x00, sizeof(data.message));
                 if (CAN3_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
                     CANRX_ON[CAN_BUS3] = 1;
-                    
+                    // can_filter_id_bus3(&data);
                 }
             } else {
                 CANRX_ON[CAN_BUS3] = 0;
@@ -53,11 +63,8 @@ can_data_t can_bus_read(uint8_t bus) {
                 memset(data.message, 0x00, sizeof(data.message));
                 if (CAN4_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
                     CANRX_ON[CAN_BUS4] = 1;
-                    
-                    /*AS Emergency*/
-                    if(data.id == 0x50){
-                        AS_Emergency = data.message[0];
-                    }
+
+                    can_filter_id_bus4(&data);
                 }
             } else {
                 CANRX_ON[CAN_BUS4] = 0;
@@ -133,6 +140,7 @@ void can_bus_send(uint8_t bus, can_data_t* data) {
 ╚█████╔╝██║░░██║██║░╚███║  ███████╗  ░░░░░░  ██████╔╝██║░░██║░░░██║░░░██║░░██║██████╦╝╚██████╔╝██████╔╝
 ░╚════╝░╚═╝░░╚═╝╚═╝░░╚══╝  ╚══════╝  ░░░░░░  ╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═════╝░░╚═════╝░╚═════╝░
  */
+
 void can_bus_send_databus_1(uint16_t consumed_power, uint16_t target_power, uint8_t brake_pressure, uint8_t throttle_position) {
     can_data_t data;
     data.id = CAN_VCU_ID_1;
@@ -182,74 +190,154 @@ void can_bus_send_databus_4(uint16_t rpm, uint16_t inverter_voltage) {
     can_bus_send(CAN_BUS1, &data);
 }
 
+void can_filter_id_bus1(can_data_t* data) {
+    switch (data->id) {
+        case CAN_VCU_ID_1:
+            TOJAL_RX_RPM = MAP_DECODE_TOJAL_RPM(data->message);
+            break;
+        default:
+            break;
+    }
+}
+
 /*
 ░█████╗░░█████╗░███╗░░██╗  ██████╗░  ░░░░░░██████╗░░█████╗░░██╗░░░░░░░██╗███████╗██████╗░████████╗██████╗░░█████╗░██╗███╗░░██╗
 ██╔══██╗██╔══██╗████╗░██║  ╚════██╗  ░░░░░░██╔══██╗██╔══██╗░██║░░██╗░░██║██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██║████╗░██║
 ██║░░╚═╝███████║██╔██╗██║  ░░███╔═╝  █████╗██████╔╝██║░░██║░╚██╗████╗██╔╝█████╗░░██████╔╝░░░██║░░░██████╔╝███████║██║██╔██╗██║
 ██║░░██╗██╔══██║██║╚████║  ██╔══╝░░  ╚════╝██╔═══╝░██║░░██║░░████╔═████║░██╔══╝░░██╔══██╗░░░██║░░░██╔══██╗██╔══██║██║██║╚████║
 ╚█████╔╝██║░░██║██║░╚███║  ███████╗  ░░░░░░██║░░░░░╚█████╔╝░░╚██╔╝░╚██╔╝░███████╗██║░░██║░░░██║░░░██║░░██║██║░░██║██║██║░╚███║
-░╚════╝░╚═╝░░╚═╝╚═╝░░╚══╝  ╚══════╝  ░░░░░░╚═╝░░░░░░╚════╝░░░░╚═╝░░░╚═╝░░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝ 
-*/
-    // TODO e neccessario rever o excel com estas cenas!!
-    void can_bus_send_pwtbus_1(uint16_t ac_current, uint16_t brake_current) {
+░╚════╝░╚═╝░░╚═╝╚═╝░░╚══╝  ╚══════╝  ░░░░░░╚═╝░░░░░░╚════╝░░░░╚═╝░░░╚═╝░░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝
+ */
+/*Receive*/
+
+/*Send*/
+
+/*Send_CAN_HV500_SetAcCurrent*/
+void can_bus_send_HV500_SetAcCurrent(uint16_t ac_current) {
     can_data_t data;
     data.id = CAN_HV500_SetAcCurrent_ID;
     data.length = 8;
 
     MAP_ENCODE_CMD_AcCurrent(data.message, ac_current);
+
+    can_bus_send(CAN_BUS2, &data);
+}
+
+/*Send_CAN_HV500_SetBrakeCurrent*/
+void can_bus_send_HV500_SetBrakeCurrent(uint16_t brake_current) {
+    can_data_t data;
+    data.id = CAN_HV500_SetBrakeCurrent_ID;
+    data.length = 8;
+
     MAP_ENCODE_CMD_BrakeCurrent(data.message, brake_current);
 
     can_bus_send(CAN_BUS2, &data);
 }
 
-void can_bus_send_pwtbus_2(uint32_t erpm, uint32_t position) {
+/*Send_CAN_HV500_SetERPM*/
+void can_bus_send_HV500_SetERPM(uint32_t erpm) {
     can_data_t data;
     data.id = CAN_HV500_SetERPM_ID;
     data.length = 8;
 
     MAP_ENCODE_CMD_ERPM(data.message, erpm);
+
+    can_bus_send(CAN_BUS2, &data);
+}
+
+/*Send_CAN_HV500_SetPosition*/
+void can_bus_send_HV500_SetPosition(uint32_t position) {
+    can_data_t data;
+    data.id = CAN_HV500_SetPosition_ID;
+    data.length = 8;
+
     MAP_ENCODE_CMD_Position(data.message, position);
 
     can_bus_send(CAN_BUS2, &data);
 }
 
-void can_bus_send_pwtbus_3(uint32_t rel_current, uint32_t rel_brake_current) {
+/*Send_CAN_HV500_SetRelCurrent*/
+void can_bus_send_HV500_SetRelCurrent(uint32_t rel_current) {
     can_data_t data;
     data.id = CAN_HV500_SetRelCurrent_ID;
     data.length = 8;
 
     MAP_ENCODE_CMD_RelCurrent(data.message, rel_current);
+
+    can_bus_send(CAN_BUS2, &data);
+}
+
+/*Send_CAN_HV500_SetRelBrakeCurrent*/
+void can_bus_send_HV500_SetRelBrakeCurrent(uint32_t rel_brake_current) {
+    can_data_t data;
+    data.id = CAN_HV500_SetRelBrakeCurrent_ID;
+    data.length = 8;
+
     MAP_ENCODE_CMD_RelBrakeCurrent(data.message, rel_brake_current);
 
     can_bus_send(CAN_BUS2, &data);
 }
 
-void can_bus_send_pwtbus_4(uint32_t max_ac_current, uint32_t max_ac_brake_current) {
+/*Send_CAN_HV500_SetMaxAcCurrent*/
+void can_bus_send_HV500_SetMaxAcCurrent(uint32_t max_ac_current) {
     can_data_t data;
     data.id = CAN_HV500_SetMaxAcCurrent_ID;
     data.length = 8;
 
     MAP_ENCODE_CMD_MaxAcCurrent(data.message, max_ac_current);
+
+    can_bus_send(CAN_BUS2, &data);
+}
+
+/*Send_CAN_HV500_SetMaxAcBrakeCurrent*/
+void can_bus_send_HV500_SetMaxAcBrakeCurrent(uint32_t max_ac_brake_current) {
+    can_data_t data;
+    data.id = CAN_HV500_SetMaxAcBrakeCurrent_ID;
+    data.length = 8;
+
     MAP_ENCODE_CMD_MaxAcBrakeCurrent(data.message, max_ac_brake_current);
 
     can_bus_send(CAN_BUS2, &data);
 }
 
-// TODO ACABAR ISTO
-uint32_t WheelSpeed_RL = 0;
-uint32_t WheelSpeed_RR = 0;
-uint32_t SusPOS_RL = 0;
-uint32_t SusPOS_RR = 0;
-uint32_t BRK_State = 0;
-uint32_t DY_REAR_STATE = 0;
+/*CAN_HV500_SetMaxDcCurrent_ID*/
+void can_bus_send_HV500_SetMaxDcCurrent(uint32_t max_dc_current) {
+    can_data_t data;
+    data.id = CAN_HV500_SetMaxDcCurrent_ID;
+    data.length = 8;
 
-void CAN_Filter_IDS_BUS1(can_data_t* data) {
+    MAP_ENCODE_CMD_MaxDcCurrent(data.message, max_dc_current);
+
+    can_bus_send(CAN_BUS2, &data);
+}
+
+/*CAN_HV500_SetMaxDcBrakeCurrent_ID*/
+void can_bus_send_HV500_SetMaxDcBrakeCurrent(uint32_t max_dc_brake_current) {
+    can_data_t data;
+    data.id = CAN_HV500_SetMaxDcBrakeCurrent_ID;
+    data.length = 8;
+
+    MAP_ENCODE_CMD_MaxDcBrakeCurrent(data.message, max_dc_brake_current);
+
+    can_bus_send(CAN_BUS2, &data);
+}
+
+/*Send_CAN_HV500_SetDriveEnable*/
+void can_bus_send_HV500_SetDriveEnable(uint32_t drive_enable) {
+    can_data_t data;
+    data.id = CAN_HV500_SetDriveEnable_ID;
+    data.length = 8;
+
+    MAP_ENCODE_CMD_DriveEnable(data.message, drive_enable);
+
+    can_bus_send(CAN_BUS2, &data);
 }
 
 // ############# PWTDB CAN VARS ###################################
 
 // Receive
-void CAN_Filter_IDS_BUS2(can_data_t* data) {
+
+void can_filter_id_bus2(can_data_t* data) {
     switch (data->id) {
         case CAN_HV500_ERPM_DUTY_VOLTAGE_ID:
             myHV500.Actual_ERPM = MAP_DECODE_Actual_ERPM(data->message);
@@ -273,7 +361,6 @@ void CAN_Filter_IDS_BUS2(can_data_t* data) {
             myHV500.Actual_FOC_iq = MAP_DECODE_Actual_FOC_iq(data->message);
             break;
         case CAN_HV500_MISC_ID:
-
             myHV500.Actual_Throttle = MAP_DECODE_Actual_Throttle(data->message);
             myHV500.Actual_Brake = MAP_DECODE_Actual_Brake(data->message);
             myHV500.Digital_input_1 = MAP_DECODE_Digital_input_1(data->message);
@@ -303,87 +390,28 @@ void CAN_Filter_IDS_BUS2(can_data_t* data) {
     }
 }
 
-// send
-/*
-
-void Send_CAN_HV500_SetAcCurrent(uint16_t ac_current) {
-    MAP_ENCODE_CMD_AcCurrent(tx[CAN_BUS2].message, ac_current);
-    Send_CAN_BUS_1(CAN_HV500_SetAcCurrent_ID, tx[CAN_BUS2].message, 8);
-}
-
-void Send_CAN_HV500_SetBrakeCurrent(uint16_t brake_current) {
-    MAP_ENCODE_CMD_BrakeCurrent(tx[CAN_BUS2].message, brake_current);
-    Send_CAN_BUS_1(CAN_HV500_SetBrakeCurrent_ID, tx[CAN_BUS2].message, 8);
-}
-
-void Send_CAN_HV500_SetERPM(uint32_t erpm) {
-    MAP_ENCODE_CMD_ERPM(tx[CAN_BUS2].message, erpm);
-    Send_CAN_BUS_1(CAN_HV500_SetERPM_ID, tx[CAN_BUS2].message, 8);
-}
-
-void Send_CAN_HV500_SetPosition(uint32_t position) {
-    MAP_ENCODE_CMD_Position(tx[CAN_BUS2].message, position);
-    Send_CAN_BUS_1(CAN_HV500_SetPosition_ID, tx[CAN_BUS2].message, 8);
-}
-
-void Send_CAN_HV500_SetRelCurrent(uint32_t rel_current) {
-    MAP_ENCODE_CMD_RelCurrent(tx[CAN_BUS2].message, rel_current);
-    Send_CAN_BUS_1(CAN_HV500_SetRelCurrent_ID, tx[CAN_BUS2].message, 8);
-}
-
-void Send_CAN_HV500_SetRelBrakeCurrent(uint32_t rel_brake_current) {
-    MAP_ENCODE_CMD_RelBrakeCurrent(tx[CAN_BUS2].message, rel_brake_current);
-    Send_CAN_BUS_1(CAN_HV500_SetRelBrakeCurrent_ID, tx[CAN_BUS2].message, 8);
-}
-
-void Send_CAN_HV500_SetMaxAcCurrent(uint32_t max_ac_current) {
-    MAP_ENCODE_CMD_MaxAcCurrent(tx[CAN_BUS2].message, max_ac_current);
-    Send_CAN_BUS_1(CAN_HV500_SetMaxAcCurrent_ID, tx[CAN_BUS2].message, 8);
-}
-
-void Send_CAN_HV500_SetMaxAcBrakeCurrent(uint32_t max_ac_brake_current) {
-    MAP_ENCODE_CMD_MaxAcBrakeCurrent(tx[CAN_BUS2].message, max_ac_brake_current);
-    Send_CAN_BUS_1(CAN_HV500_SetMaxAcBrakeCurrent_ID, tx[CAN_BUS2].message, 8);
-}
-
-void Send_CAN_HV500_SetMaxDcCurrent(uint32_t max_dc_current) {
-    MAP_ENCODE_CMD_MaxDcCurrent(tx[CAN_BUS2].message, max_dc_current);
-    Send_CAN_BUS_1(CAN_HV500_SetMaxDcCurrent_ID, tx[CAN_BUS2].message, 8);
-}
-
-void Send_CAN_HV500_SetDriveEnable(uint32_t drive_enable) {
-    MAP_ENCODE_CMD_DriveEnable(tx[CAN_BUS2].message, drive_enable);
-    Send_CAN_BUS_1(CAN_HV500_SetDriveEnable_ID, tx[CAN_BUS2].message, 8);
-}*/
-// #####################################################################
-
 // #####################################################################
 // AUTONOUOMOUS FILTER IDS
 
-void CAN_Filter_IDS_BUS4(can_data_t* data) {
+/*Receive*/
+void can_filter_id_bus4(can_data_t* data) {
     switch (data->id) {
-        case CAN_TOJAL_TEST:
-            TOJAL_RX_RPM = MAP_DECODE_TOJAL_RPM(data->message);
+        case 0x500:
+            RPM_TOJAL = MAP_DECODE_TOJAL_RPM(data->message);
+            break;
+        case 0x50:
+            AS_Emergency = data->message[0];
             break;
     }
 }
-// enviar rpm para o inversor receive a array
-void CAN_Send_VCU_TOJAL_POWERTRAIN(uint8_t* rpm) {
+
+/*Send*/
+void can_bus_send_AdBus_RPM(uint32_t rpm) {
     can_data_t data;
-    data.id = CAN_HV500_SetERPM_ID;
+    memset(data.message, 0x00, sizeof(data.message));
+    data.id = 0x510;
     data.length = 8;
-
-    MAP_ENCODE_CMD_ERPM(data.message, *rpm);
-
-    can_bus_send(CAN_BUS2, &data);
-}
-
-// enviar rpm para o pc de autonoma
-void CAN_Send_VCU_TOJAL(uint32_t rpm) {
-    can_data_t data;
-    data.id = CAN_TOJAL_SEND_RPM;
-    data.length = 8;
-
+    rpm = rpm /20;
     MAP_ENCODE_TOJAL_RPM(data.message, rpm);
 
     can_bus_send(CAN_BUS4, &data);

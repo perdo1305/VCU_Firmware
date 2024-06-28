@@ -64,6 +64,8 @@
 float PDM_Current = 0.0;  // current supplied by the low voltage battery
 float PDM_Voltage = 0.0;  // voltage supplied by the low voltage battery
 
+volatile bool IsAutonomous = false;
+
 HV500 myHV500;
 
 bool CANRX_ON[4] = {0, 0, 0, 0};
@@ -147,7 +149,6 @@ void CANSART_SETUP(void);
 // ############# TMR FUNCTIONS ###############################
 void TMR1_5ms(uint32_t status, uintptr_t context) {  // 200Hz
     APPS_Function(ADC[0], ADC[3]);
-
 }
 
 void TMR2_100ms(uint32_t status, uintptr_t context) {
@@ -156,20 +157,9 @@ void TMR2_100ms(uint32_t status, uintptr_t context) {
     can_bus_send_databus_3(VcuState, LMT2, LMT1, Inverter_Faults);
     can_bus_send_databus_4(RPM, Inverter_Voltage);
 
-    can_data_t data;
-    data.id = 0x23;
-    data.length = 8;
-    data.message[0] = 0x00;
-    data.message[1] = 0x01;
-    data.message[2] = 0x02;
-    data.message[3] = 0x03;
-    data.message[4] = 0x04;
-    data.message[5] = 0x05;
-    data.message[6] = 0x06;
-    data.message[7] = 0x07;
-    can_bus_send(CAN_BUS2, &data);
-    can_bus_send(CAN_BUS3, &data);
-    can_bus_send(CAN_BUS4, &data);
+    can_bus_send_AdBus_RPM(myHV500.Actual_ERPM);
+
+    can_bus_send_HV500_SetERPM((RPM_TOJAL * 20));
 }
 
 void TMR4_500ms(uint32_t status, uintptr_t context) {  // 2Hz
@@ -264,7 +254,7 @@ int main(void) {
     TMR2_CallbackRegister(TMR2_100ms, (uintptr_t)NULL);  // 10Hz
     TMR4_CallbackRegister(TMR4_500ms, (uintptr_t)NULL);  // 2Hz heartbeat led
     TMR5_CallbackRegister(TMR5_3s, (uintptr_t)NULL);     // USED for 3seg R2D SOUND
-    TMR6_CallbackRegister(TMR6_500ms, (uintptr_t)NULL);   // 1.5s para AS Emergency
+    TMR6_CallbackRegister(TMR6_500ms, (uintptr_t)NULL);  // 1.5s para AS Emergency
 
     fflush(stdout);
 
@@ -379,19 +369,27 @@ void PrintToConsole(uint8_t time) {
     currentMillis[3] = millis();
     if (currentMillis[3] - previousMillis[3] >= time) {
         // APPS_PrintValues();
-    /*
+
         printf("APPSA%dAPPSB%dAPPST%dAPPS_ERROR%dAPPS_Perc%d", ADC_Filtered_0, ADC_Filtered_3, APPS_Mean, APPS_Error, APPS_Percentage);
         // printf("APPS_MIN%dAPPS_MAX%dAPPS_TOL%d", APPS_MIN_bits, APPS_MAX_bits, APPS_Tolerance_bits);
 
-        printf("C1R%dC2R%dC3R%d", CANRX_ON[1], CANRX_ON[2], CANRX_ON[3]);
-        printf("C1T%dC2T%dC3T%d", CANTX_ON[1], CANTX_ON[2], CANTX_ON[3]);
+        printf("C1R%dC2R%dC3R%dC4R%d", CANRX_ON[CAN_BUS1], CANRX_ON[CAN_BUS2], CANRX_ON[CAN_BUS3], CANRX_ON[CAN_BUS4]);
+        printf("C1T%dC2T%dC3T%dC4T%d", CANTX_ON[CAN_BUS1], CANTX_ON[CAN_BUS2], CANTX_ON[CAN_BUS3], CANTX_ON[CAN_BUS4]);
 
         printf("I%d", (uint16_t)(PDM_Current * 100));
         printf("V%d", (uint16_t)(PDM_Voltage * 100));
         printf("BP%d", Brake_Pressure);
 
+        // Ready to drive & is autonomous
+
+        printf("ERPM%d", myHV500.Actual_ERPM);
+        printf("RPM_TOJAL%d", RPM_TOJAL);
+
+        printf("R2D%d", Ready2Drive);
+        printf("AD%d", IsAutonomous);
+
         printf("\r\n");
-    */
+
         previousMillis[3] = currentMillis[3];
     }
 }
