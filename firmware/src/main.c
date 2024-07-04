@@ -30,14 +30,10 @@
 
 // #include "../../../CANSART/Controller Library/PIC32/Library/cansart.h"
 #include "../VCU2.0.X/CAN_utils.h"
+#include "../VCU2.0.X/TorqueControl.h"
 // #include "../VCU_BANCADA.X/cansart_db_lc.h"
 #include "../VCU2.0.X/VCU_config.h"
 #include "../VCU2.0.X/utils.h"
-
-#define AUTONOMOUS_MODE 0U
-#define MANUAL_MODE 1U
-
-#define DRIVING_MODE MANUAL_MODE
 
 // Define a macro DEBUG para ativar ou desativar o debug_printf
 #define DEBUG 0
@@ -58,7 +54,7 @@
 #define labview_printf(fmt, ...)
 #endif
 
-#define BUFFER_SIZE 10  // average to the adcs
+#define BUFFER_SIZE 20  // average to the adcs
 
 // ############################################################
 float PDM_Current = 0.0;  // current supplied by the low voltage battery
@@ -74,6 +70,12 @@ bool LED_CANRX_MODE = 0;
 bool BUZZER_ON = false;
 bool R2DS_as_played = false;
 bool AS_Emergency_as_played = false;
+uint8_t RES_AD_Ignition;
+bool TCU_Autonomous_ignition = false;
+bool TCU_Precharge_done = false;
+
+bool IsAutonomousMode = false;         // indicates if the car is in autonomous mode
+volatile bool IgnitionSwitch = false;  // indicates if the ignition switch is on
 
 volatile bool Ready2Drive = 0;  // indicates if the car is ready to drive
 
@@ -93,7 +95,7 @@ uint16_t ADC_Filtered_3 = 0;
 __COHERENT uint16_t adc[10][10];  // just to test dma
 bool adc_flag[64];                // flag to indicate that the ADC data was updated
 /*
-The DMABL field can also be thought of as a “Left Shift Amount +1” needed for the channel ID to create the
+The DMABL field can also be thought of as a �??Left Shift Amount +1�?? needed for the channel ID to create the
 DMA byte address offset to be added to the contents of ADDMAB in order to obtain the byte address of the
 beginning of the System RAM buffer area allocated for the given channel.
 */
@@ -137,6 +139,7 @@ void MissionEmergencyStop(void);
 bool AS_Emergency = false;
 void IsR2D(void);
 void SOUND_R2DS(void);
+void IsIgnition(void);
 
 void DIP_Switch(void);
 void BlinkCANLED(void);
@@ -148,7 +151,27 @@ void CANSART_SETUP(void);
 
 // ############# TMR FUNCTIONS ###############################
 void TMR1_5ms(uint32_t status, uintptr_t context) {  // 200Hz
-    APPS_Function(ADC[0], ADC[3]);
+    // APPS_Function(ADC[0], ADC[3]);
+    APPS_Function(ADC_Filtered_0, ADC_Filtered_3);
+
+    if (Ready2Drive) {
+        if (IsAutonomousMode) {
+            if (RPM_TOJAL > MAX_AD_RPM) {
+                RPM_TOJAL = MAX_AD_RPM;
+            } else if (RPM_TOJAL < 0) {
+                RPM_TOJAL = 0;
+            }
+            // TODO if autonomous mode is on, start does not need to be activated with the brake
+            can_bus_send_HV500_SetDriveEnable(1);
+            can_bus_send_HV500_SetERPM(RPM_TOJAL * 20);
+        } else {
+            // can_bus_send_HV500_SetAcCurrent(ConvertTorqueToCurrent(ConvertAPPSToTorque(APPS_Percentage_1000)));
+            can_bus_send_HV500_SetRelCurrent(APPS_Percentage_1000);
+            can_bus_send_HV500_SetDriveEnable(1);
+        }
+    } else {
+        can_bus_send_HV500_SetDriveEnable(0);
+    }
 }
 
 void TMR2_100ms(uint32_t status, uintptr_t context) {
@@ -157,9 +180,18 @@ void TMR2_100ms(uint32_t status, uintptr_t context) {
     can_bus_send_databus_3(VcuState, LMT2, LMT1, Inverter_Faults);
     can_bus_send_databus_4(RPM, Inverter_Voltage);
 
-    can_bus_send_AdBus_RPM(myHV500.Actual_ERPM);
+    // can_bus_send_AdBus_RPM(myHV500.Actual_ERPM);
 
-    can_bus_send_HV500_SetERPM((RPM_TOJAL * 20));
+    // can_bus_send_HV500_SetERPM((RPM_TOJAL * 20));
+    can_data_t data;
+    data.id = 0x23;
+    data.length = 8;
+    for (int i = 0; i < 8; i++) {
+        data.message[i] = 0;
+    }
+    data.message[5] = IgnitionSwitch;
+
+    can_bus_send(CAN_BUS2, &data);
 }
 
 void TMR4_500ms(uint32_t status, uintptr_t context) {  // 2Hz
@@ -258,7 +290,10 @@ int main(void) {
 
     fflush(stdout);
 
-    APPS_Init(0.3, 3.0, 0.2);  // Initialize APPS
+    APPS_Init(__APPS_MIN, __APPS_MAX, __APPS_TOLERANCE);  // Initialize APPS
+
+    CORETIMER_DelayMs(500);
+    // can_open_init();
 
     startupSequence();  // led sequence
     VcuState = 1;       // Set VCU state to 1
@@ -293,6 +328,7 @@ int main(void) {
         DIP_Switch();
         CalculateMean();
 
+        IsIgnition();
         IsR2D();
         SOUND_R2DS();            // ready to drive sound (3sec)
         MissionEmergencyStop();  // emergency stop sound (8sec)
@@ -370,7 +406,13 @@ void PrintToConsole(uint8_t time) {
     if (currentMillis[3] - previousMillis[3] >= time) {
         // APPS_PrintValues();
 
-        printf("APPSA%dAPPSB%dAPPST%dAPPS_ERROR%dAPPS_Perc%d", ADC_Filtered_0, ADC_Filtered_3, APPS_Mean, APPS_Error, APPS_Percentage);
+        // calculate apps voltage
+        float apps1_volts = (float)ADC[0] * 3.3 / 4095.0;
+        float apps2_volts = (float)ADC[3] * 3.3 / 4095.0;
+
+        printf("APPSA%dAPPSB%dAPPST%dAPPS_ERROR%dAPPS_Perc%d", ADC[0], ADC[3], APPS_Mean, APPS_Error, APPS_Percentage);
+        printf("APPS1V%dAPPS2V%d", (uint16_t)(apps1_volts * 100), (uint16_t)(apps2_volts * 100));
+
         // printf("APPS_MIN%dAPPS_MAX%dAPPS_TOL%d", APPS_MIN_bits, APPS_MAX_bits, APPS_Tolerance_bits);
 
         printf("C1R%dC2R%dC3R%dC4R%d", CANRX_ON[CAN_BUS1], CANRX_ON[CAN_BUS2], CANRX_ON[CAN_BUS3], CANRX_ON[CAN_BUS4]);
@@ -386,7 +428,11 @@ void PrintToConsole(uint8_t time) {
         printf("RPM_TOJAL%d", RPM_TOJAL);
 
         printf("R2D%d", Ready2Drive);
+        printf("IGN%d", IgnitionSwitch);
         printf("AD%d", IsAutonomous);
+        printf("TCU_PRECHARGE%d", TCU_Precharge_done);
+
+        printf("AD_IGN%d", RES_AD_Ignition);
 
         printf("\r\n");
 
@@ -460,13 +506,13 @@ void MissionEmergencyStop(void) {
     // TODO apitar buzzer quando receber o comando de emergencia
 
     /*
-      The status “AS Emergency” has to be indicated by an intermittent sound with the following
+      The status �??AS Emergency�?? has to be indicated by an intermittent sound with the following
     parameters:
-    • on-/off-frequency: 1 Hz to 5 Hz
-    • duty cycle 50 %
-    • sound level between 80 dBA and 90 dBA, fast weighting in a radius of 2 m around the
+    �?� on-/off-frequency: 1 Hz to 5 Hz
+    �?� duty cycle 50 %
+    �?� sound level between 80 dBA and 90 dBA, fast weighting in a radius of 2 m around the
     vehicle.
-    • duration between 8 s and 10 s after entering “AS Emergency”
+    �?� duration between 8 s and 10 s after entering �??AS Emergency�??
      */
 
     if (AS_Emergency) {
@@ -479,9 +525,21 @@ void MissionEmergencyStop(void) {
 }
 
 void IsR2D(void) {
-    if (!GPIO_RD8_ONBOARD_BUTTON_Get() && (Brake_Pressure >= 50)) {
-        Ready2Drive = true;  // the car is ready to drive
+    // debounce
+    // static uint8_t millis_debounce = 0;
+    // static uint32_t previous_millis = 0;
+    // static bool r2d_previous_state = false;
+
+    // millis_debounce = millis();
+    // if (IgnitionSwitch) {
+    if (IgnitionSwitch && TCU_Precharge_done) {
+        if (GPIO_RB6_START_BUTTON_Get() && (Brake_Pressure >= __BRAKE_THRESHOLD)) {
+            Ready2Drive = true;
+        }
+    } else {
+        Ready2Drive = false;
     }
+    // previous_millis = millis_debounce;
 }
 
 void SOUND_R2DS(void) {
@@ -502,14 +560,22 @@ void MeasureBrakePressure(uint16_t channel) {
     static float pressure = 0;
     volts = (float)ADC[channel] * 3.300 / 4095.000;
     volts = volts / 0.667;  // conversao 3.3 para 5
-    pressure = (volts - 0.5) / 0.02857;
-    Brake_Pressure = (uint8_t)pressure;
-}
 
-void Is_Autonomous(void) {
-    if (DRIVING_MODE == AUTONOMOUS_MODE) {
-        // TODO read TCU msg to switch between manual and autonomous mode
+    if (volts < 0) {
+        volts = 0;
+    } else if (volts > 5) {
+        volts = 5;
     }
+
+    if (volts < 0.5) {
+        pressure = 0;
+    } else if (volts > 3.0) {
+        pressure = 50;
+    }
+
+    // pressure = (volts - 0.5) / 0.02857;
+
+    Brake_Pressure = (uint8_t)pressure;
 }
 
 // when received AT command to autocalibrate APPS
@@ -559,15 +625,12 @@ void CalculateMean() {
         static uint16_t buffer[BUFFER_SIZE];
         static uint16_t sum = 0;
         static int oldestIndex = 0;
-        // Subtract the oldest value from the sum
+
         sum -= buffer[oldestIndex];
-        // Overwrite the oldest value with the new one
         buffer[oldestIndex] = ADC[0];
-        // Add the new value to the sum
         sum += buffer[oldestIndex];
-        // Move the oldest index forward, wrapping around if necessary
         oldestIndex = (oldestIndex + 1) % BUFFER_SIZE;
-        // Calculate the filtered ADC value
+
         ADC_Filtered_0 = sum / BUFFER_SIZE;
         adc_flag[0] = 0;
     }
@@ -601,5 +664,17 @@ void BlinkCANLED(void) {
         CANTX_ON[CAN_BUS2] == 1 ? GPIO_RB13_LED_CAN2_Toggle() : GPIO_RB13_LED_CAN2_Clear();
         CANTX_ON[CAN_BUS3] == 1 ? GPIO_RB12_LED_CAN3_Toggle() : GPIO_RB12_LED_CAN3_Clear();
         CANTX_ON[CAN_BUS4] == 1 ? GPIO_RB11_LED_CAN4_Toggle() : GPIO_RB11_LED_CAN4_Clear();
+    }
+}
+
+void IsIgnition(void) {
+    if (GPIO_RD6_IGN_SWITCH_Get()) {
+        IgnitionSwitch = true;
+        /*
+        data.id = 0x23;
+        data.message[5] = IgnitionSwitch;
+        can_bus_send(CAN_BUS2, &data);*/
+    } else {
+        IgnitionSwitch = false;
     }
 }

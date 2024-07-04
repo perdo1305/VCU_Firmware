@@ -9,6 +9,7 @@ void can_filter_id_bus4(can_data_t* data);
 uint16_t TOJAL_RX_RPM = 0;
 uint32_t RPM_TOJAL = 0;
 
+
 // ############# RX CAN FRAME ###############################
 
 CANFD_MSG_RX_ATTRIBUTE msgAttr = CANFD_MSG_RX_DATA_FRAME;  // RX message attribute
@@ -385,6 +386,13 @@ void can_filter_id_bus2(can_data_t* data) {
             myHV500.Power_limit = MAP_DECODE_Power_limit(data->message);
             myHV500.CAN_map_version = MAP_DECODE_CAN_map_version(data->message);
             break;
+
+        case 0x61:
+            TCU_Autonomous_ignition = data->message[2];
+            TCU_Precharge_done = data->message[5];
+        break;
+               
+
         default:
             break;
     }
@@ -402,6 +410,10 @@ void can_filter_id_bus4(can_data_t* data) {
         case 0x50:
             AS_Emergency = data->message[0];
             break;
+        case 0x191:
+            RES_AD_Ignition = data->message[0];
+            //printf("Ignition: %d\n", AD_Ignition);
+            break;
     }
 }
 
@@ -411,8 +423,26 @@ void can_bus_send_AdBus_RPM(uint32_t rpm) {
     memset(data.message, 0x00, sizeof(data.message));
     data.id = 0x510;
     data.length = 8;
-    rpm = rpm /20;
+    rpm = rpm / 20;
     MAP_ENCODE_TOJAL_RPM(data.message, rpm);
 
+    can_bus_send(CAN_BUS4, &data);
+}
+
+void can_open_init() {
+    can_data_t data;
+
+    data.id = NMT_ADDRESS_COBID();
+    data.message[0] = 0x80;
+    data.message[1] = 0x00;
+    data.length = 2;
+    can_bus_send(CAN_BUS4, &data);
+
+    CORETIMER_DelayMs(10);
+
+    data.id = NMT_ADDRESS_COBID();
+    data.message[0] = 0x01;
+    data.message[1] = 0x00;
+    data.length = 2;
     can_bus_send(CAN_BUS4, &data);
 }

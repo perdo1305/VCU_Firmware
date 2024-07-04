@@ -18,9 +18,10 @@
 #include <stdint.h>
 #include <stdlib.h>  // Defines EXIT_FAILURE
 
-#include "../../../../2_FIRMWARE/VCU_BANCADA/firmware/VCU_BANCADA.X/Can-Header-Map/CAN_asdb.h"
-#include "../../../../2_FIRMWARE/VCU_BANCADA/firmware/VCU_BANCADA.X/Can-Header-Map/CAN_datadb.h"
-#include "../../../../2_FIRMWARE/VCU_BANCADA/firmware/VCU_BANCADA.X/Can-Header-Map/CAN_pwtdb.h"
+#include "Can-Header-Map/CAN_asdb.h"
+#include "Can-Header-Map/CAN_datadb.h"
+#include "Can-Header-Map/CAN_pwtdb.h"
+#include "Can-Header-Map/CANOPEN_maxondb.h"
 #include "definitions.h"
 
 typedef struct {
@@ -31,6 +32,8 @@ typedef struct {
 
 can_data_t can_bus_read(uint8_t bus);
 void can_bus_send(uint8_t bus, can_data_t* data);
+
+void can_open_init(void);
 
 /* Send to DataBus*/
 void can_bus_send_databus_1(uint16_t consumed_power, uint16_t target_power, uint8_t brake_pressure, uint8_t throttle_position);
@@ -141,6 +144,9 @@ extern bool CANTX_ON[4];  // flag to check if CAN is transmitting
 extern bool AS_Emergency;
 extern uint16_t TOJAL_RX_RPM;
 extern uint32_t RPM_TOJAL;
+extern uint8_t RES_AD_Ignition;
+extern bool TCU_Autonomous_ignition;
+extern bool TCU_Precharge_done;
 
 #ifdef __cplusplus
 extern "C" {

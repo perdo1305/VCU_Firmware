@@ -1,0 +1,1 @@
+ $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O2 -fno-common -I"../src" -I"../src/config/default" -Werror -Wall   -DXPRJ_Config_2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  C:\Users\pedro\Documents\GIT\2_FIRMWARE\VCU_Firmware\firmware\VCU2.0.X\CAN_utils.c

@@ -2,28 +2,24 @@
  * File:   TorqueControl.h
  * Author: pedro
  *
- * Created on 8 de Junho de 2024, 13:58
+ * Created on 1 de Julho de 2024, 22:44
  */
 
-#include <stdbool.h>  
-#include <stddef.h> 
-#include <stdint.h>
-#include <stdlib.h>  
 
 #ifndef TORQUECONTROL_H
 #define	TORQUECONTROL_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
+
+float ConvertAPPSToTorque(float APPS);
+float ConvertTorqueToCurrent(float torque);
 
 typedef struct {
     /*SetPoint*/
-    float APPS; //Accelerator Pedal Position Sensor
+    float APPS;  // Accelerator Pedal Position Sensor
 
     /*Current*/
-    float TargetCurrent; //used for control
-    float ActualCurrent; //used for feedback
+    float TargetCurrent;  // used for control
+    float ActualCurrent;  // used for feedback
 
     /*Torque*/
     float ContinuosTorque;
@@ -32,8 +28,15 @@ typedef struct {
     /*KT constant [Nm/ARMS]*/
     float Kt;
 
-
 } TorqueControl;
+
+
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
+
 
 
 #ifdef	__cplusplus

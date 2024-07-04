@@ -45,32 +45,16 @@
             "type": "translator",
             "provider": "microchip.toolchains:xc32-compiler@4.35",
             "properties": {
-                "additional-warnings": true,
-                "addresss-attribute-use": false,
-                "appendMe": "",
-                "enable-app-io": false,
-                "enable-omit-frame-pointer": false,
-                "enable-symbols": true,
-                "enable-unroll-loops": false,
-                "exclude-floating-point": false,
-                "extra-include-directories": "firmware/src;firmware/src/config/default",
-                "generate-16-bit-code": false,
-                "generate-micro-compressed-code": false,
                 "isolate-each-function": true,
-                "make-warnings-into-errors": true,
-                "optimization-level": "-O1",
                 "place-data-into-section": true,
-                "post-instruction-scheduling": "default",
-                "pre-instruction-scheduling": "default",
-                "preprocessor-macros": "",
-                "strict-ansi": false,
-                "support-ansi": false,
-                "tentative-definitions": "-fno-common",
-                "toplevel-reordering": "",
-                "unaligned-access": "",
-                "use-cci": false,
-                "use-iar": false,
-                "use-indirect-calls": false
+                "optimization-level": "-O1",
+                "preprocessor-macros": [],
+                "extra-include-directories": [
+                    "firmware/src",
+                    "firmware/src/config/default"
+                ],
+                "make-warnings-into-errors": true,
+                "additional-warnings": true
             }
         },
         {
@@ -78,34 +62,13 @@
             "type": "translator",
             "provider": "microchip.toolchains:xc32-compiler++@4.35",
             "properties": {
-                "additional-warnings": false,
-                "addresss-attribute-use": false,
-                "appendMe": "",
-                "check-new": false,
-                "eh-specs": true,
-                "enable-app-io": false,
-                "enable-omit-frame-pointer": false,
-                "enable-symbols": true,
-                "enable-unroll-loops": false,
-                "exceptions": true,
-                "exclude-floating-point": false,
-                "extra-include-directories": "firmware/src;firmware/src/config/default",
-                "generate-16-bit-code": false,
-                "generate-micro-compressed-code": false,
                 "isolate-each-function": true,
-                "make-warnings-into-errors": false,
                 "optimization-level": "-O1",
-                "place-data-into-section": false,
-                "post-instruction-scheduling": "default",
-                "pre-instruction-scheduling": "default",
-                "preprocessor-macros": "",
-                "rtti": true,
-                "strict-ansi": false,
-                "toplevel-reordering": "",
-                "unaligned-access": "",
-                "use-cci": false,
-                "use-iar": false,
-                "use-indirect-calls": false
+                "preprocessor-macros": [],
+                "extra-include-directories": [
+                    "firmware/src",
+                    "firmware/src/config/default"
+                ]
             }
         },
         {
@@ -113,105 +76,49 @@
             "type": "translator",
             "provider": "microchip.toolchains:xc32-assembler@4.35",
             "properties": {
-                "assembler-symbols": "",
-                "enable-symbols": true,
-                "exclude-floating-point-library": false,
-                "expand-macros": false,
-                "extra-include-directories-for-assembler": "",
-                "extra-include-directories-for-preprocessor": "",
-                "false-conditionals": false,
-                "generate-16-bit-code": false,
-                "generate-micro-compressed-code": false,
-                "keep-locals": false,
-                "list-assembly": false,
-                "list-source": false,
-                "list-symbols": false,
-                "oXC32asm-list-to-file": false,
-                "omit-debug-dirs": false,
-                "omit-forms": false,
-                "preprocessor-macros": "",
-                "warning-level": ""
+                "preprocessor-macros": [],
+                "assembler-symbols": [],
+                "extra-include-directories-for-preprocessor": [],
+                "extra-include-directories-for-assembler": []
             }
         },
         {
             "name": "default-C32-AR",
             "type": "translator",
             "provider": "microchip.toolchains:xc32-archiver@4.35",
-            "properties": {
-                "additional-options-chop-files": false
-            }
+            "properties": {}
         },
         {
             "name": "default-C32-LD",
             "type": "translator",
             "provider": "microchip.toolchains:xc32-linker@4.35",
             "properties": {
-                "additional-options-use-response-files": false,
-                "additional-options-write-sla": false,
-                "allocate-dinit": false,
-                "appendMe": "",
-                "code-dinit": false,
-                "ebase-addr": "",
-                "enable-check-sections": false,
-                "exclude-floating-point-library": false,
-                "exclude-standard-libraries": false,
-                "extra-lib-directories": "",
-                "fill-flash-options-addr": "",
-                "fill-flash-options-const": "",
-                "fill-flash-options-how": "0",
-                "fill-flash-options-inc-const": "1",
-                "fill-flash-options-increment": "",
-                "fill-flash-options-seq": "",
-                "fill-flash-options-what": "0",
-                "generate-16-bit-code": false,
-                "generate-cross-reference-file": false,
-                "generate-micro-compressed-code": false,
                 "heap-size": "512",
-                "input-libraries": "",
-                "kseg-length": "",
-                "kseg-origin": "",
-                "linker-symbols": "",
-                "map-file": "",
-                "no-device-startup-code": true,
-                "no-startup-files": false,
-                "oXC32ld-extra-opts": "",
-                "optimization-level": "",
-                "preprocessor-macros": "",
                 "remove-unused-sections": true,
+                "input-libraries": [],
+                "extra-lib-directories": [],
+                "no-device-startup-code": true,
+                "fill-flash-options-inc-const": "1",
+                "map-file": "",
                 "report-memory-usage": false,
-                "serial-length": "",
-                "serial-origin": "",
-                "stack-size": "",
-                "symbol-stripping": "",
-                "trace-symbols": "",
-                "warn-section-align": false
+                "trace-symbols": [],
+                "linker-symbols": [],
+                "preprocessor-macros": []
             }
         },
         {
             "name": "default-C32-CO",
             "type": "translator",
             "provider": "microchip.toolchains:xc32-coverage@4.35",
-            "properties": {
-                "coverage-enable": "",
-                "stack-guidance": false
-            }
+            "properties": {}
         },
         {
             "name": "default-C32Global",
             "type": "translator",
             "provider": "microchip.toolchains:xc32-global@4.35",
             "properties": {
-                "common-include-directories": "",
-                "gp-relative-option": "",
-                "legacy-libc": true,
-                "mdtcm": "",
-                "mitcm": "",
-                "mstacktcm": false,
-                "omit-pack-options": "1",
-                "relaxed-math": false,
-                "save-temps": false,
-                "stack-smashing": "",
-                "wpo-lto": false
+                "relaxed-math": true,
+                "common-include-directories": []
             }
         },
         {
@@ -360,21 +267,6 @@
         }
     ],
     "fileSets": [
-        {
-            "name": "MPLAB X Virtual Filesystem",
-            "contains": [
-                "Header Files",
-                "Linker Files",
-                "Source Files",
-                "Important Files"
-            ],
-            "files": [
-                "../../Documents/git/CANSART/Controller Library/PIC32/Library/cansart.c",
-                "../../Documents/git/CANSART/Controller Library/PIC32/Library/cansartP.c",
-                "firmware/VCU2.0.X/VCU_config.h"
-            ],
-            "encoding": "ISO-8859-1"
-        },
         {
             "name": "Header Files",
             "contains": [
@@ -681,6 +573,17 @@
                 "firmware/VCU2.0.X/VCU2.0.mc3"
             ],
             "encoding": "ISO-8859-1"
+        },
+        {
+            "name": "MPLAB X Virtual Filesystem",
+            "files": [
+                "../../Documents/git/CANSART/Controller Library/PIC32/Library/cansart.c",
+                "../../Documents/git/CANSART/Controller Library/PIC32/Library/cansartP.c",
+                "firmware/VCU2.0.X/VCU_config.h",
+                "firmware/VCU2.0.X/TorqueControl.h",
+                "firmware/VCU2.0.X/TorqueControl.c",
+                "firmware/VCU2.0.X/build/default/production/_ext/1865161661/plib_dmac.s"
+            ]
         }
     ]
 }

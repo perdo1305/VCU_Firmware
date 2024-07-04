@@ -1,42 +1,43 @@
 
 #include "APPS.h"
+
 #include <stdbool.h>  // Defines true
 #include <stdio.h>
+
 #include "utils.h"
 
-float APPS_MIN_Volts = 0.0; // Minimum voltage of the APPS
-uint16_t APPS_MIN_bits = 0; // Minimum bits of the APPS
+float APPS_MIN_Volts = 0.0;  // Minimum voltage of the APPS
+uint16_t APPS_MIN_bits = 0;  // Minimum bits of the APPS
 
-float APPS_MAX_Volts = 0.0; // Maximum voltage of the APPS
-uint16_t APPS_MAX_bits = 0; // Maximum bits of the APPS
+float APPS_MAX_Volts = 0.0;  // Maximum voltage of the APPS
+uint16_t APPS_MAX_bits = 0;  // Maximum bits of the APPS
 
-float APPS_Tolerance_Volts = 0.0; // Tolerance in volts of the APPS
-uint16_t APPS_Tolerance_bits = 0; // Tolerance in bits of the APPS
+float APPS_Tolerance_Volts = 0.0;  // Tolerance in volts of the APPS
+uint16_t APPS_Tolerance_bits = 0;  // Tolerance in bits of the APPS
 
-uint16_t APPS_Bit_Resolution = 4095; // 12 bits
-float APPS_Voltage = 3.3; // power supply voltage
+uint16_t APPS_Bit_Resolution = 4095;  // 12 bits
+float APPS_Voltage = 3.3;             // power supply voltage
 
-uint16_t APPS1 = 0; // Value of the APPS1
-uint16_t APPS2 = 0; // Value of the APPS2
-uint16_t APPS_Mean = 0; // Mean value of the APPS
-uint16_t APPS_Percentage = 0; // Percentage of the APPS 0-100
-uint16_t APPS_Percentage_1000 = 0; // Value of the APPS 0-1000
-uint16_t APPS_functional_region = 0; // Range of the APPS ((max - tolerance) - (min + tolerance))
+uint16_t APPS1 = 0;                   // Value of the APPS1
+uint16_t APPS2 = 0;                   // Value of the APPS2
+uint16_t APPS_Mean = 0;               // Mean value of the APPS
+uint16_t APPS_Percentage = 0;         // Percentage of the APPS 0-100
+uint16_t APPS_Percentage_1000 = 0;    // Value of the APPS 0-1000
+uint16_t APPS_functional_region = 0;  // Range of the APPS ((max - tolerance) - (min + tolerance))
 
-bool APPS_Error = false; // Error of the APPS
+bool APPS_Error = false;  // Error of the APPS
 
-static void APPS_CalculateFunctionalRegion(void);
-static uint16_t APPS_InvertValue(uint16_t apps2);
-static uint16_t APPS_VoltsToBits(float volts);
-static uint16_t APPS_MeanValue(uint16_t apps1, uint16_t apps2);
-static bool APPS_IsInTolerance(uint16_t value);
-static void APPS_UpdateAPPS1(uint16_t apps1);
-static void APPS_UpdateAPPS2(uint16_t apps2);
-static bool APPS_Is10PercentApart(uint16_t apps1, uint16_t apps2);
-static bool APPS_CheckError(uint16_t apps1, uint16_t apps2);
-
-static uint16_t APPS_ToPercentage(uint16_t apps_mean);
-static uint16_t APPS_ToPercentage_1000(uint16_t apps_mean);
+void APPS_CalculateFunctionalRegion(void);
+uint16_t APPS_InvertValue(uint16_t apps2);
+uint16_t APPS_VoltsToBits(float volts);
+uint16_t APPS_MeanValue(uint16_t apps1, uint16_t apps2);
+bool APPS_IsInTolerance(uint16_t value);
+void APPS_UpdateAPPS1(uint16_t apps1);
+void APPS_UpdateAPPS2(uint16_t apps2);
+bool APPS_Is10PercentApart(uint16_t apps1, uint16_t apps2);
+bool APPS_CheckError(uint16_t apps1, uint16_t apps2);
+uint16_t APPS_ToPercentage(uint16_t apps_mean);
+uint16_t APPS_ToPercentage_1000(uint16_t apps_mean);
 
 long map(long x, long in_min, long in_max, long out_min, long out_max) {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
@@ -56,7 +57,7 @@ void APPS_Init(float min_volts, float max_volts, float APPS_Tolerance_Volts) {
 /// @brief Calculate the functional region of the APPS
 /// @param void
 
-static void APPS_CalculateFunctionalRegion(void) {
+void APPS_CalculateFunctionalRegion(void) {
     APPS_functional_region = ((APPS_MAX_bits - APPS_Tolerance_bits) - (APPS_MIN_bits + APPS_Tolerance_bits));
 }
 
@@ -64,16 +65,15 @@ static void APPS_CalculateFunctionalRegion(void) {
 /// @param apps2 value of the APPS2 to be inverted
 /// @return the inverted value of the APPS2
 
-static uint16_t APPS_InvertValue(uint16_t apps2) {
-    uint16_t x = APPS_Bit_Resolution - apps2;
-    return x;
+uint16_t APPS_InvertValue(uint16_t apps2) {
+    return APPS_Bit_Resolution - apps2;
 }
 
 /// @brief convert the voltage to bits based on the resolution of the ADC and the power supply voltage
 /// @param volts voltage to be converted to bits
 /// @return the value in bits
 
-static uint16_t APPS_VoltsToBits(float volts) {
+uint16_t APPS_VoltsToBits(float volts) {
     return ((volts * APPS_Bit_Resolution) / APPS_Voltage);
 }
 
@@ -82,7 +82,7 @@ static uint16_t APPS_VoltsToBits(float volts) {
 /// @param apps2 app2 sensor value
 /// @return mean value of the APPS sensors
 
-static uint16_t APPS_MeanValue(uint16_t apps1, uint16_t apps2) {
+uint16_t APPS_MeanValue(uint16_t apps1, uint16_t apps2) {
     return (apps1 + apps2) / 2;
 }
 
@@ -90,21 +90,21 @@ static uint16_t APPS_MeanValue(uint16_t apps1, uint16_t apps2) {
 /// @param value value to be checked (bits)
 /// @return true if the value is in the tolerance range, false otherwise
 
-static bool APPS_IsInTolerance(uint16_t value) {
-    return (value >= (APPS_MIN_bits)) && (value <= (APPS_MAX_bits));
+bool APPS_IsInTolerance(uint16_t value) {
+    return (value >= (APPS_MIN_bits - APPS_Tolerance_bits)) && (value <= (APPS_MAX_bits + APPS_Tolerance_bits));
 }
 
 /// @brief Update the APPS1 value
 /// @param apps1 value of the APPS1
 
-static void APPS_UpdateAPPS1(uint16_t apps1) {
+void APPS_UpdateAPPS1(uint16_t apps1) {
     APPS1 = apps1;
 }
 
 /// @brief Update the APPS2 value
 /// @param apps2 value of the APPS2
 
-static void APPS_UpdateAPPS2(uint16_t apps2) {
+void APPS_UpdateAPPS2(uint16_t apps2) {
     APPS2 = APPS_InvertValue(apps2);
 }
 
@@ -113,8 +113,11 @@ static void APPS_UpdateAPPS2(uint16_t apps2) {
 /// @param apps2 value of the APPS2
 /// @return true if the APPS is 10% apart, false otherwise
 
-static bool APPS_Is10PercentApart(uint16_t apps1, uint16_t apps2) {
-    return (apps1 > (apps2 * 0.9)) && (apps1 < (apps2 * 1.1));
+bool APPS_Is10PercentApart(uint16_t apps1, uint16_t apps2) {
+    //uint16_t total = apps1 + apps2;
+    //return (total <= 3686.4 || total >= 4505.6);
+
+    return (apps1 < (apps2 * 0.9)) || (apps1 > (apps2 * 1.1));
 }
 
 /// @brief Check if the APPS has an error based on the 10% apart and the tolerance
@@ -122,11 +125,15 @@ static bool APPS_Is10PercentApart(uint16_t apps1, uint16_t apps2) {
 /// @param apps2 value of the APPS2
 /// @return true if the values are 10% apart or not in the tolerance range, false otherwise
 
-static bool APPS_CheckError(uint16_t apps1, uint16_t apps2) {
-    if (!APPS_Is10PercentApart(apps1, apps2)) {
+bool APPS_CheckError(uint16_t apps1, uint16_t apps2) {
+    if (APPS_Is10PercentApart(apps1, apps2)) {
         // Error
+       // printf("APPS_Is10PercentApart %d\r\n ", APPS_Is10PercentApart(apps1, apps2));
+
         return 1;
     } else if (!APPS_IsInTolerance(apps1) || !APPS_IsInTolerance(apps2)) {
+        //printf("APPS_IsInTolerance %d\r\n ", APPS_IsInTolerance(apps1));
+        //printf("APPS_IsInTolerance %d\r\n ", APPS_IsInTolerance(apps2));
         // Error
         return 1;
     } else {
@@ -143,7 +150,7 @@ static bool APPS_CheckError(uint16_t apps1, uint16_t apps2) {
 bool APPS_TimedOut(uint16_t apps1, uint16_t apps2) {
     static unsigned long lastTime = 0;
     unsigned long currentTime;
-    uint16_t timeout = 100; // ms
+    uint16_t timeout = 100;  // ms
 
     if (APPS_CheckError(apps1, apps2)) {
         // Error
@@ -172,7 +179,7 @@ bool APPS_TimedOut(uint16_t apps1, uint16_t apps2) {
 /// @param apps_mean value of the mean of the APPS
 /// @return value of the percentage of the APPS 0-100
 
-static uint16_t APPS_ToPercentage(uint16_t apps_mean) {
+uint16_t APPS_ToPercentage(uint16_t apps_mean) {
     return (apps_mean * 100) / APPS_functional_region;
 }
 
@@ -180,7 +187,7 @@ static uint16_t APPS_ToPercentage(uint16_t apps_mean) {
 /// @param apps_mean value of the mean of the APPS
 /// @return value of the APPS 0-1000
 
-static uint16_t APPS_ToPercentage_1000(uint16_t apps_mean) {
+uint16_t APPS_ToPercentage_1000(uint16_t apps_mean) {
     return (apps_mean * 1000) / APPS_functional_region;
 }
 
@@ -214,10 +221,23 @@ bool APPS_Function(uint16_t apps1, uint16_t apps2) {
             APPS_Percentage_1000 = 0;
         } else if ((APPS_Mean <= APPS_MAX_bits) && (APPS_Mean >= (APPS_MAX_bits - APPS_Tolerance_bits))) {
             APPS_Percentage = 100;
-            APPS_Percentage_1000 = 100;
+            APPS_Percentage_1000 = 1000;
         } else {
             APPS_Percentage = map(APPS_Mean, APPS_MIN_bits + APPS_Tolerance_bits, APPS_MAX_bits - APPS_Tolerance_bits, 0, 100);
             APPS_Percentage_1000 = map(APPS_Mean, APPS_MIN_bits + APPS_Tolerance_bits, APPS_MAX_bits - APPS_Tolerance_bits, 0, 1000);
+        }
+
+        // limit the percentage
+        if (APPS_Percentage > 100) {
+            APPS_Percentage = 100;
+        } else if (APPS_Percentage < 0) {
+            APPS_Percentage = 0;
+        }
+
+        if (APPS_Percentage_1000 > 999) {
+            APPS_Percentage_1000 = 999;
+        } else if (APPS_Percentage_1000 < 0) {
+            APPS_Percentage_1000 = 0;
         }
 
         APPS_ToPercentage(APPS_Mean);
@@ -241,18 +261,17 @@ void APPS_PrintValues(void) {
     printf("\r\n");
 }
 
-
-//TODO auto calibration mode
+// TODO auto calibration mode
 void AUTO_CALIBRATION(uint16_t APPS1, uint16_t APPS2) {
-
     static uint16_t APPS1_MIN = 0;
     static uint16_t APPS1_MAX = 0;
     static uint16_t APPS2_MIN = 0;
     static uint16_t APPS2_MAX = 0;
-    //tolerance 5%
-   // static float TOLERANCE = 0.05;
-    //static uint16_t APPS1_TOLERANCE;
-    //static uint16_t APPS2_TOLERANCE;
+
+    // tolerance 5%
+    // static float TOLERANCE = 0.05;
+    // static uint16_t APPS1_TOLERANCE;
+    // static uint16_t APPS2_TOLERANCE;
 
     if (APPS1 < APPS1_MIN) {
         APPS1_MIN = APPS1;
@@ -270,7 +289,7 @@ void AUTO_CALIBRATION(uint16_t APPS1, uint16_t APPS2) {
     printf("APPS1_MIN %d ", APPS1_MIN);
     printf("APPS1_MAX %d ", APPS1_MAX);
     printf("APPS2_MIN %d ", APPS2_MIN);
-    printf("APPS2_MAX %d ", APPS2_MAX); 
+    printf("APPS2_MAX %d ", APPS2_MAX);
 
-    //return values
+    // return values
 }

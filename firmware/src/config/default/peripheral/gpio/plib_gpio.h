@@ -96,14 +96,14 @@
 #define GPIO_RD8_ONBOARD_BUTTON_Get()               ((PORTD >> 8) & 0x1U)
 #define GPIO_RD8_ONBOARD_BUTTON_PIN                  GPIO_PIN_RD8
 
-/*** Macros for GPIO_RB5_START_BUTTON pin ***/
-#define GPIO_RB5_START_BUTTON_Set()               (LATBSET = (1U<<5))
-#define GPIO_RB5_START_BUTTON_Clear()             (LATBCLR = (1U<<5))
-#define GPIO_RB5_START_BUTTON_Toggle()            (LATBINV= (1U<<5))
-#define GPIO_RB5_START_BUTTON_OutputEnable()      (TRISBCLR = (1U<<5))
-#define GPIO_RB5_START_BUTTON_InputEnable()       (TRISBSET = (1U<<5))
-#define GPIO_RB5_START_BUTTON_Get()               ((PORTB >> 5) & 0x1U)
-#define GPIO_RB5_START_BUTTON_PIN                  GPIO_PIN_RB5
+/*** Macros for GPIO_RB6_START_BUTTON pin ***/
+#define GPIO_RB6_START_BUTTON_Set()               (LATBSET = (1U<<6))
+#define GPIO_RB6_START_BUTTON_Clear()             (LATBCLR = (1U<<6))
+#define GPIO_RB6_START_BUTTON_Toggle()            (LATBINV= (1U<<6))
+#define GPIO_RB6_START_BUTTON_OutputEnable()      (TRISBCLR = (1U<<6))
+#define GPIO_RB6_START_BUTTON_InputEnable()       (TRISBSET = (1U<<6))
+#define GPIO_RB6_START_BUTTON_Get()               ((PORTB >> 6) & 0x1U)
+#define GPIO_RB6_START_BUTTON_PIN                  GPIO_PIN_RB6
 
 /*** Macros for GPIO_RC10_DIP4 pin ***/
 #define GPIO_RC10_DIP4_Set()               (LATCSET = (1U<<10))
@@ -140,6 +140,15 @@
 #define GPIO_RB8_DIP1_InputEnable()       (TRISBSET = (1U<<8))
 #define GPIO_RB8_DIP1_Get()               ((PORTB >> 8) & 0x1U)
 #define GPIO_RB8_DIP1_PIN                  GPIO_PIN_RB8
+
+/*** Macros for GPIO_RD6_IGN_SWITCH pin ***/
+#define GPIO_RD6_IGN_SWITCH_Set()               (LATDSET = (1U<<6))
+#define GPIO_RD6_IGN_SWITCH_Clear()             (LATDCLR = (1U<<6))
+#define GPIO_RD6_IGN_SWITCH_Toggle()            (LATDINV= (1U<<6))
+#define GPIO_RD6_IGN_SWITCH_OutputEnable()      (TRISDCLR = (1U<<6))
+#define GPIO_RD6_IGN_SWITCH_InputEnable()       (TRISDSET = (1U<<6))
+#define GPIO_RD6_IGN_SWITCH_Get()               ((PORTD >> 6) & 0x1U)
+#define GPIO_RD6_IGN_SWITCH_PIN                  GPIO_PIN_RD6
 
 /*** Macros for GPIO_RF0_pin pin ***/
 #define GPIO_RF0_pin_Set()               (LATFSET = (1U<<0))

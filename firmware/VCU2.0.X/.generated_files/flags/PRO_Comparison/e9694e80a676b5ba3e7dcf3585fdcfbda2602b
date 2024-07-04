@@ -1,0 +1,1 @@
+ $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -I"../src" -I"../src/config/default" -Werror -Wall   -DXPRJ_PRO_Comparison=$(CND_CONF)    $(COMPARISON_BUILD)  -mafrlcsj -mdfp="${DFP_DIR}"  C:\Users\pedro\Documents\GIT\2_FIRMWARE\VCU_Firmware\firmware\src\config\default\peripheral\canfd\plib_canfd3.c
