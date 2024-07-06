@@ -86,7 +86,8 @@ void GPIO_Initialize ( void )
     LATF = 0x1U; /* Initial Latch Value */
     TRISFCLR = 0x3U; /* Direction Control */
     /* PORTG Initialization */
-    ANSELGCLR = 0x1c0U; /* Digital Mode Enable */
+    ANSELGCLR = 0x3c0U; /* Digital Mode Enable */
+    CNPDGSET = 0x200U; /* Pull-Down Enable */
 
     /* Unlock system for PPS configuration */
     SYSKEY = 0x00000000U;

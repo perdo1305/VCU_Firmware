@@ -146,7 +146,8 @@ extern uint16_t TOJAL_RX_RPM;
 extern uint32_t RPM_TOJAL;
 extern uint8_t RES_AD_Ignition;
 extern bool TCU_Autonomous_ignition;
-extern bool TCU_Precharge_done;
+extern uint8_t TCU_Precharge_done;
+extern uint16_t Actual_InputVoltage;
 
 #ifdef __cplusplus
 extern "C" {

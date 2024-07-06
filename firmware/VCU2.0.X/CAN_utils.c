@@ -9,7 +9,6 @@ void can_filter_id_bus4(can_data_t* data);
 uint16_t TOJAL_RX_RPM = 0;
 uint32_t RPM_TOJAL = 0;
 
-
 // ############# RX CAN FRAME ###############################
 
 CANFD_MSG_RX_ATTRIBUTE msgAttr = CANFD_MSG_RX_DATA_FRAME;  // RX message attribute
@@ -18,10 +17,13 @@ uint32_t status[4] = {0, 0, 0, 0};  // CAN error status
 
 can_data_t can_bus_read(uint8_t bus) {
     static can_data_t data;
+    uint8_t tempvar = 0;
     switch (bus) {
         case CAN_BUS1:
             status[CAN_BUS1] = CAN1_ErrorGet();
-            if (status[CAN_BUS1] == CANFD_ERROR_NONE) {
+            //if (status[CAN_BUS1] == CANFD_ERROR_NONE) {
+            
+            if (!tempvar) {
                 memset(data.message, 0x00, sizeof(data.message));
                 if (CAN1_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
                     CANRX_ON[CAN_BUS1] = 1;
@@ -34,11 +36,11 @@ can_data_t can_bus_read(uint8_t bus) {
             return data;
         case CAN_BUS2:
             status[CAN_BUS2] = CAN2_ErrorGet();
-            if (status[CAN_BUS2] == CANFD_ERROR_NONE) {
+            //if (status[CAN_BUS2] == CANFD_ERROR_NONE) {
+            if (!tempvar) {
                 memset(data.message, 0x00, sizeof(data.message));
                 if (CAN2_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
                     CANRX_ON[CAN_BUS2] = 1;
-
                     can_filter_id_bus2(&data);
                 }
             } else {
@@ -390,8 +392,7 @@ void can_filter_id_bus2(can_data_t* data) {
         case 0x61:
             TCU_Autonomous_ignition = data->message[2];
             TCU_Precharge_done = data->message[5];
-        break;
-               
+            break;
 
         default:
             break;
@@ -412,7 +413,7 @@ void can_filter_id_bus4(can_data_t* data) {
             break;
         case 0x191:
             RES_AD_Ignition = data->message[0];
-            //printf("Ignition: %d\n", AD_Ignition);
+            // printf("Ignition: %d\n", AD_Ignition);
             break;
     }
 }
