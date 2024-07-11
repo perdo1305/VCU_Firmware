@@ -12,8 +12,11 @@
 extern "C" {
 #endif
 
-#define MAX_RPM 5000U
+#define AUTONOMOUS_MODE 1
+
+#define MAX_RPM 416U
 #define MAX_AD_RPM 416U //10km/h
+#define AD_Timeout 1000U
 
 #define MAX_CURRENT 40U
 #define MAX_TORQUE 100U

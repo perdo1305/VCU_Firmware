@@ -11615,7 +11615,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="can2" name="CAN_OPMODE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;CAN_OPMODE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
 </value>
@@ -19285,7 +19287,7 @@
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;core&quot; x=&quot;240&quot; y=&quot;22&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;core_timer&quot; x=&quot;756&quot; y=&quot;26&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;dfp&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;stdio&quot; x=&quot;441&quot; y=&quot;113&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;stdio&quot; x=&quot;440&quot; y=&quot;86&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;tmr1&quot; x=&quot;34&quot; y=&quot;152&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;tmr2&quot; x=&quot;34&quot; y=&quot;220&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;tmr3&quot; x=&quot;33&quot; y=&quot;286&quot;/&gt;
@@ -28868,7 +28870,7 @@
    <generatedFileHashHistoryMap class="java.util.TreeMap">
       <entry>
          <file>..\src\config\default\definitions.h</file>
-         <hash>9d5dd87408bec71e992cf5f381720ffc724e8a46864c8ddfcdae0720fc9755d6</hash>
+         <hash>e54740d40cff9e328f361ce3d8a4076b8283ed5ba78850f9d29c11fad0ace2ca</hash>
       </entry>
       <entry>
          <file>..\src\config\default\device.h</file>
@@ -28880,7 +28882,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\initialization.c</file>
-         <hash>70b0586fff81844cc6cc36d8ba8d45a26359972392156615f56244cd9af856af</hash>
+         <hash>3988c33442ff1ed9f2a48d305b55e4f5f1879dd7d642f8671a451512bf03306f</hash>
       </entry>
       <entry>
          <file>..\src\config\default\interrupts.c</file>

@@ -21,8 +21,8 @@ can_data_t can_bus_read(uint8_t bus) {
     switch (bus) {
         case CAN_BUS1:
             status[CAN_BUS1] = CAN1_ErrorGet();
-            //if (status[CAN_BUS1] == CANFD_ERROR_NONE) {
-            
+            // if (status[CAN_BUS1] == CANFD_ERROR_NONE) {
+
             if (!tempvar) {
                 memset(data.message, 0x00, sizeof(data.message));
                 if (CAN1_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
@@ -36,7 +36,7 @@ can_data_t can_bus_read(uint8_t bus) {
             return data;
         case CAN_BUS2:
             status[CAN_BUS2] = CAN2_ErrorGet();
-            //if (status[CAN_BUS2] == CANFD_ERROR_NONE) {
+            // if (status[CAN_BUS2] == CANFD_ERROR_NONE) {
             if (!tempvar) {
                 memset(data.message, 0x00, sizeof(data.message));
                 if (CAN2_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
@@ -62,7 +62,9 @@ can_data_t can_bus_read(uint8_t bus) {
 
         case CAN_BUS4:
             status[CAN_BUS4] = CAN4_ErrorGet();
-            if (status[CAN_BUS4] == CANFD_ERROR_NONE) {
+
+            // if (status[CAN_BUS4] == CANFD_ERROR_NONE) {
+            if (!tempvar) {
                 memset(data.message, 0x00, sizeof(data.message));
                 if (CAN4_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
                     CANRX_ON[CAN_BUS4] = 1;
@@ -241,7 +243,7 @@ void can_bus_send_HV500_SetBrakeCurrent(uint16_t brake_current) {
 void can_bus_send_HV500_SetERPM(uint32_t erpm) {
     can_data_t data;
     data.id = CAN_HV500_SetERPM_ID;
-    data.length = 8;
+    data.length = 4;
 
     MAP_ENCODE_CMD_ERPM(data.message, erpm);
 
@@ -263,7 +265,7 @@ void can_bus_send_HV500_SetPosition(uint32_t position) {
 void can_bus_send_HV500_SetRelCurrent(uint32_t rel_current) {
     can_data_t data;
     data.id = CAN_HV500_SetRelCurrent_ID;
-    data.length = 8;
+    data.length = 2;
 
     MAP_ENCODE_CMD_RelCurrent(data.message, rel_current);
 
@@ -329,7 +331,7 @@ void can_bus_send_HV500_SetMaxDcBrakeCurrent(uint32_t max_dc_brake_current) {
 void can_bus_send_HV500_SetDriveEnable(uint32_t drive_enable) {
     can_data_t data;
     data.id = CAN_HV500_SetDriveEnable_ID;
-    data.length = 8;
+    data.length = 1;
 
     MAP_ENCODE_CMD_DriveEnable(data.message, drive_enable);
 
@@ -407,6 +409,7 @@ void can_filter_id_bus4(can_data_t* data) {
     switch (data->id) {
         case 0x500:
             RPM_TOJAL = MAP_DECODE_TOJAL_RPM(data->message);
+            AD_timeout = 0;
             break;
         case 0x50:
             AS_Emergency = data->message[0];
@@ -423,8 +426,8 @@ void can_bus_send_AdBus_RPM(uint32_t rpm) {
     can_data_t data;
     memset(data.message, 0x00, sizeof(data.message));
     data.id = 0x510;
-    data.length = 8;
-    rpm = rpm / 20;
+    data.length = 2;
+    rpm = rpm / 10;
     MAP_ENCODE_TOJAL_RPM(data.message, rpm);
 
     can_bus_send(CAN_BUS4, &data);

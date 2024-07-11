@@ -60,7 +60,7 @@ void can_bus_send_AdBus_RPM(uint32_t rpm);
 /*data stucture for interating with the HV500 inverter*/
 typedef struct {
     // Received data
-    uint32_t Actual_ERPM;
+    long Actual_ERPM;
     uint32_t Actual_Duty;
     uint32_t Actual_InputVoltage;
     uint32_t Actual_ACCurrent;
@@ -148,6 +148,8 @@ extern uint8_t RES_AD_Ignition;
 extern bool TCU_Autonomous_ignition;
 extern uint8_t TCU_Precharge_done;
 extern uint16_t Actual_InputVoltage;
+
+extern uint32_t AD_timeout;
 
 #ifdef __cplusplus
 extern "C" {

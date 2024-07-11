@@ -74,6 +74,7 @@ uint8_t RES_AD_Ignition;
 bool TCU_Autonomous_ignition = false;
 uint8_t TCU_Precharge_done = false;
 uint16_t Actual_InputVoltage = 0;
+uint32_t AD_timeout = 0;
 
 bool IsAutonomousMode = false;         // indicates if the car is in autonomous mode
 volatile bool IgnitionSwitch = false;  // indicates if the ignition switch is on
@@ -141,6 +142,7 @@ bool AS_Emergency = false;
 void IsR2D(void);
 void SOUND_R2DS(void);
 void IsIgnition(void);
+void AutonomousR2D(void);
 
 void DIP_Switch(void);
 void BlinkCANLED(void);
@@ -155,24 +157,32 @@ void TMR1_5ms(uint32_t status, uintptr_t context) {  // 200Hz
     // APPS_Function(ADC[0], ADC[3]);
     APPS_Function(ADC_Filtered_0, ADC_Filtered_3);
 
-    if (Ready2Drive) {
-        if (IsAutonomousMode) {
-            if (RPM_TOJAL > MAX_AD_RPM) {
-                RPM_TOJAL = MAX_AD_RPM;
-            } else if (RPM_TOJAL < 0) {
-                RPM_TOJAL = 0;
-            }
-            // TODO if autonomous mode is on, start does not need to be activated with the brake
-            can_bus_send_HV500_SetDriveEnable(1);
-            can_bus_send_HV500_SetERPM(RPM_TOJAL * 10);
-        } else {
-            // can_bus_send_HV500_SetAcCurrent(ConvertTorqueToCurrent(ConvertAPPSToTorque(APPS_Percentage_1000)));
-            //can_bus_send_HV500_SetRelCurrent(APPS_Percentage_1000);
-            //can_bus_send_HV500_SetDriveEnable(1);
+/*AUTONOMOUS MODE*/
+#if AUTONOMOUS_MODE == 1
+    if (IsAutonomousMode) {
+        if (RPM_TOJAL > MAX_AD_RPM) {
+            RPM_TOJAL = MAX_AD_RPM;
+        } else if (RPM_TOJAL < 0) {
+            RPM_TOJAL = 0;
         }
-    } else {
+        
+        // TODO if autonomous mode is on, start does not need to be activated with the brake
+        can_bus_send_HV500_SetDriveEnable(1);
+        can_bus_send_HV500_SetERPM(RPM_TOJAL * 10);
+        //can_bus_send_AdBus_RPM((myHV500.Actual_ERPM)*(-1));
+    }
+#else
+    /*MANUAL MODE*/
+
+    if (Ready2Drive) {
+        can_bus_send_HV500_SetRelCurrent(APPS_Percentage_1000);
+        can_bus_send_HV500_SetDriveEnable(1);
+    }
+
+    else {
         can_bus_send_HV500_SetDriveEnable(0);
     }
+#endif
 }
 
 void TMR2_100ms(uint32_t status, uintptr_t context) {
@@ -181,18 +191,19 @@ void TMR2_100ms(uint32_t status, uintptr_t context) {
     can_bus_send_databus_3(VcuState, LMT2, LMT1, Inverter_Faults);
     can_bus_send_databus_4(RPM, Inverter_Voltage);
 
-    can_bus_send_AdBus_RPM(myHV500.Actual_ERPM);
+    
 
     // can_bus_send_HV500_SetERPM((RPM_TOJAL * 20));
+    /*
     can_data_t data;
-    data.id = 0x23;
+    data.id = 0x23; //0b100011
     data.length = 8;
     for (int i = 0; i < 8; i++) {
         data.message[i] = 0;
     }
     data.message[5] = IgnitionSwitch;
-
-    can_bus_send(CAN_BUS2, &data);
+*/
+    // can_bus_send(CAN_BUS2, &data);
 }
 
 void TMR4_500ms(uint32_t status, uintptr_t context) {  // 2Hz
@@ -293,8 +304,8 @@ int main(void) {
 
     APPS_Init(__APPS_MIN, __APPS_MAX, __APPS_TOLERANCE);  // Initialize APPS
 
-    CORETIMER_DelayMs(500);
-    // can_open_init();
+    CORETIMER_DelayMs(1500);
+    
 
     startupSequence();  // led sequence
     VcuState = 1;       // Set VCU state to 1
@@ -305,6 +316,7 @@ int main(void) {
     TMR4_Start();
 
     WDT_Enable();
+    can_open_init();
 
     // the car does not start until the start button is pressed a the brake is pressed
     /*
@@ -334,6 +346,7 @@ int main(void) {
 
         IsIgnition();
         IsR2D();
+        AutonomousR2D();
 
         MeasureCurrent(ADCHS_CH9);
         MeasureVoltage(ADCHS_CH8);
@@ -426,7 +439,9 @@ void PrintToConsole(uint8_t time) {
 
         // Ready to drive & is autonomous
 
-        printf("ERPM%d", myHV500.Actual_ERPM);
+        printf("ERPM%ld", myHV500.Actual_ERPM);
+        printf("Tmp_INV%d", myHV500.Actual_TempController/10);
+        printf("Tmp_MOT%d", myHV500.Actual_TempMotor/10);
         printf("RPM_TOJAL%d", RPM_TOJAL);
 
         printf("R2D%d", Ready2Drive);
@@ -549,12 +564,12 @@ void IsR2D(void) {
 
     } else {
         if (IgnitionSwitch) {
-            if (hv_on) {
-                if (start_button) {
-                    // if (GPIO_RB6_START_BUTTON_Get() && (Brake_Pressure >= __BRAKE_THRESHOLD)) {
-                    Ready2Drive = true;
-                }
+            // if (hv_on) {
+            if (start_button) {
+                // if (GPIO_RB6_START_BUTTON_Get() && (Brake_Pressure >= __BRAKE_THRESHOLD)) {
+                Ready2Drive = true;
             }
+            // }
         } else {
             Ready2Drive = false;
         }
@@ -702,6 +717,7 @@ void IsIgnition(void) {
 
 void AutonomousR2D(void) {
     if (RES_AD_Ignition == 5 || RES_AD_Ignition == 7) {
-                IsAutonomousMode = true;
+        IsAutonomousMode = true;
+        Ready2Drive = true;
     }
 }
