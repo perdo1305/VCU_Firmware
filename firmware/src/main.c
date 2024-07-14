@@ -61,25 +61,33 @@ float PDM_Current = 0.0;  // current supplied by the low voltage battery
 float PDM_Voltage = 0.0;  // voltage supplied by the low voltage battery
 
 volatile bool IsAutonomous = false;
+bool AS_Emergency = false;
 
-HV500 myHV500;
+HV500 myHV500;  // Stuct to store HV500 data comming from CAN
 
-bool CANRX_ON[4] = {0, 0, 0, 0};
-bool CANTX_ON[4] = {0, 0, 0, 0};
-bool LED_CANRX_MODE = 0;
-bool BUZZER_ON = false;
-bool R2DS_as_played = false;
-bool AS_Emergency_as_played = false;
-uint8_t RES_AD_Ignition;
-bool TCU_Autonomous_ignition = false;
-uint8_t TCU_Precharge_done = false;
-uint16_t Actual_InputVoltage = 0;
-uint32_t AD_timeout = 0;
+bool CANRX_ON[4] = {0, 0, 0, 0};       // array to store the status of the CAN RX comming from can_utils
+bool CANTX_ON[4] = {0, 0, 0, 0};       // array to store the status of the CAN TX comming from can_utils
+bool LED_CANRX_MODE = 0;               // variable to store the mode of the LED, if 1, the LED will blink when the CAN RX is on, if 0, the LED will blink when the CAN TX is on
+bool BUZZER_ON = false;                // variable to enable or disable the buzzer
+bool R2DS_as_played = false;           // variable to store if the ready to drive sound was played
+bool AS_Emergency_as_played = false;   // variable to store if the AS Emergency sound was played
+uint8_t RES_AD_Ignition;               // variable to store the ignition state comming from the AD
+bool TCU_Autonomous_ignition = false;  // variable to store the ignition state comming from the TCU
+uint8_t TCU_Precharge_done = false;    // variable to store the precharge state comming from the TCU
+uint16_t Actual_InputVoltage = 0;      // variable to store the input voltage comming from the AD
+uint32_t AD_timeout = 0;               // variable to store the timeout of the AD
 
 bool IsAutonomousMode = false;         // indicates if the car is in autonomous mode
 volatile bool IgnitionSwitch = false;  // indicates if the ignition switch is on
 
-volatile bool Ready2Drive = 0;  // indicates if the car is ready to drive
+
+// R2D Struct
+typedef struct {
+    bool isR2D;
+    bool R2D_last_state;
+    bool R2DS_as_played;
+} R2D_t;
+R2D_t R2D;
 
 // ############# CANSART ######################################
 #if CANSART
@@ -97,7 +105,7 @@ uint16_t ADC_Filtered_3 = 0;
 __COHERENT uint16_t adc[10][10];  // just to test dma
 bool adc_flag[64];                // flag to indicate that the ADC data was updated
 /*
-The DMABL field can also be thought of as a �??Left Shift Amount +1�?? needed for the channel ID to create the
+The DMABL field can also be thought of as a  ??Left Shift Amount +1 ?? needed for the channel ID to create the
 DMA byte address offset to be added to the contents of ADDMAB in order to obtain the byte address of the
 beginning of the System RAM buffer area allocated for the given channel.
 */
@@ -132,16 +140,16 @@ uint16_t RPM = 0;               // 0-65535 |Byte 2-32
 void startupSequence(void);    // Startup sequence
 void PrintToConsole(uint8_t);  // Print data to console
 
-void MeasureCurrent(uint16_t channel);
-void MeasureVoltage(uint16_t channel);
-void MeasureBrakePressure(uint16_t channel);
-void CalculateMean(void);
+void MeasureCurrent(uint16_t channel);        // Measure current from a ADC channel
+void MeasureVoltage(uint16_t channel);        // Measure voltage from a ADC channel
+void MeasureBrakePressure(uint16_t channel);  // Measure brake pressure from a ADC channel
+void CalculateMean(void);                     // Calculate a moving average of the ADC channels
 
 void MissionEmergencyStop(void);
-bool AS_Emergency = false;
+
 void IsR2D(void);
 void SOUND_R2DS(void);
-void IsIgnition(void);
+void UpdateIgnitionState(void);
 void AutonomousR2D(void);
 
 void DIP_Switch(void);
@@ -165,16 +173,16 @@ void TMR1_5ms(uint32_t status, uintptr_t context) {  // 200Hz
         } else if (RPM_TOJAL < 0) {
             RPM_TOJAL = 0;
         }
-        
+
         // TODO if autonomous mode is on, start does not need to be activated with the brake
         can_bus_send_HV500_SetDriveEnable(1);
         can_bus_send_HV500_SetERPM(RPM_TOJAL * 10);
-        //can_bus_send_AdBus_RPM((myHV500.Actual_ERPM)*(-1));
+        // can_bus_send_AdBus_RPM((myHV500.Actual_ERPM)*(-1));
     }
 #else
     /*MANUAL MODE*/
 
-    if (Ready2Drive) {
+    if (R2D.isR2D) {
         can_bus_send_HV500_SetRelCurrent(APPS_Percentage_1000);
         can_bus_send_HV500_SetDriveEnable(1);
     }
@@ -190,8 +198,6 @@ void TMR2_100ms(uint32_t status, uintptr_t context) {
     can_bus_send_databus_2(myHV500.Actual_TempMotor, myHV500.Actual_TempController);
     can_bus_send_databus_3(VcuState, LMT2, LMT1, Inverter_Faults);
     can_bus_send_databus_4(RPM, Inverter_Voltage);
-
-    
 
     // can_bus_send_HV500_SetERPM((RPM_TOJAL * 20));
     /*
@@ -209,18 +215,21 @@ void TMR2_100ms(uint32_t status, uintptr_t context) {
 void TMR4_500ms(uint32_t status, uintptr_t context) {  // 2Hz
     GPIO_RC11_LED_HeartBeat_Toggle();
 
-    if (Ready2Drive) {
-        GPIO_RB10_LED_Set();
+    if (R2D.isR2D) {
+        GPIO_RB10_LED_Set();  // PCB LED
     } else {
-        GPIO_RB10_LED_Clear();
+        GPIO_RB10_LED_Clear();  // PCB LED
+        // external pin on pwm12H
     }
 }
 
+/*R2D SOUND*/
 void TMR5_3s(uint32_t status, uintptr_t context) {
     GPIO_RF0_pin_Set();
     TMR5_Stop();
 }
 
+/*AS Emergency*/
 void TMR6_500ms(uint32_t status, uintptr_t context) {
     static uint8_t i = 0;
     if (i < 18) {
@@ -230,10 +239,6 @@ void TMR6_500ms(uint32_t status, uintptr_t context) {
         GPIO_RF0_pin_Set();
         TMR6_Stop();
     }
-    // setSetERPM(250 * APPS_Percentage);  // Send APPS_percent to inverter
-    //  setSetERPM(25 * APPS_Percentage_1000);
-
-    // setDriveEnable(1);
 }
 
 // ############# ADC CALLBACKS ###############################
@@ -305,7 +310,6 @@ int main(void) {
     APPS_Init(__APPS_MIN, __APPS_MAX, __APPS_TOLERANCE);  // Initialize APPS
 
     CORETIMER_DelayMs(1500);
-    
 
     startupSequence();  // led sequence
     VcuState = 1;       // Set VCU state to 1
@@ -323,7 +327,7 @@ int main(void) {
      do{
         WDT_Clear();
     }while( !GPIO_RB5_IGN_Get() || (Brake_Pressure>=100) );
-    Ready2Drive = true; // the car is ready to drive
+    R2D.isR2D = true; // the car is ready to drive
     IGNITION_R2D(); //ready to drive sound
      */
 
@@ -344,7 +348,7 @@ int main(void) {
         SOUND_R2DS();            // ready to drive sound (3sec)
         MissionEmergencyStop();  // emergency stop sound (8sec)
 
-        IsIgnition();
+        UpdateIgnitionState();
         IsR2D();
         AutonomousR2D();
 
@@ -440,11 +444,11 @@ void PrintToConsole(uint8_t time) {
         // Ready to drive & is autonomous
 
         printf("ERPM%ld", myHV500.Actual_ERPM);
-        printf("Tmp_INV%d", myHV500.Actual_TempController/10);
-        printf("Tmp_MOT%d", myHV500.Actual_TempMotor/10);
+        printf("Tmp_INV%d", myHV500.Actual_TempController / 10);
+        printf("Tmp_MOT%d", myHV500.Actual_TempMotor / 10);
         printf("RPM_TOJAL%d", RPM_TOJAL);
 
-        printf("R2D%d", Ready2Drive);
+        printf("R2D%d", R2D.isR2D);
         printf("IGN%d", IgnitionSwitch);
         printf("AD%d", IsAutonomous);
         printf("TCU_PRECHARGE%d", TCU_Precharge_done);
@@ -524,42 +528,56 @@ void MissionEmergencyStop(void) {
     // TODO apitar buzzer quando receber o comando de emergencia
 
     /*
-      The status �??AS Emergency�?? has to be indicated by an intermittent sound with the following
+      The status  ??AS Emergency ?? has to be indicated by an intermittent sound with the following
     parameters:
-    �?� on-/off-frequency: 1 Hz to 5 Hz
-    �?� duty cycle 50 %
-    �?� sound level between 80 dBA and 90 dBA, fast weighting in a radius of 2 m around the
+     ?  on-/off-frequency: 1 Hz to 5 Hz
+     ?  duty cycle 50 %
+     ?  sound level between 80 dBA and 90 dBA, fast weighting in a radius of 2 m around the
     vehicle.
-    �?� duration between 8 s and 10 s after entering �??AS Emergency�??
+     ?  duration between 8 s and 10 s after entering  ??AS Emergency ??
      */
 
     if (AS_Emergency) {
         if (!AS_Emergency_as_played) {
             // MCPWM_Start();
             AS_Emergency_as_played = true;
-            Ready2Drive = false;
+            R2D.isR2D = false;
             TMR6_Start();
         }
     }
 }
 
 void IsR2D(void) {
-    // debounce
-    // static uint8_t millis_debounce = 0;
-    // static uint32_t previous_millis = 0;
-    // static bool r2d_previous_state = false;
+    static bool previous_state = false;
+    static bool current_state = false;
+    static uint32_t lastDebounceTime = 0;
+    const uint16_t debounceDelay = 30;
+    static bool start_button = false;
 
-    // millis_debounce = millis();
+    current_state = GPIO_RB6_START_BUTTON_Get();
+
+    if (current_state != previous_state) {
+        lastDebounceTime = millis();
+    }
+    if ((millis() - lastDebounceTime) > debounceDelay) {
+        start_button = current_state;
+    }
+
+    previous_state = current_state;
+
+    // TODO VERIFICAR ISTO TUDO
 
     bool hv_on = GPIO_RG9_Get();
+    /*
     CORETIMER_DelayUs(2);
     bool start_button = GPIO_RB6_START_BUTTON_Get();
     CORETIMER_DelayUs(2);
+    */
 
     // if (IgnitionSwitch) {
     if (IsAutonomousMode) {
         if (hv_on) {
-            Ready2Drive = true;
+            R2D.isR2D = true;
         }
 
     } else {
@@ -567,11 +585,37 @@ void IsR2D(void) {
             // if (hv_on) {
             if (start_button) {
                 // if (GPIO_RB6_START_BUTTON_Get() && (Brake_Pressure >= __BRAKE_THRESHOLD)) {
-                Ready2Drive = true;
+                R2D.isR2D = true;
             }
+
+            static uint32_t previous_millis = 0;
+            uint32_t milisegungos = millis();
+            if (milisegungos - previous_millis >= 30) {
+                if (!R2D.isR2D) {
+                    // fade led
+                    static uint8_t brightness = 0;
+                    static uint8_t fadeAmount = 5;
+                    brightness = brightness + fadeAmount;
+                    if (brightness == 0 || brightness == 250) {
+                        fadeAmount = -fadeAmount;
+                        // convert 0 to 250 to 0 to 2000
+                        uint16_t brightness2000 = brightness * 8;
+                        // 0 to 2000
+                        MCPWM_Start();
+                        MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, brightness2000);
+                    }
+                } else {
+                    MCPWM_Start();
+                    MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 2000);
+                }
+                previous_millis = milisegungos;
+            }
+
             // }
         } else {
-            Ready2Drive = false;
+            R2D.isR2D = false;
+            R2D.R2DS_as_played = false;
+            MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 0);
         }
     }
 
@@ -579,7 +623,7 @@ void IsR2D(void) {
 }
 
 void SOUND_R2DS(void) {
-    if (Ready2Drive) {
+    if (R2D.isR2D) {
         if (!BUZZER_ON) {
             if (!R2DS_as_played) {
                 TMR5_Start();
@@ -689,6 +733,7 @@ void CalculateMean() {
     }
 }
 
+/*CAN Status by blinking the LEDs*/
 void BlinkCANLED(void) {
     if (LED_CANRX_MODE) {
         CANRX_ON[CAN_BUS1] == 1 ? GPIO_RA10_LED_CAN1_Toggle() : GPIO_RA10_LED_CAN1_Clear();
@@ -703,21 +748,42 @@ void BlinkCANLED(void) {
     }
 }
 
-void IsIgnition(void) {
+/*Get the Ignition Switch Status*/
+void UpdateIgnitionState(void) {
+    static bool previous_state = false;
+    static bool current_state = false;
+    static uint32_t lastDebounceTime = 0;
+    const uint16_t debounceDelay = 30;
+
+    current_state = GPIO_RD6_IGN_SWITCH_Get();
+
+    if (current_state != previous_state) {
+        lastDebounceTime = millis();
+    }
+
+    if ((millis() - lastDebounceTime) > debounceDelay) {
+        IgnitionSwitch = current_state;
+    }
+
+    previous_state = current_state;
+
+    /*
     if (GPIO_RD6_IGN_SWITCH_Get()) {
         IgnitionSwitch = true;
-        /*
-        data.id = 0x23;
-        data.message[5] = IgnitionSwitch;
-        can_bus_send(CAN_BUS2, &data);*/
+
+        //data.id = 0x23;
+        //data.message[5] = IgnitionSwitch;
+        //can_bus_send(CAN_BUS2, &data);
     } else {
         IgnitionSwitch = false;
     }
+    */
 }
 
+/*Activate R2D Autonomous mode by receiving the ignition signal from the AD*/
 void AutonomousR2D(void) {
     if (RES_AD_Ignition == 5 || RES_AD_Ignition == 7) {
         IsAutonomousMode = true;
-        Ready2Drive = true;
+        R2D.isR2D = true;
     }
 }
