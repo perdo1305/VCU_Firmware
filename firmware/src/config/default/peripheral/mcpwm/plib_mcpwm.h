@@ -1,23 +1,20 @@
 /*******************************************************************************
-  TMR Peripheral Library Interface Source File
+  Motor Control PWM (MCPWM) Peripheral Library Interface Header File
 
-  Company
+  Company:
     Microchip Technology Inc.
 
-  File Name
-    plib_tmr5.c
+  File Name:
+    plib_mcpwm.h
 
-  Summary
-    TMR5 peripheral library source file.
+  Summary:
+    MCPWM PLIB Header File
 
-  Description
-    This file implements the interface to the TMR peripheral library.  This
-    library provides access to and control of the associated peripheral
-    instance.
+  Description:
+    None
 
 *******************************************************************************/
 
-// DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
@@ -40,111 +37,73 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+
+#ifndef PLIB_MCPWM_H
+#define PLIB_MCPWM_H
+
+#include <stddef.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include "device.h"
+#include "plib_mcpwm_common.h"
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+    extern "C" {
+#endif
 // DOM-IGNORE-END
 
 
 // *****************************************************************************
+// Section: Interface
 // *****************************************************************************
-// Section: Included Files
-// *****************************************************************************
 // *****************************************************************************
 
-#include "device.h"
-#include "plib_tmr5.h"
-#include "interrupts.h"
+// *************************** MCPWM API ***************************************/
+// *****************************************************************************
 
-volatile static TMR_TIMER_OBJECT tmr5Obj;
+void MCPWM_Initialize (void);
 
+void MCPWM_Start (void);
 
-void TMR5_Initialize(void)
-{
-    /* Disable Timer */
-    T5CONCLR = _T5CON_ON_MASK;
+void MCPWM_Stop (void);
 
-    /*
-    SIDL = 0
-    SYNC = 0
-    TGATE = 0
-    TCKPS =7
-    T32   = 1
-    TCS = 0
-    */
-    T5CONSET = 0x78;
+void MCPWM_PrimaryPeriodSet(uint16_t period);
 
-    /* Clear counter */
-    TMR5 = 0x0;
+uint16_t MCPWM_PrimaryPeriodGet(void);
 
-    /*Set period */
-    PR5 = 281249U;
+void MCPWM_SecondaryPeriodSet(uint16_t period);
 
-    IEC0SET = _IEC0_T5IE_MASK;
+uint16_t MCPWM_SecondaryPeriodGet(void);
 
-}
+void MCPWM_ChannelPrimaryDutySet(MCPWM_CH_NUM channel, uint16_t duty);
 
+void MCPWM_ChannelSecondaryDutySet(MCPWM_CH_NUM channel, uint16_t duty);
 
-void TMR5_Start(void)
-{
-    T5CONSET = _T5CON_ON_MASK;
-}
+void MCPWM_ChannelDeadTimeSet(MCPWM_CH_NUM channel, uint16_t high_deadtime, uint16_t low_deadtime);
 
+void MCPWM_ChannelPrimaryTriggerSet(MCPWM_CH_NUM channel, uint16_t trigger);
 
-void TMR5_Stop (void)
-{
-    T5CONCLR = _T5CON_ON_MASK;
-}
+void MCPWM_ChannelSecondaryTriggerSet(MCPWM_CH_NUM channel, uint16_t trigger);
 
-void TMR5_PeriodSet(uint32_t period)
-{
-    PR5  = period;
-}
+void MCPWM_ChannelLeadingEdgeBlankingDelaySet(MCPWM_CH_NUM channel, uint16_t delay);
 
-uint32_t TMR5_PeriodGet(void)
-{
-    return PR5;
-}
+void MCPWM_ChannelPinsOverrideEnable(MCPWM_CH_NUM channel);
 
-uint32_t TMR5_CounterGet(void)
-{
-    return (TMR5);
-}
+void MCPWM_ChannelPinsOverrideDisable(MCPWM_CH_NUM channel);
+
+void MCPWM_ChannelPinsOwnershipEnable(MCPWM_CH_NUM channel);
+
+void MCPWM_ChannelPinsOwnershipDisable(MCPWM_CH_NUM channel);
 
 
-uint32_t TMR5_FrequencyGet(void)
-{
-    return (234375);
-}
 
-void __attribute__((used)) TIMER_5_InterruptHandler (void)
-{
-    uint32_t status = IFS0bits.T5IF;
-    IFS0CLR = _IFS0_T5IF_MASK;
 
-    if((tmr5Obj.callback_fn != NULL))
-    {
-        uintptr_t context = tmr5Obj.context;
-        tmr5Obj.callback_fn(status, context);
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
     }
-}
+#endif
 
-
-void TMR5_InterruptEnable(void)
-{
-
-    IEC0SET = _IEC0_T5IE_MASK;
-}
-
-
-void TMR5_InterruptDisable(void)
-{
-    IEC0CLR = _IEC0_T5IE_MASK;
-}
-
-
-void TMR5_CallbackRegister( TMR_CALLBACK callback_fn, uintptr_t context )
-{
-    /* Save callback_fn and context in local memory */
-    tmr5Obj.callback_fn = callback_fn;
-    tmr5Obj.context = context;
-}
-
-
+// DOM-IGNORE-END
+#endif // _PLIB_MCPWM_H

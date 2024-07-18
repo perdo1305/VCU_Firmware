@@ -78,7 +78,7 @@ void GPIO_Initialize ( void )
     CNPUCSET = 0x2400U; /* Pull-Up Enable */
     SRCON1CSET = 0x2000U; /* Slew Rate Control */
     /* PORTD Initialization */
-    CNPUDSET = 0x100U; /* Pull-Up Enable */
+    CNPUDSET = 0x120U; /* Pull-Up Enable */
     CNPDDSET = 0x40U; /* Pull-Down Enable */
     /* PORTE Initialization */
     ANSELECLR = 0x3000U; /* Digital Mode Enable */
@@ -87,7 +87,6 @@ void GPIO_Initialize ( void )
     TRISFCLR = 0x3U; /* Direction Control */
     /* PORTG Initialization */
     ANSELGCLR = 0x3c0U; /* Digital Mode Enable */
-    CNPDGSET = 0x200U; /* Pull-Down Enable */
 
     /* Unlock system for PPS configuration */
     SYSKEY = 0x00000000U;

@@ -80,7 +80,6 @@ uint32_t AD_timeout = 0;               // variable to store the timeout of the A
 bool IsAutonomousMode = false;         // indicates if the car is in autonomous mode
 volatile bool IgnitionSwitch = false;  // indicates if the ignition switch is on
 
-
 // R2D Struct
 typedef struct {
     bool isR2D;
@@ -164,7 +163,7 @@ void CANSART_SETUP(void);
 void TMR1_5ms(uint32_t status, uintptr_t context) {  // 200Hz
     // APPS_Function(ADC[0], ADC[3]);
     APPS_Function(ADC_Filtered_0, ADC_Filtered_3);
-
+    can_bus_send_HV500_SetERPM(RPM_TOJAL * 10);
 /*AUTONOMOUS MODE*/
 #if AUTONOMOUS_MODE == 1
     if (IsAutonomousMode) {
@@ -224,7 +223,7 @@ void TMR4_500ms(uint32_t status, uintptr_t context) {  // 2Hz
 }
 
 /*R2D SOUND*/
-void TMR5_3s(uint32_t status, uintptr_t context) {
+void TMR5_1200ms(uint32_t status, uintptr_t context) {
     GPIO_RF0_pin_Set();
     TMR5_Stop();
 }
@@ -299,11 +298,11 @@ int main(void) {
     ADCHS_ChannelResultInterruptEnable(ADCHS_CH8);
     // ADCHS_ChannelResultInterruptEnable(ADCHS_CH9);
 
-    TMR1_CallbackRegister(TMR1_5ms, (uintptr_t)NULL);    // 200Hz
-    TMR2_CallbackRegister(TMR2_100ms, (uintptr_t)NULL);  // 10Hz
-    TMR4_CallbackRegister(TMR4_500ms, (uintptr_t)NULL);  // 2Hz heartbeat led
-    TMR5_CallbackRegister(TMR5_3s, (uintptr_t)NULL);     // USED for 3seg R2D SOUND
-    TMR6_CallbackRegister(TMR6_500ms, (uintptr_t)NULL);  // 1.5s para AS Emergency
+    TMR1_CallbackRegister(TMR1_5ms, (uintptr_t)NULL);     // 200Hz
+    TMR2_CallbackRegister(TMR2_100ms, (uintptr_t)NULL);   // 10Hz
+    TMR4_CallbackRegister(TMR4_500ms, (uintptr_t)NULL);   // 2Hz heartbeat led
+    TMR5_CallbackRegister(TMR5_1200ms, (uintptr_t)NULL);  // USED for 3seg R2D SOUND
+    TMR6_CallbackRegister(TMR6_500ms, (uintptr_t)NULL);   // 1.5s para AS Emergency
 
     fflush(stdout);
 
@@ -446,6 +445,10 @@ void PrintToConsole(uint8_t time) {
         printf("ERPM%ld", myHV500.Actual_ERPM);
         printf("Tmp_INV%d", myHV500.Actual_TempController / 10);
         printf("Tmp_MOT%d", myHV500.Actual_TempMotor / 10);
+        printf("INVVTG%d", myHV500.Actual_InputVoltage);
+        printf("ACC%d", myHV500.Actual_ACCurrent / 10);
+        printf("DCC%d", myHV500.Actual_DCCurrent / 10);
+
         printf("RPM_TOJAL%d", RPM_TOJAL);
 
         printf("R2D%d", R2D.isR2D);

@@ -1,30 +1,23 @@
 /*******************************************************************************
-  SYS CLK Static Functions for Clock System Service
+  Motor Control PWM (MCPWM) Peripheral Library Interface Header File
 
-  Company:
+  Company
     Microchip Technology Inc.
 
-  File Name:
-    plib_clk.c
+  File Name
+    plib_mcpwm_common.h
 
-  Summary:
-    SYS CLK static function implementations for the Clock System Service.
+  Summary
+    Data Type definition of the MCPWM Peripheral Interface Plib.
 
-  Description:
-    The Clock System Service provides a simple interface to manage the
-    oscillators on Microchip microcontrollers. This file defines the static
-    implementation for the Clock System Service.
+  Description
+    This file defines the Data Types for the MCPWM Plib.
 
   Remarks:
-    Static functions incorporate all system clock configuration settings as
-    determined by the user via the Microchip Harmony Configurator GUI.
-    It provides static version of the routines, eliminating the need for an
-    object ID or object handle.
-
-    Static single-open interfaces also eliminate the need for the open handle.
+    None.
 
 *******************************************************************************/
-
+// DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
@@ -47,65 +40,84 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
+
+#ifndef PLIB_MCPWM_COMMON_H    // Guards against multiple inclusion
+#define PLIB_MCPWM_COMMON_H
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
+    extern "C" {
+
+#endif
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Include Files
+// Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
 
-#include "device.h"
-#include "plib_clk.h"
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: File Scope Functions
-// *****************************************************************************
-// *****************************************************************************
-
-// *****************************************************************************
-/* Function:
-    void CLK_Initialize( void )
-
-  Summary:
-    Initializes hardware and internal data structure of the System Clock.
-
-  Description:
-    This function initializes the hardware and internal data structure of System
-    Clock Service.
-
-  Remarks:
-    This is configuration values for the static version of the Clock System
-    Service module is determined by the user via the MHC GUI.
-
-    The objective is to eliminate the user's need to be knowledgeable in the
-    function of the 'configuration bits' to configure the system oscillators.
+/*  The following data type definitions are used by the functions in this
+    interface.
 */
 
-void CLK_Initialize( void )
+// *****************************************************************************
+
+
+#define    MCPWM_CH_1  (0U)
+#define    MCPWM_CH_2  (1U)
+#define    MCPWM_CH_3  (2U)
+#define    MCPWM_CH_4  (3U)
+#define    MCPWM_CH_5  (4U)
+#define    MCPWM_CH_6  (5U)
+#define    MCPWM_CH_7  (6U)
+#define    MCPWM_CH_8  (7U)
+#define    MCPWM_CH_9  (8U)
+#define    MCPWM_CH_10  (9U)
+#define    MCPWM_CH_11  (10U)
+#define    MCPWM_CH_12  (11U)
+typedef uint32_t MCPWM_CH_NUM;
+
+typedef enum
 {
-    /* unlock system for clock configuration */
-    SYSKEY = 0x00000000U;
-    SYSKEY = 0xAA996655U;
-    SYSKEY = 0x556699AAU;
+    MCPWM_NONE = 0,
+    MCPWM_PWMH = _PWMCON1_PWMHIF_MASK,
+    MCPWM_PWML = _PWMCON1_PWMLIF_MASK,
+    MCPWM_TRG = _PWMCON1_TRGIF_MASK,
+    MCPWM_CL = _PWMCON1_CLIF_MASK,
+    MCPWM_FLT = _PWMCON1_FLTIF_MASK,
+    MCPWM_STATUS_MASK = _PWMCON1_PWMHIF_MASK | _PWMCON1_PWMLIF_MASK | _PWMCON1_TRGIF_MASK | _PWMCON1_CLIF_MASK | _PWMCON1_FLTIF_MASK
+}MCPWM_CH_STATUS;
 
- 
-      
+typedef void (*MCPWM_CH_CALLBACK) (MCPWM_CH_STATUS status, uintptr_t context);
 
-    /* Peripheral Module Disable Configuration */
+typedef void (*MCPWM_CALLBACK) (uintptr_t context);
 
-    CFGCONbits.PMDLOCK = 0;
+// *****************************************************************************
+// *****************************************************************************
+// Section: Local: **** Do Not Use ****
+// *****************************************************************************
+// *****************************************************************************
 
-    PMD1 = 0x370U;
-    PMD2 = 0x17001fU;
-    PMD3 = 0xffffffffU;
-    PMD4 = 0x7ff01c0U;
-    PMD5 = 0x30f3f3aU;
-    PMD6 = 0xf0d0000U;
-    PMD7 = 0x0U;
+typedef struct
+{
+    MCPWM_CH_CALLBACK callback;
+    uintptr_t    context;
 
-    CFGCONbits.PMDLOCK = 1;
+} MCPWM_CH_OBJECT ;
 
-    /* Lock system since done with clock configuration */
-    SYSKEY = 0x33333333U;
-}
+typedef struct
+{
+    MCPWM_CALLBACK callback;
+    uintptr_t    context;
+
+} MCPWM_OBJECT ;
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+    }
+#endif
+// DOM-IGNORE-END
+#endif // PLIB_ACC_COMMON_H

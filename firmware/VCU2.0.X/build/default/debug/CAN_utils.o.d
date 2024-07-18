@@ -14,11 +14,11 @@ build/default/debug/CAN_utils.o: CAN_utils.c CAN_utils.h \
  ../src/config/default/peripheral/evic/plib_evic.h \
  ../src/config/default/peripheral/wdt/plib_wdt.h \
  ../src/config/default/peripheral/dmac/plib_dmac.h \
+ ../src/config/default/peripheral/coretimer/plib_coretimer.h \
  ../src/config/default/peripheral/tmr/plib_tmr6.h \
  ../src/config/default/peripheral/tmr/plib_tmr_common.h \
  ../src/config/default/peripheral/uart/plib_uart3.h \
  ../src/config/default/peripheral/uart/plib_uart_common.h \
- ../src/config/default/peripheral/coretimer/plib_coretimer.h \
  ../src/config/default/peripheral/adchs/plib_adchs.h \
  ../src/config/default/peripheral/adchs/plib_adchs_common.h \
  ../src/config/default/peripheral/uart/plib_uart1.h \
@@ -27,7 +27,9 @@ build/default/debug/CAN_utils.o: CAN_utils.c CAN_utils.h \
  ../src/config/default/peripheral/tmr/plib_tmr2.h \
  ../src/config/default/peripheral/tmr/plib_tmr3.h \
  ../src/config/default/peripheral/tmr1/plib_tmr1.h \
- ../src/config/default/peripheral/tmr1/plib_tmr1_common.h
+ ../src/config/default/peripheral/tmr1/plib_tmr1_common.h \
+ ../src/config/default/peripheral/mcpwm/plib_mcpwm.h \
+ ../src/config/default/peripheral/mcpwm/plib_mcpwm_common.h
 
 CAN_utils.h:
 
@@ -65,6 +67,8 @@ Can-Header-Map/CANOPEN_maxondb.h:
 
 ../src/config/default/peripheral/dmac/plib_dmac.h:
 
+../src/config/default/peripheral/coretimer/plib_coretimer.h:
+
 ../src/config/default/peripheral/tmr/plib_tmr6.h:
 
 ../src/config/default/peripheral/tmr/plib_tmr_common.h:
@@ -72,8 +76,6 @@ Can-Header-Map/CANOPEN_maxondb.h:
 ../src/config/default/peripheral/uart/plib_uart3.h:
 
 ../src/config/default/peripheral/uart/plib_uart_common.h:
-
-../src/config/default/peripheral/coretimer/plib_coretimer.h:
 
 ../src/config/default/peripheral/adchs/plib_adchs.h:
 
@@ -92,3 +94,7 @@ Can-Header-Map/CANOPEN_maxondb.h:
 ../src/config/default/peripheral/tmr1/plib_tmr1.h:
 
 ../src/config/default/peripheral/tmr1/plib_tmr1_common.h:
+
+../src/config/default/peripheral/mcpwm/plib_mcpwm.h:
+
+../src/config/default/peripheral/mcpwm/plib_mcpwm_common.h:
