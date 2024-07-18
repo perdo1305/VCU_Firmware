@@ -582,7 +582,8 @@
                 "firmware/VCU2.0.X/VCU_config.h",
                 "firmware/VCU2.0.X/TorqueControl.h",
                 "firmware/VCU2.0.X/TorqueControl.c",
-                "firmware/VCU2.0.X/build/default/production/_ext/1865161661/plib_dmac.s"
+                "firmware/VCU2.0.X/build/default/production/_ext/1865161661/plib_dmac.s",
+                "firmware/src/config/default/peripheral/mcpwm/plib_mcpwm.c"
             ]
         }
     ]

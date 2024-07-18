@@ -46,6 +46,7 @@ can_data_t can_bus_read(uint8_t bus) {
             } else {
                 CANRX_ON[CAN_BUS2] = 0;
             }
+
             return data;
         case CAN_BUS3:
             status[CAN_BUS3] = CAN3_ErrorGet();
@@ -355,11 +356,9 @@ void can_filter_id_bus2(can_data_t* data) {
             myHV500.Actual_DCCurrent = MAP_DECODE_Actual_DCCurrent(data->message);
             break;
         case CAN_HV500_Temperatures_ID:
-
             myHV500.Actual_TempController = MAP_DECODE_Actual_TempController(data->message);
             myHV500.Actual_TempMotor = MAP_DECODE_Actual_TempMotor(data->message);
             myHV500.Actual_FaultCode = MAP_DECODE_Actual_FaultCode(data->message);
-
             break;
         case CAN_HV500_FOC_ID:
             myHV500.Actual_FOC_id = MAP_DECODE_Actual_FOC_id(data->message);
