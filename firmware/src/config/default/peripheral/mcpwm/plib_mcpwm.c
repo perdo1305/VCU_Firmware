@@ -84,8 +84,8 @@ void MCPWM_Initialize (void)
 
     /* IOCON12 register  */
     /*  SWAP    = 0*/
-    /*  PMOD    = 0*/
-    /*  POLH    = 1*/
+    /*  PMOD    = 1*/
+    /*  POLH    = 0*/
     /*  POLL    = 0*/
     /*  FLTDAT  = 0b00 */
     /*  FLTMOD  = 3 */
@@ -97,9 +97,9 @@ void MCPWM_Initialize (void)
     /*  CLMOD  = 0 */
     /*  CLPOL  = 0  */
     /*  CLSRC  = 0  */
-    IOCON12 = 0x39000;
+    IOCON12 = 0x38400;
 
-    PDC12 = 1000;
+    PDC12 = 500;
     SDC12 = 500;
     PHASE12 = 0;
 
