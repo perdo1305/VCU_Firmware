@@ -4701,7 +4701,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can1&gt;
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;AUTO_DATA_BIT_TIMING_CALCULATION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can1&gt;
 &lt;/can1&gt;
@@ -4712,7 +4712,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can1&gt;
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;AUTO_NOMINAL_BIT_TIMING_CALCULATION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can1&gt;
 &lt;/can1&gt;
@@ -8029,11 +8029,12 @@
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;DATA_SAMPLE_POINT&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;82.5&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;75.0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can1&gt;
 &lt;/can1&gt;
@@ -8056,7 +8057,7 @@
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;DBT_BRP&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
@@ -8071,7 +8072,8 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can1&gt;
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;DBT_SJW&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;7&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;10&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;6&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can1&gt;
 &lt;/can1&gt;
@@ -8102,7 +8104,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can1&gt;
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;DBT_TSEG1&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;32&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;29&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can1&gt;
 &lt;/can1&gt;
@@ -8113,7 +8115,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can1&gt;
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;DBT_TSEG2&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;7&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;10&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can1&gt;
 &lt;/can1&gt;
@@ -8158,11 +8160,12 @@
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;NBT_BRP&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;0&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;2&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can1&gt;
 &lt;/can1&gt;
@@ -8173,7 +8176,8 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can1&gt;
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;NBT_SJW&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;1&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;10&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;6&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can1&gt;
 &lt;/can1&gt;
@@ -8193,7 +8197,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can1&gt;
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;NBT_TOTAL_TIME_QUANTA&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;120&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;40&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can1&gt;
 &lt;/can1&gt;
@@ -8204,7 +8208,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can1&gt;
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;NBT_TSEG1&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;118&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;29&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can1&gt;
 &lt;/can1&gt;
@@ -8215,7 +8219,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can1&gt;
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;NBT_TSEG2&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;1&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;10&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can1&gt;
 &lt;/can1&gt;
@@ -8238,11 +8242,12 @@
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;NOMINAL_SAMPLE_POINT&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;99.166664&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;75.0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can1&gt;
 &lt;/can1&gt;
@@ -8253,7 +8258,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can1&gt;
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;NOMINAL_TIME_QUANTA_PERIOD&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;8.333&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can1&quot; value=&quot;25.000&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can1&gt;
 &lt;/can1&gt;
@@ -8298,7 +8303,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can1&gt;
   &lt;can1 dnOrder=&quot;0&quot; id=&quot;TX_EVENT_FIFO_USE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can1&gt;
 &lt;/can1&gt;
@@ -8373,7 +8378,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;CALCULATED_DATA_BITRATE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;1250&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;1000&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -8384,7 +8389,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;CALCULATED_DATA_ERRORRATE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;25.000&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;0.000&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -11780,7 +11785,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;CAN_OPMODE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;6&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -11855,7 +11860,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;DATA_TIME_QUANTA_PERIOD&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;16.667&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;25.000&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -11872,7 +11877,6 @@
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;2&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;1&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -11883,8 +11887,8 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;DBT_SJW&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;15&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;15&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;10&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;6&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -11904,7 +11908,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;DBT_TOTAL_TIME_QUANTA&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;48&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;40&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -11915,7 +11919,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;DBT_TSEG1&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;44&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;29&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -11926,7 +11930,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;DBT_TSEG2&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;15&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;10&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -11976,7 +11980,7 @@
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;0&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;1&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;2&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -11987,8 +11991,8 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;NBT_SJW&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;15&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;15&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;10&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;6&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -12008,7 +12012,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;NBT_TOTAL_TIME_QUANTA&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;60&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;40&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -12019,7 +12023,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;NBT_TSEG1&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;44&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;29&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -12030,7 +12034,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;NBT_TSEG2&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;15&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;10&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -12069,7 +12073,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;NOMINAL_TIME_QUANTA_PERIOD&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;16.667&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;25.000&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -12166,7 +12170,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can3&gt;
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;AUTO_DATA_BIT_TIMING_CALCULATION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -12177,7 +12181,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can3&gt;
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;AUTO_NOMINAL_BIT_TIMING_CALCULATION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15432,7 +15436,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="can3" name="CAN_OPMODE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can3&gt;
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;CAN_OPMODE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
 </value>
@@ -15490,12 +15496,11 @@
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;DATA_SAMPLE_POINT&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;95.833336&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;75.0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15506,7 +15511,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can3&gt;
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;DATA_TIME_QUANTA_PERIOD&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;16.667&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;8.333&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15518,12 +15523,11 @@
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;DBT_BRP&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;0&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;1&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15534,8 +15538,8 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can3&gt;
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;DBT_SJW&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;3&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;5&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;1&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;15&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15555,7 +15559,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can3&gt;
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;DBT_TOTAL_TIME_QUANTA&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;12&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;24&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15566,7 +15570,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can3&gt;
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;DBT_TSEG1&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;8&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;22&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15577,7 +15581,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can3&gt;
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;DBT_TSEG2&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;3&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;1&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15622,11 +15626,12 @@
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;NBT_BRP&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;0&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;2&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15637,8 +15642,8 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can3&gt;
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;NBT_SJW&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;1&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;5&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;10&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;6&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15658,7 +15663,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can3&gt;
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;NBT_TOTAL_TIME_QUANTA&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;120&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;40&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15669,7 +15674,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can3&gt;
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;NBT_TSEG1&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;118&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;29&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15680,7 +15685,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can3&gt;
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;NBT_TSEG2&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;1&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;10&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15703,11 +15708,12 @@
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;NOMINAL_SAMPLE_POINT&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;99.166664&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;75.0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15718,7 +15724,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can3&gt;
   &lt;can3 dnOrder=&quot;0&quot; id=&quot;NOMINAL_TIME_QUANTA_PERIOD&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;8.333&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can3&quot; value=&quot;25.000&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can3&gt;
 &lt;/can3&gt;
@@ -15816,7 +15822,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can4&gt;
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;AUTO_DATA_BIT_TIMING_CALCULATION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
@@ -15827,7 +15833,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can4&gt;
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;AUTO_NOMINAL_BIT_TIMING_CALCULATION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
@@ -19082,7 +19088,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="can4" name="CAN_OPMODE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can4&gt;
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;CAN_OPMODE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
 </value>
@@ -19140,11 +19148,12 @@
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;DATA_SAMPLE_POINT&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;82.5&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;75.0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
@@ -19165,13 +19174,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="can4" name="DBT_BRP"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can4&gt;
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;DBT_BRP&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;2&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;2&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
@@ -19182,7 +19187,8 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can4&gt;
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;DBT_SJW&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;7&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;10&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;6&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
@@ -19213,7 +19219,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can4&gt;
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;DBT_TSEG1&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;32&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;29&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
@@ -19224,7 +19230,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can4&gt;
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;DBT_TSEG2&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;7&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;10&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
@@ -19267,13 +19273,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="can4" name="NBT_BRP"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can4&gt;
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;NBT_BRP&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;0&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;2&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
@@ -19284,7 +19286,8 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can4&gt;
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;NBT_SJW&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;1&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;10&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;6&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
@@ -19304,7 +19307,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can4&gt;
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;NBT_TOTAL_TIME_QUANTA&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;120&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;40&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
@@ -19315,7 +19318,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can4&gt;
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;NBT_TSEG1&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;118&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;29&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
@@ -19326,7 +19329,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can4&gt;
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;NBT_TSEG2&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;1&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;10&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
@@ -19349,11 +19352,12 @@
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;NOMINAL_SAMPLE_POINT&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;99.166664&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;75.0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
@@ -19364,7 +19368,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can4&gt;
   &lt;can4 dnOrder=&quot;0&quot; id=&quot;NOMINAL_TIME_QUANTA_PERIOD&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;8.333&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can4&quot; value=&quot;25.000&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can4&gt;
 &lt;/can4&gt;
@@ -19455,10 +19459,10 @@
     &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;adchs&quot; x=&quot;601&quot; y=&quot;27&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;can1&quot; x=&quot;906&quot; y=&quot;22&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;can2&quot; x=&quot;908&quot; y=&quot;89&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;can3&quot; x=&quot;907&quot; y=&quot;156&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;can4&quot; x=&quot;907&quot; y=&quot;222&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;can1&quot; x=&quot;907&quot; y=&quot;22&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;can2&quot; x=&quot;908&quot; y=&quot;86&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;can3&quot; x=&quot;907&quot; y=&quot;155&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;can4&quot; x=&quot;904&quot; y=&quot;222&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;core&quot; x=&quot;240&quot; y=&quot;22&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;core_timer&quot; x=&quot;756&quot; y=&quot;26&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;dfp&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
@@ -20309,11 +20313,33 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="BSP_PIN_29_FUNCTION_NAME"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;BSP_PIN_29_FUNCTION_NAME&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO_RE14_R2D_BT&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="BSP_PIN_29_FUNCTION_TYPE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;BSP_PIN_29_FUNCTION_TYPE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;AN14&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="BSP_PIN_29_MODE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;BSP_PIN_29_MODE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;DIGITAL&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -20347,6 +20373,39 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;BSP_PIN_30_FUNCTION_TYPE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;User dnOrder=&quot;0&quot; value=&quot;AN15&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="BSP_PIN_31_FUNCTION_NAME"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;BSP_PIN_31_FUNCTION_NAME&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO_RA8_IGN_SW&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="BSP_PIN_31_FUNCTION_TYPE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;BSP_PIN_31_FUNCTION_TYPE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="BSP_PIN_31_MODE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;BSP_PIN_31_MODE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;DIGITAL&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -21370,9 +21429,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="BSP_PIN_8_FUNCTION_NAME"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;BSP_PIN_8_FUNCTION_NAME&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO_RG9&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -21381,9 +21438,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="BSP_PIN_8_FUNCTION_TYPE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;BSP_PIN_8_FUNCTION_TYPE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -21392,9 +21447,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="BSP_PIN_8_MODE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;BSP_PIN_8_MODE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;DIGITAL&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -24638,7 +24691,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;SYS_PORT_A_ANSEL&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;18&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;274&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -24880,7 +24933,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;SYS_PORT_E_ANSEL&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;12288&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;28672&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -24924,7 +24977,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;SYS_PORT_G_ANSEL&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;960&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;448&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -27327,7 +27380,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mcpwm" name="IOCON12__PMOD"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mcpwm&gt;
   &lt;mcpwm dnOrder=&quot;0&quot; id=&quot;IOCON12__PMOD&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/mcpwm&gt;
 &lt;/mcpwm&gt;
 </value>
@@ -27337,7 +27392,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mcpwm&gt;
   &lt;mcpwm dnOrder=&quot;0&quot; id=&quot;IOCON12__POLH&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/mcpwm&gt;
 &lt;/mcpwm&gt;
@@ -27473,7 +27528,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mcpwm" name="IOCON1__PMOD"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mcpwm&gt;
   &lt;mcpwm dnOrder=&quot;0&quot; id=&quot;IOCON1__PMOD&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/mcpwm&gt;
 &lt;/mcpwm&gt;
 </value>
@@ -29789,7 +29846,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mcpwm&gt;
   &lt;mcpwm dnOrder=&quot;0&quot; id=&quot;MCPWM_IOCON1&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;mcpwm&quot; value=&quot;49152&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;mcpwm&quot; value=&quot;246784&quot;/&gt;
     &lt;/Values&gt;
   &lt;/mcpwm&gt;
 &lt;/mcpwm&gt;
@@ -29822,7 +29879,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mcpwm&gt;
   &lt;mcpwm dnOrder=&quot;0&quot; id=&quot;MCPWM_IOCON12&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;mcpwm&quot; value=&quot;233472&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;mcpwm&quot; value=&quot;230400&quot;/&gt;
     &lt;/Values&gt;
   &lt;/mcpwm&gt;
 &lt;/mcpwm&gt;
@@ -30086,7 +30143,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mcpwm" name="PDC12__PDC"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mcpwm&gt;
   &lt;mcpwm dnOrder=&quot;0&quot; id=&quot;PDC12__PDC&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;500&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/mcpwm&gt;
 &lt;/mcpwm&gt;
 </value>
@@ -35191,7 +35250,7 @@
    <generatedFileHashHistoryMap class="java.util.TreeMap">
       <entry>
          <file>..\src\config\default\definitions.h</file>
-         <hash>f0d4ef10afa27e1a5d5391ad5c799c10bef258aa009e25dd73fe4cefc26d8757</hash>
+         <hash>7ec3eba785767aa42a1cf69648b2acbad808076127753e9e8962160960f08988</hash>
       </entry>
       <entry>
          <file>..\src\config\default\device.h</file>
@@ -35203,7 +35262,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\initialization.c</file>
-         <hash>9b290f3f4ca043e5534f9fbd34e32a1c0f8d8a377f68e0ca89ac8c201976d861</hash>
+         <hash>b8d1cc91842b5d7d954e5fbffcdc41c543132205840ec29002f0c9be83b446ee</hash>
       </entry>
       <entry>
          <file>..\src\config\default\interrupts.c</file>
@@ -35231,15 +35290,15 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\canfd\plib_canfd1.c</file>
-         <hash>4e6d948788cd6605f0f181fe71d1900ed2af8bcb311b21ac4c2511b254b3f6fd</hash>
+         <hash>ab48a1b3d42594a5ed0f5f84eefaafb2cd3730bc1af333992515b4ba5bb6a20b</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\canfd\plib_canfd1.h</file>
-         <hash>2dbb472e9a512fd2d2e4037783adf985ccf44906945cc82d930ab3fb343d6e7a</hash>
+         <hash>022d46ca04683c15b1a6cdb86baa08f7aaab73705570f3207e8293f6a930dc53</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\canfd\plib_canfd2.c</file>
-         <hash>028da362ad2e3d5af25795c337abcdceacad1846fe202470f35386f10f3ccecf</hash>
+         <hash>68b7a579ca6dbe73d5d228fbabc496c8db141c3ed715206ec398b451363e09a7</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\canfd\plib_canfd2.h</file>
@@ -35247,7 +35306,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\canfd\plib_canfd3.c</file>
-         <hash>5fe6421fbb42599dd747cecd297f50aa61ac64eaea1465ab15e05d698f990448</hash>
+         <hash>a64375804a70983be67aca93b7b4c5e9e6585be14a127018da2faa0a9f8ff7f9</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\canfd\plib_canfd3.h</file>
@@ -35255,7 +35314,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\canfd\plib_canfd4.c</file>
-         <hash>8d2ae13a195b40613dcffca1e48b46f33c0b6c40b7604ad397c5264042f2b1df</hash>
+         <hash>012fd5b4c2e9b88c4dd0f1e30e5e1cf7de7d2c96f293d3157d24bb6c75f1dfd3</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\canfd\plib_canfd4.h</file>
@@ -35299,15 +35358,15 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\gpio\plib_gpio.c</file>
-         <hash>5008f8c79eb5038d0dd6f3fa6cfd7e41efdd90eb3f877bf796142ebb500e01e5</hash>
+         <hash>28f79eb6bac7aabe2051c0c63fd07795903ccc1f36b0c78b95ddb83909ad610f</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\gpio\plib_gpio.h</file>
-         <hash>daa96b6b7974ef6f40dd9f42e7e004d5f6c65c32dfb83bf83f45072a8515b08d</hash>
+         <hash>fec11b78f736a536f339c3ac685eceb26978dd4b85ec22df179ddc8428c7d7a1</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\mcpwm\plib_mcpwm.c</file>
-         <hash>4949e9008d535a2dbb6d34f12fd51eb784c813152645a03006f2eec630b300a0</hash>
+         <hash>8a6e159a9c1c274d04c08ea258a0afb319538ec837e5c84e22fe0fe48e270125</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\mcpwm\plib_mcpwm.h</file>

@@ -62,15 +62,6 @@
 // *****************************************************************************
 
 
-/*** Macros for GPIO_RG9 pin ***/
-#define GPIO_RG9_Set()               (LATGSET = (1U<<9))
-#define GPIO_RG9_Clear()             (LATGCLR = (1U<<9))
-#define GPIO_RG9_Toggle()            (LATGINV= (1U<<9))
-#define GPIO_RG9_OutputEnable()      (TRISGCLR = (1U<<9))
-#define GPIO_RG9_InputEnable()       (TRISGSET = (1U<<9))
-#define GPIO_RG9_Get()               ((PORTG >> 9) & 0x1U)
-#define GPIO_RG9_PIN                  GPIO_PIN_RG9
-
 /*** Macros for AN9_CurrentSensor pin ***/
 #define AN9_CurrentSensor_Get()               ((PORTA >> 11) & 0x1U)
 #define AN9_CurrentSensor_PIN                  GPIO_PIN_RA11
@@ -95,6 +86,24 @@
 #define GPIO_RC11_LED_HeartBeat_InputEnable()       (TRISCSET = (1U<<11))
 #define GPIO_RC11_LED_HeartBeat_Get()               ((PORTC >> 11) & 0x1U)
 #define GPIO_RC11_LED_HeartBeat_PIN                  GPIO_PIN_RC11
+
+/*** Macros for GPIO_RE14_R2D_BT pin ***/
+#define GPIO_RE14_R2D_BT_Set()               (LATESET = (1U<<14))
+#define GPIO_RE14_R2D_BT_Clear()             (LATECLR = (1U<<14))
+#define GPIO_RE14_R2D_BT_Toggle()            (LATEINV= (1U<<14))
+#define GPIO_RE14_R2D_BT_OutputEnable()      (TRISECLR = (1U<<14))
+#define GPIO_RE14_R2D_BT_InputEnable()       (TRISESET = (1U<<14))
+#define GPIO_RE14_R2D_BT_Get()               ((PORTE >> 14) & 0x1U)
+#define GPIO_RE14_R2D_BT_PIN                  GPIO_PIN_RE14
+
+/*** Macros for GPIO_RA8_IGN_SW pin ***/
+#define GPIO_RA8_IGN_SW_Set()               (LATASET = (1U<<8))
+#define GPIO_RA8_IGN_SW_Clear()             (LATACLR = (1U<<8))
+#define GPIO_RA8_IGN_SW_Toggle()            (LATAINV= (1U<<8))
+#define GPIO_RA8_IGN_SW_OutputEnable()      (TRISACLR = (1U<<8))
+#define GPIO_RA8_IGN_SW_InputEnable()       (TRISASET = (1U<<8))
+#define GPIO_RA8_IGN_SW_Get()               ((PORTA >> 8) & 0x1U)
+#define GPIO_RA8_IGN_SW_PIN                  GPIO_PIN_RA8
 
 /*** Macros for GPIO_RD8_ONBOARD_BUTTON pin ***/
 #define GPIO_RD8_ONBOARD_BUTTON_Set()               (LATDSET = (1U<<8))

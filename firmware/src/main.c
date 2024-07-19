@@ -60,8 +60,9 @@
 float PDM_Current = 0.0;  // current supplied by the low voltage battery
 float PDM_Voltage = 0.0;  // voltage supplied by the low voltage battery
 
-volatile bool IsAutonomous = false;
+volatile bool IsAutonomous = false;  // when the car receives the autonomous signal, it will be set to true
 bool AS_Emergency = false;
+bool DrivingMode = false;  // 0 - manual mode, 1 - autonomous mode
 
 HV500 myHV500;  // Stuct to store HV500 data comming from CAN
 
@@ -146,7 +147,7 @@ void CalculateMean(void);                     // Calculate a moving average of t
 
 void MissionEmergencyStop(void);
 
-void IsR2D(void);
+void UpdateR2DState(void);
 void SOUND_R2DS(void);
 void UpdateIgnitionState(void);
 void AutonomousR2D(void);
@@ -163,33 +164,41 @@ void CANSART_SETUP(void);
 void TMR1_5ms(uint32_t status, uintptr_t context) {  // 200Hz
     // APPS_Function(ADC[0], ADC[3]);
     APPS_Function(ADC_Filtered_0, ADC_Filtered_3);
-    can_bus_send_HV500_SetERPM(RPM_TOJAL * 10);
-/*AUTONOMOUS MODE*/
+
+    // run in 100Hz
+    static uint8_t i = 0;
+    if (i < 1) {
+        i++;
+    } else {
+        i = 0;
+
+        /*AUTONOMOUS MODE*/
 #if AUTONOMOUS_MODE == 1
-    if (IsAutonomousMode) {
-        if (RPM_TOJAL > MAX_AD_RPM) {
-            RPM_TOJAL = MAX_AD_RPM;
-        } else if (RPM_TOJAL < 0) {
-            RPM_TOJAL = 0;
+        if (IsAutonomousMode) {
+            if (RPM_TOJAL > MAX_AD_RPM) {
+                RPM_TOJAL = MAX_AD_RPM;
+            } else if (RPM_TOJAL < 0) {
+                RPM_TOJAL = 0;
+            }
+
+            // TODO if autonomous mode is on, start does not need to be activated with the brake
+            can_bus_send_HV500_SetDriveEnable(1);
+            can_bus_send_HV500_SetERPM(RPM_TOJAL * 10);
+            // can_bus_send_AdBus_RPM((myHV500.Actual_ERPM)*(-1));
+        }
+#else
+        /*MANUAL MODE*/
+
+        if (R2D.isR2D) {
+            can_bus_send_HV500_SetRelCurrent(APPS_Percentage_1000);
+            can_bus_send_HV500_SetDriveEnable(1);
         }
 
-        // TODO if autonomous mode is on, start does not need to be activated with the brake
-        can_bus_send_HV500_SetDriveEnable(1);
-        can_bus_send_HV500_SetERPM(RPM_TOJAL * 10);
-        // can_bus_send_AdBus_RPM((myHV500.Actual_ERPM)*(-1));
-    }
-#else
-    /*MANUAL MODE*/
-
-    if (R2D.isR2D) {
-        can_bus_send_HV500_SetRelCurrent(APPS_Percentage_1000);
-        can_bus_send_HV500_SetDriveEnable(1);
-    }
-
-    else {
-        can_bus_send_HV500_SetDriveEnable(0);
-    }
+        else {
+            can_bus_send_HV500_SetDriveEnable(0);
+        }
 #endif
+    }
 }
 
 void TMR2_100ms(uint32_t status, uintptr_t context) {
@@ -320,6 +329,7 @@ int main(void) {
 
     WDT_Enable();
     can_open_init();
+    MCPWM_Start();
 
     // the car does not start until the start button is pressed a the brake is pressed
     /*
@@ -339,16 +349,16 @@ int main(void) {
     /*#############################################################################################################################*/
 
     while (true) {
-        WDT_Clear();
-        BlinkCANLED();
-        DIP_Switch();
-        CalculateMean();
+        WDT_Clear();      // Clear the watchdog timer
+        BlinkCANLED();    // blink the CAN LED according to the CAN RX and TX status
+        DIP_Switch();     // check the DIP switch state
+        CalculateMean();  // calculate the moving average of the APPS adc values
 
-        SOUND_R2DS();            // ready to drive sound (3sec)
+        SOUND_R2DS();            // ready to drive sound (1.2sec)
         MissionEmergencyStop();  // emergency stop sound (8sec)
 
-        UpdateIgnitionState();
-        IsR2D();
+        UpdateIgnitionState();  // read the ignition Switch
+        UpdateR2DState();       // check if the car is ready to drive, autonomous and manual mode
         AutonomousR2D();
 
         MeasureCurrent(ADCHS_CH9);
@@ -360,20 +370,22 @@ int main(void) {
         can_bus_read(CAN_BUS3);
         can_bus_read(CAN_BUS4);
 
-#if !CANSART
-        if (UART1_ReceiverIsReady()) {
-            uint8_t data2[8];
-            UART1_Read(data2, 8);
-            // TODO need to do a little protection on this
-            // read until gets a \0
-            float apps_min = ((data2[0] << 8) | data2[1]) / 10;
-            float apps_max = (data2[2] << 8) | data2[3] / 10;
-            float apps_error = (data2[4] << 8) | data2[5] / 10;
-
-            APPS_Init(apps_min, apps_max, apps_error);
-        }
-
+#if !CANSART                 /*                                                     \
+                         if (UART1_ReceiverIsReady()) {                             \
+                             uint8_t data2[8];                                      \
+                             UART1_Read(data2, 8);                                  \
+                             // TODO need to do a little protection on this         \
+                             // read until gets a \0                                \
+                             float apps_min = ((data2[0] << 8) | data2[1]) / 10;    \
+                             float apps_max = (data2[2] << 8) | data2[3] / 10;      \
+                             float apps_error = (data2[4] << 8) | data2[5] / 10;    \
+                                                                                  \ \
+                             APPS_Init(apps_min, apps_max, apps_error);             \
+                         }                                                          \
+                                                                                  \ \
+                                                                                  */
         PrintToConsole(50);  // Print data to console time in ms
+
 #else
         CANSART_TASKS();
 #endif
@@ -550,14 +562,15 @@ void MissionEmergencyStop(void) {
     }
 }
 
-void IsR2D(void) {
+void UpdateR2DState(void) {
     static bool previous_state = false;
     static bool current_state = false;
     static uint32_t lastDebounceTime = 0;
     const uint16_t debounceDelay = 30;
     static bool start_button = false;
-
-    current_state = GPIO_RB6_START_BUTTON_Get();
+    /*Debounce*/
+    // current_state = GPIO_RB6_START_BUTTON_Get();
+    current_state = GPIO_RE14_R2D_BT_Get();
 
     if (current_state != previous_state) {
         lastDebounceTime = millis();
@@ -565,51 +578,73 @@ void IsR2D(void) {
     if ((millis() - lastDebounceTime) > debounceDelay) {
         start_button = current_state;
     }
-
     previous_state = current_state;
 
     // TODO VERIFICAR ISTO TUDO
+    static bool hv_on = true;
+    // bool hv_on = GPIO_RG9_Get();
 
-    bool hv_on = GPIO_RG9_Get();
     /*
     CORETIMER_DelayUs(2);
     bool start_button = GPIO_RB6_START_BUTTON_Get();
     CORETIMER_DelayUs(2);
     */
 
-    // if (IgnitionSwitch) {
-    if (IsAutonomousMode) {
-        if (hv_on) {
-            R2D.isR2D = true;
-        }
-
-    } else {
+    if (DrivingMode) {
+        /*AUTONOMOUS MODE*/
         if (IgnitionSwitch) {
+            if (IsAutonomousMode) {
+                if (hv_on) {
+                    R2D.isR2D = true;
+                }
+            }
+        }
+    } else {
+        /*MANUAL MODE*/
+        if (IgnitionSwitch) {
+            static int brightness2000;
+            static int brightness = 0;
+            static int fadeAmount = 5;
+            static uint8_t wait = 0;
             // if (hv_on) {
             if (start_button) {
                 // if (GPIO_RB6_START_BUTTON_Get() && (Brake_Pressure >= __BRAKE_THRESHOLD)) {
                 R2D.isR2D = true;
             }
 
+            /* Fade R2D LED */
             static uint32_t previous_millis = 0;
             uint32_t milisegungos = millis();
-            if (milisegungos - previous_millis >= 30) {
+            if (milisegungos - previous_millis >= 10) {
                 if (!R2D.isR2D) {
                     // fade led
-                    static uint8_t brightness = 0;
-                    static uint8_t fadeAmount = 5;
-                    brightness = brightness + fadeAmount;
-                    if (brightness == 0 || brightness == 250) {
-                        fadeAmount = -fadeAmount;
-                        // convert 0 to 250 to 0 to 2000
-                        uint16_t brightness2000 = brightness * 8;
-                        // 0 to 2000
-                        MCPWM_Start();
+
+                    if (wait) {
+                        static uint8_t i = 0;
+                        MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 2000);
+                        if (i < 20) {
+                            i++;
+                        } else {
+                            i = 0;
+                            wait = 0;
+                        }
+                    } else {
+                        brightness2000 = brightness * 7.843;
+
                         MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, brightness2000);
+                        if (brightness == 250) {
+                            wait = 1;
+                        }
+                        brightness = brightness + fadeAmount;
+
+                        if (brightness == 0 || brightness == 250) {
+                            fadeAmount = -fadeAmount;
+                        }
                     }
+
                 } else {
-                    MCPWM_Start();
-                    MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 2000);
+                    // MCPWM_Start();
+                    MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 0);
                 }
                 previous_millis = milisegungos;
             }
@@ -618,20 +653,18 @@ void IsR2D(void) {
         } else {
             R2D.isR2D = false;
             R2D.R2DS_as_played = false;
-            MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 0);
+            MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 2000);
         }
     }
-
-    // previous_millis = millis_debounce;
 }
 
 void SOUND_R2DS(void) {
     if (R2D.isR2D) {
         if (!BUZZER_ON) {
-            if (!R2DS_as_played) {
+            if (!R2D.R2DS_as_played) {
                 TMR5_Start();
                 GPIO_RF0_pin_Clear();
-                R2DS_as_played = true;
+                R2D.R2DS_as_played = true;
             }
         }
     }
@@ -689,9 +722,11 @@ void DIP_Switch(void) {
     dipswitch[3] = GPIO_RC10_DIP4_Get();
 
     if (!dipswitch[3]) {
-        LED_CANRX_MODE = 1;  // Blick the LED to indicate that the CAN RX is on
+        // LED_CANRX_MODE = 1;  // Blick the LED to indicate that the CAN RX is on
+        DrivingMode = true;  // Autonomous mode
     } else {
-        LED_CANRX_MODE = 0;
+        DrivingMode = false;  // Manual mode
+        // LED_CANRX_MODE = 0;
     }
     if (!dipswitch[2]) {
         BUZZER_ON = true;
@@ -758,7 +793,8 @@ void UpdateIgnitionState(void) {
     static uint32_t lastDebounceTime = 0;
     const uint16_t debounceDelay = 30;
 
-    current_state = GPIO_RD6_IGN_SWITCH_Get();
+    // current_state = GPIO_RD6_IGN_SWITCH_Get();
+    current_state = !GPIO_RA8_IGN_SW_Get();
 
     if (current_state != previous_state) {
         lastDebounceTime = millis();
@@ -787,6 +823,5 @@ void UpdateIgnitionState(void) {
 void AutonomousR2D(void) {
     if (RES_AD_Ignition == 5 || RES_AD_Ignition == 7) {
         IsAutonomousMode = true;
-        R2D.isR2D = true;
     }
 }
