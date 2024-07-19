@@ -3,17 +3,17 @@ Optional file vector_offset_init.o not found
 Archive member included to satisfy reference by file (symbol)
 
 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
-                              C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o (_on_reset)
+                              C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o (_on_reset)
 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
-                              C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o (_on_bootstrap)
+                              C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o (_on_bootstrap)
 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-nmi-handler.o)
-                              C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o (_nmi_handler)
+                              C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o (_nmi_handler)
 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init_core.o)
-                              C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o (__pic32_data_init)
+                              C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o (__pic32_data_init)
 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(general-exception.o)
-                              C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o (_general_exception_context)
+                              C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o (_general_exception_context)
 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
-                              C:\Users\pedro\AppData\Local\Temp\ccBkD4ss.o (_DefaultInterrupt)
+                              C:\Users\pedro\AppData\Local\Temp\ccACNVb1.o (_DefaultInterrupt)
 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-size-musl.a(memset.o)
                               build/default/production/CAN_utils.o (memset)
 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__sio_printf_dn.o)
@@ -338,10 +338,10 @@ Microchip PIC32 Memory-Usage Report By Module
         1032           0         424        1456         5b0    plib_adchs.o            build/default/production/_ext/1982400153/plib_adchs.o
          956           0           0         956         3bc    _udivdi3.o              libgcc.a
          952           0           0         952         3b8    _umoddi3.o              libgcc.a
-           0         920           0         920         398    cctyBLOp.o              C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
+           0         920           0         920         398    ccp6ee8X.o              C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
          816           6          23         845         34d    APPS.o                  build/default/production/APPS.o
          448           0         128         576         240    plib_dmac.o             build/default/production/_ext/1865161661/plib_dmac.o
-         536           0           0         536         218    cc3wVrsa.o              C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o
+         536           0           0         536         218    ccje5Eqz.o              C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o
          412           0           0         412         19c    plib_gpio.o             build/default/production/_ext/1865254177/plib_gpio.o
          392           0           0         392         188    __pop_int.o             libc-musl.a
          336           0           0         336         150    __fmt_d.o               libc-musl.a
@@ -968,13 +968,13 @@ Discarded input sections
  .MIPS.abiflags
                 0x0000000000000000       0x18 build/default/production/CAN_utils.o
  .text.can_bus_send_HV500_SetAcCurrent
-                0x0000000000000000       0x3c build/default/production/CAN_utils.o
+                0x0000000000000000       0x48 build/default/production/CAN_utils.o
  .text.can_bus_send_HV500_SetBrakeCurrent
                 0x0000000000000000       0x48 build/default/production/CAN_utils.o
  .text.can_bus_send_HV500_SetPosition
                 0x0000000000000000       0x48 build/default/production/CAN_utils.o
  .text.can_bus_send_HV500_SetRelCurrent
-                0x0000000000000000       0x3c build/default/production/CAN_utils.o
+                0x0000000000000000       0x48 build/default/production/CAN_utils.o
  .text.can_bus_send_HV500_SetRelBrakeCurrent
                 0x0000000000000000       0x48 build/default/production/CAN_utils.o
  .text.can_bus_send_HV500_SetMaxAcCurrent
@@ -1057,31 +1057,31 @@ Discarded input sections
                 0x0000000000000000       0x18 build/default/production/TorqueControl.o
  .rodata.cst4   0x0000000000000000        0x8 build/default/production/TorqueControl.o
  .rodata.cst8   0x0000000000000000        0x8 build/default/production/TorqueControl.o
- .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o
- .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o
- .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o
- .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o
+ .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o
+ .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o
+ .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o
+ .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o
  .MIPS.abiflags
-                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o
- .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccl6BWNG.o
- .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccl6BWNG.o
- .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccl6BWNG.o
- .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccl6BWNG.o
+                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o
+ .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccS2WGka.o
+ .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccS2WGka.o
+ .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccS2WGka.o
+ .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccS2WGka.o
  .MIPS.abiflags
-                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccl6BWNG.o
- .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
- .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
- .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
- .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
+                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccS2WGka.o
+ .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
+ .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
+ .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
+ .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
  .MIPS.abiflags
-                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
- .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccBkD4ss.o
- .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccBkD4ss.o
- .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccBkD4ss.o
- .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccBkD4ss.o
+                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
+ .text          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccACNVb1.o
+ .data          0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccACNVb1.o
+ .bss           0x0000000000000000        0x0 C:\Users\pedro\AppData\Local\Temp\ccACNVb1.o
+ .reginfo       0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccACNVb1.o
  .MIPS.abiflags
-                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccBkD4ss.o
- .discard       0x0000000000000000        0x4 C:\Users\pedro\AppData\Local\Temp\ccBkD4ss.o
+                0x0000000000000000       0x18 C:\Users\pedro\AppData\Local\Temp\ccACNVb1.o
+ .discard       0x0000000000000000        0x4 C:\Users\pedro\AppData\Local\Temp\ccACNVb1.o
  .data          0x0000000000000000        0x0 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
  .bss           0x0000000000000000        0x0 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
  .reginfo       0x0000000000000000       0x18 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
@@ -1878,20 +1878,20 @@ END GROUP
 
 .reset          0x00000000bfc00000      0x1a4
  *(.reset)
- .reset         0x00000000bfc00000       0x18 C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o
+ .reset         0x00000000bfc00000       0x18 C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o
                 0x00000000bfc00000                _reset
  *(.reset.startup)
  .reset.startup
-                0x00000000bfc00018      0x18c C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o
+                0x00000000bfc00018      0x18c C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o
                 0x00000000bfc00018                _startup
 
 .bev_excpt      0x00000000bfc00380       0x10
  *(.bev_handler)
- .bev_handler   0x00000000bfc00380       0x10 C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o
+ .bev_handler   0x00000000bfc00380       0x10 C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o
 
 .app_excpt      0x000000009d000180       0x10
  *(.gen_handler)
- .gen_handler   0x000000009d000180       0x10 C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o
+ .gen_handler   0x000000009d000180       0x10 C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o
 
 .vectors        0x000000009d000200       0xa0
                 0x000000009d000200                . = ALIGN (0x4)
@@ -3500,7 +3500,7 @@ END GROUP
  .debug_abbrev  0x0000000000004f9f       0xaa c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-size-musl.a(memcpy.o)
  .debug_abbrev  0x0000000000005049       0x91 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-size-musl.a(strlen.o)
 
-.debug_line     0x0000000000000000     0xcd89
+.debug_line     0x0000000000000000     0xcd8d
  *.elf(.debug_line)
  *(.debug_line)
  .debug_line    0x0000000000000000      0x67f build/default/production/_ext/1982400153/plib_adchs.o
@@ -3529,42 +3529,42 @@ END GROUP
  .debug_line    0x0000000000006f71      0x118 build/default/production/_ext/1171490990/exceptions.o
  .debug_line    0x0000000000007089      0xd60 build/default/production/_ext/1360937237/main.o
  .debug_line    0x0000000000007de9      0x49d build/default/production/APPS.o
- .debug_line    0x0000000000008286      0x90c build/default/production/CAN_utils.o
- .debug_line    0x0000000000008b92      0x371 build/default/production/_ext/772537440/cansart.o
- .debug_line    0x0000000000008f03      0x310 build/default/production/_ext/772537440/cansartP.o
- .debug_line    0x0000000000009213       0xfe build/default/production/TorqueControl.o
- .debug_line    0x0000000000009311       0xa5 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
- .debug_line    0x00000000000093b6       0xa9 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
- .debug_line    0x000000000000945f       0xc8 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
- .debug_line    0x0000000000009527      0x12d c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-size-musl.a(memset.o)
- .debug_line    0x0000000000009654      0x255 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__sio_printf_dn.o)
- .debug_line    0x00000000000098a9      0x24d c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__fmt_d.o)
- .debug_line    0x0000000000009af6      0x249 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__pop_int.o)
- .debug_line    0x0000000000009d3f      0x202 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__pop_ptr.o)
- .debug_line    0x0000000000009f41      0x6fd c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__printf_core.o)
- .debug_line    0x000000000000a63e      0x1ee c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(fflush.o)
- .debug_line    0x000000000000a82c      0x25a c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(stdout.o)
- .debug_line    0x000000000000aa86      0x220 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(puts.o)
- .debug_line    0x000000000000aca6      0x16c c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(atoi.o)
- .debug_line    0x000000000000ae12      0x1b0 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(tolower.o)
- .debug_line    0x000000000000afc2      0x1b8 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__int_vfprintf.o)
- .debug_line    0x000000000000b17a      0x289 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(fputs.o)
- .debug_line    0x000000000000b403      0x231 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__cvt_u.o)
- .debug_line    0x000000000000b634      0x145 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__io_init_needed.o)
- .debug_line    0x000000000000b779      0x292 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__out.o)
- .debug_line    0x000000000000ba0b      0x1aa c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__pop_float.o)
- .debug_line    0x000000000000bbb5      0x2df c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__stdio_close.o)
- .debug_line    0x000000000000be94      0x1ed c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(fwrite.o)
- .debug_line    0x000000000000c081      0x1ff c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(putc.o)
- .debug_line    0x000000000000c280       0xc8 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__init_stdio.o)
- .debug_line    0x000000000000c348       0xbc c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__io_file_needed.o)
- .debug_line    0x000000000000c404      0x2d8 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/fpu64\libgcc.a(_udivdi3.o)
- .debug_line    0x000000000000c6dc      0x30f c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/fpu64\libgcc.a(_umoddi3.o)
- .debug_line    0x000000000000c9eb       0x9a c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(lseek.o)
- .debug_line    0x000000000000ca85       0x9a c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(close.o)
- .debug_line    0x000000000000cb1f        0x0 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(errno.o)
- .debug_line    0x000000000000cb1f      0x139 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-size-musl.a(memcpy.o)
- .debug_line    0x000000000000cc58      0x131 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-size-musl.a(strlen.o)
+ .debug_line    0x0000000000008286      0x910 build/default/production/CAN_utils.o
+ .debug_line    0x0000000000008b96      0x371 build/default/production/_ext/772537440/cansart.o
+ .debug_line    0x0000000000008f07      0x310 build/default/production/_ext/772537440/cansartP.o
+ .debug_line    0x0000000000009217       0xfe build/default/production/TorqueControl.o
+ .debug_line    0x0000000000009315       0xa5 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .debug_line    0x00000000000093ba       0xa9 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .debug_line    0x0000000000009463       0xc8 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+ .debug_line    0x000000000000952b      0x12d c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-size-musl.a(memset.o)
+ .debug_line    0x0000000000009658      0x255 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__sio_printf_dn.o)
+ .debug_line    0x00000000000098ad      0x24d c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__fmt_d.o)
+ .debug_line    0x0000000000009afa      0x249 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__pop_int.o)
+ .debug_line    0x0000000000009d43      0x202 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__pop_ptr.o)
+ .debug_line    0x0000000000009f45      0x6fd c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__printf_core.o)
+ .debug_line    0x000000000000a642      0x1ee c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(fflush.o)
+ .debug_line    0x000000000000a830      0x25a c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(stdout.o)
+ .debug_line    0x000000000000aa8a      0x220 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(puts.o)
+ .debug_line    0x000000000000acaa      0x16c c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(atoi.o)
+ .debug_line    0x000000000000ae16      0x1b0 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(tolower.o)
+ .debug_line    0x000000000000afc6      0x1b8 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__int_vfprintf.o)
+ .debug_line    0x000000000000b17e      0x289 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(fputs.o)
+ .debug_line    0x000000000000b407      0x231 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__cvt_u.o)
+ .debug_line    0x000000000000b638      0x145 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__io_init_needed.o)
+ .debug_line    0x000000000000b77d      0x292 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__out.o)
+ .debug_line    0x000000000000ba0f      0x1aa c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__pop_float.o)
+ .debug_line    0x000000000000bbb9      0x2df c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__stdio_close.o)
+ .debug_line    0x000000000000be98      0x1ed c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(fwrite.o)
+ .debug_line    0x000000000000c085      0x1ff c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(putc.o)
+ .debug_line    0x000000000000c284       0xc8 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__init_stdio.o)
+ .debug_line    0x000000000000c34c       0xbc c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-musl.a(__io_file_needed.o)
+ .debug_line    0x000000000000c408      0x2d8 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/fpu64\libgcc.a(_udivdi3.o)
+ .debug_line    0x000000000000c6e0      0x30f c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/fpu64\libgcc.a(_umoddi3.o)
+ .debug_line    0x000000000000c9ef       0x9a c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(lseek.o)
+ .debug_line    0x000000000000ca89       0x9a c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(close.o)
+ .debug_line    0x000000000000cb23        0x0 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(errno.o)
+ .debug_line    0x000000000000cb23      0x139 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-size-musl.a(memcpy.o)
+ .debug_line    0x000000000000cc5c      0x131 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libc-size-musl.a(strlen.o)
 
 .debug_frame    0x0000000000000000     0x2788
  *.elf(.debug_frame)
@@ -3901,13 +3901,13 @@ END GROUP
  .gnu.attributes
                 0x00000000000001e0       0x10 build/default/production/TorqueControl.o
  .gnu.attributes
-                0x00000000000001f0       0x10 C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o
+                0x00000000000001f0       0x10 C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o
  .gnu.attributes
-                0x0000000000000200       0x10 C:\Users\pedro\AppData\Local\Temp\ccl6BWNG.o
+                0x0000000000000200       0x10 C:\Users\pedro\AppData\Local\Temp\ccS2WGka.o
  .gnu.attributes
-                0x0000000000000210       0x10 C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
+                0x0000000000000210       0x10 C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
  .gnu.attributes
-                0x0000000000000220       0x10 C:\Users\pedro\AppData\Local\Temp\ccBkD4ss.o
+                0x0000000000000220       0x10 C:\Users\pedro\AppData\Local\Temp\ccACNVb1.o
  .gnu.attributes
                 0x0000000000000230       0x10 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
  .gnu.attributes
@@ -3985,10 +3985,10 @@ END GROUP
  .gnu.attributes
                 0x0000000000000480       0x10 c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init_copy.o)
                 0x0000000000000200                _min_heap_size = 0x200
-LOAD C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o
-LOAD C:\Users\pedro\AppData\Local\Temp\ccl6BWNG.o
-LOAD C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
-LOAD C:\Users\pedro\AppData\Local\Temp\ccBkD4ss.o
+LOAD C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o
+LOAD C:\Users\pedro\AppData\Local\Temp\ccS2WGka.o
+LOAD C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
+LOAD C:\Users\pedro\AppData\Local\Temp\ccACNVb1.o
 LOAD c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\pic32_software_reset.o
 LOAD c:/program files/microchip/xc32/v4.45/bin/bin/../../lib/gcc/pic32mx/8.3.1/fpu64\libgcc.a
 START GROUP
@@ -4032,47 +4032,47 @@ __xc_reference_data
 .__vector_offset_BF8105B8_data
                 0x00000000bf8105b8       0xfc
  .__vector_offset_BF8105B8_data
-                0x00000000bf8105b8       0xfc C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
+                0x00000000bf8105b8       0xfc C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
 
 .__vector_offset_BF8106B8_data
                 0x00000000bf8106b8       0xa0
  .__vector_offset_BF8106B8_data
-                0x00000000bf8106b8       0xa0 C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
+                0x00000000bf8106b8       0xa0 C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
 
 .__vector_offset_BF810848_data
                 0x00000000bf810848       0x94
  .__vector_offset_BF810848_data
-                0x00000000bf810848       0x94 C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
+                0x00000000bf810848       0x94 C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
 
 .__vector_offset_BF8107D0_data
                 0x00000000bf8107d0       0x74
  .__vector_offset_BF8107D0_data
-                0x00000000bf8107d0       0x74 C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
+                0x00000000bf8107d0       0x74 C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
 
 .__vector_offset_BF810540_data
                 0x00000000bf810540       0x70
  .__vector_offset_BF810540_data
-                0x00000000bf810540       0x70 C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
+                0x00000000bf810540       0x70 C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
 
 .__vector_offset_BF81079C_data
                 0x00000000bf81079c       0x30
  .__vector_offset_BF81079C_data
-                0x00000000bf81079c       0x30 C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
+                0x00000000bf81079c       0x30 C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
 
 .__vector_offset_BF8108F8_data
                 0x00000000bf8108f8       0x28
  .__vector_offset_BF8108F8_data
-                0x00000000bf8108f8       0x28 C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
+                0x00000000bf8108f8       0x28 C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
 
 .__vector_offset_BF81076C_data
                 0x00000000bf81076c       0x24
  .__vector_offset_BF81076C_data
-                0x00000000bf81076c       0x24 C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
+                0x00000000bf81076c       0x24 C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
 
 .__vector_offset_BF810938_data
                 0x00000000bf810938        0x8
  .__vector_offset_BF810938_data
-                0x00000000bf810938        0x8 C:\Users\pedro\AppData\Local\Temp\cctyBLOp.o
+                0x00000000bf810938        0x8 C:\Users\pedro\AppData\Local\Temp\ccp6ee8X.o
 
 .COHERENTBSS$   0x00000000a00000f0     0x7790
  .COHERENTBSS$  0x00000000a00000f0     0x2500 build/default/production/_ext/1984168316/plib_canfd2.o
@@ -4622,7 +4622,7 @@ __xc_reference_data
 .text.main_entry
                 0x000000009d0066fc       0x54
  .text.main_entry
-                0x000000009d0066fc       0x54 C:\Users\pedro\AppData\Local\Temp\cc3wVrsa.o
+                0x000000009d0066fc       0x54 C:\Users\pedro\AppData\Local\Temp\ccje5Eqz.o
                 0x000000009d006730                __crt0_exit
 
 .text.TMR6_500ms

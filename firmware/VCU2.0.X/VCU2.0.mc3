@@ -19460,7 +19460,7 @@
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;adchs&quot; x=&quot;601&quot; y=&quot;27&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;can1&quot; x=&quot;907&quot; y=&quot;22&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;can2&quot; x=&quot;908&quot; y=&quot;86&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;can2&quot; x=&quot;909&quot; y=&quot;87&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;can3&quot; x=&quot;907&quot; y=&quot;155&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;can4&quot; x=&quot;904&quot; y=&quot;222&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;core&quot; x=&quot;240&quot; y=&quot;22&quot;/&gt;
@@ -35250,7 +35250,7 @@
    <generatedFileHashHistoryMap class="java.util.TreeMap">
       <entry>
          <file>..\src\config\default\definitions.h</file>
-         <hash>7ec3eba785767aa42a1cf69648b2acbad808076127753e9e8962160960f08988</hash>
+         <hash>205f9f1e896f0cc217b9345547f5bcd9110d1058a1463c9c0ef311a1bfd62545</hash>
       </entry>
       <entry>
          <file>..\src\config\default\device.h</file>
@@ -35262,7 +35262,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\initialization.c</file>
-         <hash>b8d1cc91842b5d7d954e5fbffcdc41c543132205840ec29002f0c9be83b446ee</hash>
+         <hash>1cddcf89995b3a2f8bda409df13aaef77b59730acb22f28db3f1e68f4a6aead5</hash>
       </entry>
       <entry>
          <file>..\src\config\default\interrupts.c</file>
