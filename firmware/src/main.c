@@ -78,7 +78,7 @@ uint8_t TCU_Precharge_done = false;    // variable to store the precharge state 
 uint16_t Actual_InputVoltage = 0;      // variable to store the input voltage comming from the AD
 uint32_t AD_timeout = 0;               // variable to store the timeout of the AD
 
-bool IsAutonomousMode = false;         // indicates if the car is in autonomous mode
+bool GO_Signal = false;                // indicates if the car is ready to drive in autonomous mode
 volatile bool IgnitionSwitch = false;  // indicates if the ignition switch is on
 
 // R2D Struct
@@ -151,6 +151,7 @@ void UpdateR2DState(void);
 void SOUND_R2DS(void);
 void UpdateIgnitionState(void);
 void AutonomousR2D(void);
+void check_driving_mode(void);
 
 void DIP_Switch(void);
 void BlinkCANLED(void);
@@ -173,31 +174,28 @@ void TMR1_5ms(uint32_t status, uintptr_t context) {  // 200Hz
         i = 0;
 
         /*AUTONOMOUS MODE*/
-#if AUTONOMOUS_MODE == 1
-        if (IsAutonomousMode) {
-            if (RPM_TOJAL > MAX_AD_RPM) {
-                RPM_TOJAL = MAX_AD_RPM;
-            } else if (RPM_TOJAL < 0) {
-                RPM_TOJAL = 0;
+
+        if (DrivingMode) {
+            /*AUTONOMOUS MODE*/
+            if (R2D.isR2D) {
+                if (RPM_TOJAL > MAX_AD_RPM) {
+                    RPM_TOJAL = MAX_AD_RPM;
+                } else if (RPM_TOJAL < 0) {
+                    RPM_TOJAL = 0;
+                }
+                // TODO if autonomous mode is on, start does not need to be activated with the brake
+                can_bus_send_HV500_SetDriveEnable(1);
+                can_bus_send_HV500_SetERPM(RPM_TOJAL * 10);
             }
-
-            // TODO if autonomous mode is on, start does not need to be activated with the brake
-            can_bus_send_HV500_SetDriveEnable(1);
-            can_bus_send_HV500_SetERPM(RPM_TOJAL * 10);
-            // can_bus_send_AdBus_RPM((myHV500.Actual_ERPM)*(-1));
+        } else {
+            /*MANUAL MODE*/
+            if (R2D.isR2D) {
+                can_bus_send_HV500_SetDriveEnable(1);
+                can_bus_send_HV500_SetRelCurrent(APPS_Percentage_1000);
+            } else {
+                can_bus_send_HV500_SetDriveEnable(0);
+            }
         }
-#else
-        /*MANUAL MODE*/
-
-        if (R2D.isR2D) {
-            can_bus_send_HV500_SetRelCurrent(APPS_Percentage_1000);
-            can_bus_send_HV500_SetDriveEnable(1);
-        }
-
-        else {
-            can_bus_send_HV500_SetDriveEnable(0);
-        }
-#endif
     }
 }
 
@@ -319,8 +317,10 @@ int main(void) {
 
     CORETIMER_DelayMs(1500);
 
-    startupSequence();  // led sequence
-    VcuState = 1;       // Set VCU state to 1
+    startupSequence();     // led sequence
+    check_driving_mode();  // check the driving mode
+
+    VcuState = 1;  // Set VCU state to 1
 
     TMR1_Start();
     TMR2_Start();
@@ -593,7 +593,7 @@ void UpdateR2DState(void) {
     if (DrivingMode) {
         /*AUTONOMOUS MODE*/
         if (IgnitionSwitch) {
-            if (IsAutonomousMode) {
+            if (GO_Signal) {
                 if (hv_on) {
                     R2D.isR2D = true;
                 }
@@ -720,14 +720,16 @@ void DIP_Switch(void) {
     dipswitch[1] = GPIO_RC13_DIP2_Get();
     dipswitch[2] = GPIO_RB7_DIP3_Get();
     dipswitch[3] = GPIO_RC10_DIP4_Get();
-
-    if (!dipswitch[3]) {
-        // LED_CANRX_MODE = 1;  // Blick the LED to indicate that the CAN RX is on
-        DrivingMode = true;  // Autonomous mode
-    } else {
-        DrivingMode = false;  // Manual mode
-        // LED_CANRX_MODE = 0;
-    }
+    /*
+        vou correr isto so uma vez ao inicio do codigo evita que se esteja sempre a verificar
+        if (!dipswitch[3]) {
+            // LED_CANRX_MODE = 1;  // Blick the LED to indicate that the CAN RX is on
+            DrivingMode = true;  // Autonomous mode
+        } else {
+            DrivingMode = false;  // Manual mode
+            // LED_CANRX_MODE = 0;
+        }
+        */
     if (!dipswitch[2]) {
         BUZZER_ON = true;
     } else {
@@ -819,9 +821,16 @@ void UpdateIgnitionState(void) {
     */
 }
 
-/*Activate R2D Autonomous mode by receiving the ignition signal from the AD*/
+/*Activate R2D Autonomous mode by receiving the GO signal from the AD*/
 void AutonomousR2D(void) {
     if (RES_AD_Ignition == 5 || RES_AD_Ignition == 7) {
-        IsAutonomousMode = true;
+        GO_Signal = true;
     }
+}
+
+void check_driving_mode(void) {
+   //check the switch RB4 TWO times, if they are diferent check again
+   do {
+       DrivingMode = GPIO_RC10_DIP4_Get();
+   } while (DrivingMode != GPIO_RC10_DIP4_Get());
 }
