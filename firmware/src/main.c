@@ -174,7 +174,6 @@ void TMR1_5ms(uint32_t status, uintptr_t context) {  // 200Hz
         i = 0;
 
         /*AUTONOMOUS MODE*/
-
         if (DrivingMode) {
             /*AUTONOMOUS MODE*/
             if (R2D.isR2D) {
@@ -206,16 +205,17 @@ void TMR2_100ms(uint32_t status, uintptr_t context) {
     can_bus_send_databus_4(RPM, Inverter_Voltage);
 
     // can_bus_send_HV500_SetERPM((RPM_TOJAL * 20));
-    /*
+    
     can_data_t data;
     data.id = 0x23; //0b100011
     data.length = 8;
     for (int i = 0; i < 8; i++) {
         data.message[i] = 0;
     }
+    data.message[4] = R2D.isR2D;
     data.message[5] = IgnitionSwitch;
-*/
-    // can_bus_send(CAN_BUS2, &data);
+
+    can_bus_send(CAN_BUS2, &data);
 }
 
 void TMR4_500ms(uint32_t status, uintptr_t context) {  // 2Hz
@@ -470,6 +470,8 @@ void PrintToConsole(uint8_t time) {
 
         printf("AD_IGN%d", RES_AD_Ignition);
         printf("HV%d", Actual_InputVoltage);
+
+        printf("DM%d", DrivingMode);
 
         printf("\r\n");
 

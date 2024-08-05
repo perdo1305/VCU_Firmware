@@ -24,8 +24,8 @@ extern "C" {
 
 
 /*APPS CONFIG*/
-#define __APPS_MIN 0.68f
-#define __APPS_MAX 2.0f
+#define __APPS_MIN 1.25f
+#define __APPS_MAX 2.35f
 #define __APPS_TOLERANCE 0.2f
 
 /*BRAKE CONFIG*/
