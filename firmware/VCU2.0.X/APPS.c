@@ -3,6 +3,7 @@
 
 #include <stdbool.h>  // Defines true
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "utils.h"
 
@@ -17,6 +18,8 @@ uint16_t APPS_Tolerance_bits = 0;  // Tolerance in bits of the APPS
 
 uint16_t APPS_Bit_Resolution = 4095;  // 12 bits
 float APPS_Voltage = 3.3;             // power supply voltage
+
+uint16_t APPS_Delta = 0;  // Delta value of the APPS
 
 uint16_t APPS1 = 0;                   // Value of the APPS1
 uint16_t APPS2 = 0;                   // Value of the APPS2
@@ -48,12 +51,14 @@ long map(long x, long in_min, long in_max, long out_min, long out_max) {
 /// @param max_volts maximum voltage that the APPS can reach
 /// @param APPS_Tolerance_Volts tolerance constante to add in the min and max values
 
-void APPS_Init(float min_volts, float max_volts, float APPS_Tolerance_Volts) {
+void APPS_Init(float min_volts, float max_volts, float APPS_Tolerance_Volts, uint16_t APPS_delta) {
     APPS_MIN_bits = APPS_VoltsToBits(min_volts);
     APPS_MAX_bits = APPS_VoltsToBits(max_volts);
     APPS_Tolerance_bits = APPS_VoltsToBits(APPS_Tolerance_Volts);
+    APPS_Delta = APPS_delta;
     APPS_CalculateFunctionalRegion();
 }
+
 /// @brief Calculate the functional region of the APPS
 /// @param void
 
@@ -105,7 +110,8 @@ void APPS_UpdateAPPS1(uint16_t apps1) {
 /// @param apps2 value of the APPS2
 
 void APPS_UpdateAPPS2(uint16_t apps2) {
-    APPS2 = APPS_InvertValue(apps2);
+    // APPS2 = APPS_InvertValue(apps2);
+    APPS2 = apps2 - APPS_Delta;
 }
 
 /// @brief Check if the APPS is 10% apart
@@ -114,10 +120,26 @@ void APPS_UpdateAPPS2(uint16_t apps2) {
 /// @return true if the APPS is 10% apart, false otherwise
 
 bool APPS_Is10PercentApart(uint16_t apps1, uint16_t apps2) {
-    //uint16_t total = apps1 + apps2;
-    //return (total <= 3686.4 || total >= 4505.6);
+    // uint16_t total = apps1 + apps2;
+    // return (total <= 3686.4 || total >= 4505.6);
 
     return (apps1 < (apps2 * 0.9)) || (apps1 > (apps2 * 1.1));
+}
+
+/// @brief identify if there is a short circuit in the APPS to gnd or vcc
+/// @param apps1
+/// @param apps2
+/// @return
+bool APPS_ShortCircuit(uint16_t apps1, uint16_t apps2) {
+    return (apps1 < 100) || (apps2 < 100) || (apps1 > 4000) || (apps2 > 4000);
+}
+
+/// @brief identify if the APPS are shorted together
+/// @param apps1
+/// @param apps2
+/// @return
+bool APPS_ShortedTogether(uint16_t apps1, uint16_t apps2) {
+    return ((abs(apps1 - (apps2 + APPS_Delta))) < 20);
 }
 
 /// @brief Check if the APPS has an error based on the 10% apart and the tolerance
@@ -128,13 +150,17 @@ bool APPS_Is10PercentApart(uint16_t apps1, uint16_t apps2) {
 bool APPS_CheckError(uint16_t apps1, uint16_t apps2) {
     if (APPS_Is10PercentApart(apps1, apps2)) {
         // Error
-       // printf("APPS_Is10PercentApart %d\r\n ", APPS_Is10PercentApart(apps1, apps2));
+        // printf("APPS_Is10PercentApart %d\r\n ", APPS_Is10PercentApart(apps1, apps2));
 
         return 1;
     } else if (!APPS_IsInTolerance(apps1) || !APPS_IsInTolerance(apps2)) {
-        //printf("APPS_IsInTolerance %d\r\n ", APPS_IsInTolerance(apps1));
-        //printf("APPS_IsInTolerance %d\r\n ", APPS_IsInTolerance(apps2));
-        // Error
+        // printf("APPS_IsInTolerance %d\r\n ", APPS_IsInTolerance(apps1));
+        // printf("APPS_IsInTolerance %d\r\n ", APPS_IsInTolerance(apps2));
+        //  Error
+        return 1;
+    } else if (APPS_ShortCircuit(apps1, apps2)) {
+        return 1;
+    } else if (APPS_ShortedTogether(apps1, apps2)) {
         return 1;
     } else {
         // No Error
@@ -180,6 +206,7 @@ bool APPS_TimedOut(uint16_t apps1, uint16_t apps2) {
 /// @return value of the percentage of the APPS 0-100
 
 uint16_t APPS_ToPercentage(uint16_t apps_mean) {
+    /*NOT USED*/
     return (apps_mean * 100) / APPS_functional_region;
 }
 
@@ -188,6 +215,7 @@ uint16_t APPS_ToPercentage(uint16_t apps_mean) {
 /// @return value of the APPS 0-1000
 
 uint16_t APPS_ToPercentage_1000(uint16_t apps_mean) {
+    /*NOT USED*/
     return (apps_mean * 1000) / APPS_functional_region;
 }
 
@@ -216,10 +244,12 @@ bool APPS_Function(uint16_t apps1, uint16_t apps2) {
         // No Error
         APPS_Mean = APPS_MeanValue(APPS1, APPS2);
 
-        if ((APPS_Mean >= APPS_MIN_bits) && (APPS_Mean <= (APPS_MIN_bits + APPS_Tolerance_bits))) {
+        // if ((APPS_Mean >= APPS_MIN_bits) && (APPS_Mean <= (APPS_MIN_bits + APPS_Tolerance_bits))) {
+        if (APPS_Mean <= (APPS_MIN_bits + APPS_Tolerance_bits)) {
             APPS_Percentage = 0;
             APPS_Percentage_1000 = 0;
-        } else if ((APPS_Mean <= APPS_MAX_bits) && (APPS_Mean >= (APPS_MAX_bits - APPS_Tolerance_bits))) {
+            //} else if ((APPS_Mean <= APPS_MAX_bits) && (APPS_Mean >= (APPS_MAX_bits - APPS_Tolerance_bits))) {
+        } else if (APPS_Mean >= (APPS_MAX_bits - APPS_Tolerance_bits)) {
             APPS_Percentage = 100;
             APPS_Percentage_1000 = 1000;
         } else {
@@ -285,6 +315,8 @@ void AUTO_CALIBRATION(uint16_t APPS1, uint16_t APPS2) {
     if (APPS2 > APPS2_MAX) {
         APPS2_MAX = APPS2;
     }
+
+    // calculate the values to be used in the APPS_Init
 
     printf("APPS1_MIN %d ", APPS1_MIN);
     printf("APPS1_MAX %d ", APPS1_MAX);

@@ -9896,10 +9896,10 @@
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;CAN2_FILTER1&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
       &lt;Boolean dnOrder=&quot;1&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/can2&gt;
@@ -10518,10 +10518,10 @@
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;CAN2_FILTER2&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
       &lt;Boolean dnOrder=&quot;1&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/can2&gt;
@@ -11140,10 +11140,10 @@
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;CAN2_FILTER3&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
       &lt;Boolean dnOrder=&quot;1&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/can2&gt;
@@ -11330,10 +11330,10 @@
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;CAN2_FILTER4&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
       &lt;Boolean dnOrder=&quot;1&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/can2&gt;
@@ -11412,10 +11412,10 @@
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;CAN2_FILTER5&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
       &lt;Boolean dnOrder=&quot;1&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/can2&gt;
@@ -11785,7 +11785,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;CAN_OPMODE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;0&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;6&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -11973,14 +11973,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="can2" name="NBT_BRP"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;NBT_BRP&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;0&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;2&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;1&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -11991,7 +11986,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;NBT_SJW&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;10&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;15&quot;/&gt;
       &lt;User dnOrder=&quot;1&quot; value=&quot;6&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
@@ -12012,7 +12007,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;NBT_TOTAL_TIME_QUANTA&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;40&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;60&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -12023,7 +12018,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;NBT_TSEG1&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;29&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;44&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -12034,7 +12029,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;NBT_TSEG2&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;10&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;15&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -12073,7 +12068,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;NOMINAL_TIME_QUANTA_PERIOD&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;25.000&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;can2&quot; value=&quot;16.667&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -12095,7 +12090,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;can2&gt;
   &lt;can2 dnOrder=&quot;0&quot; id=&quot;NUMBER_OF_FILTER&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;6&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
     &lt;/Values&gt;
   &lt;/can2&gt;
 &lt;/can2&gt;
@@ -32680,7 +32675,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tmr1&gt;
   &lt;tmr1 dnOrder=&quot;0&quot; id=&quot;TIMER1_PERIOD&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tmr1&quot; value=&quot;4686&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tmr1&quot; value=&quot;18749&quot;/&gt;
     &lt;/Values&gt;
   &lt;/tmr1&gt;
 &lt;/tmr1&gt;
@@ -32743,7 +32738,7 @@
       &lt;/Float&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;5.0&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;20.0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/tmr1&gt;
 &lt;/tmr1&gt;
@@ -35283,7 +35278,7 @@
    <generatedFileHashHistoryMap class="java.util.TreeMap">
       <entry>
          <file>..\src\config\default\definitions.h</file>
-         <hash>205f9f1e896f0cc217b9345547f5bcd9110d1058a1463c9c0ef311a1bfd62545</hash>
+         <hash>6d28e77d02745bc801518fc3728d7590fd7d512f31a298e77a9989b4a6422c98</hash>
       </entry>
       <entry>
          <file>..\src\config\default\device.h</file>
@@ -35295,7 +35290,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\initialization.c</file>
-         <hash>1cddcf89995b3a2f8bda409df13aaef77b59730acb22f28db3f1e68f4a6aead5</hash>
+         <hash>e771d9d489c33056fb640ed75a66ea5f13db8531b45233dee8b4ffc4e5c117ac</hash>
       </entry>
       <entry>
          <file>..\src\config\default\interrupts.c</file>
@@ -35331,7 +35326,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\canfd\plib_canfd2.c</file>
-         <hash>68b7a579ca6dbe73d5d228fbabc496c8db141c3ed715206ec398b451363e09a7</hash>
+         <hash>a51b840f9c9489fa2914336c8d37da8bbd8d70f804836b23acf2a8f77714b137</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\canfd\plib_canfd2.h</file>
@@ -35411,7 +35406,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\tmr1\plib_tmr1.c</file>
-         <hash>4f961bad7fcc6b20240ad78ee755faf9c0d45dbca779992b45fe3fa6ccbbf991</hash>
+         <hash>14416ea0d628fc9fc358279d488ff7520a3fc39dc69e8aeed45e1c103d3a7d94</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\tmr1\plib_tmr1.h</file>

@@ -198,16 +198,16 @@ void SYS_Initialize ( void* data )
 
     DMAC_Initialize();
 
-    CORETIMER_Initialize();
-    TMR6_Initialize();
-
 	UART3_Initialize();
 
+    TMR6_Initialize();
+
+    CORETIMER_Initialize();
     ADCHS_Initialize();
 
-	UART1_Initialize();
-
     TMR4_Initialize();
+
+	UART1_Initialize();
 
     TMR5_Initialize();
 
@@ -215,9 +215,9 @@ void SYS_Initialize ( void* data )
 
     TMR3_Initialize();
 
-    TMR1_Initialize();
-
     MCPWM_Initialize();
+
+    TMR1_Initialize();
 
 
 

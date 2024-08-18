@@ -152,6 +152,7 @@ void SOUND_R2DS(void);
 void UpdateIgnitionState(void);
 void AutonomousR2D(void);
 void check_driving_mode(void);
+bool debounceButton(void);
 
 void DIP_Switch(void);
 void BlinkCANLED(void);
@@ -166,34 +167,26 @@ void TMR1_5ms(uint32_t status, uintptr_t context) {  // 200Hz
     // APPS_Function(ADC[0], ADC[3]);
     APPS_Function(ADC_Filtered_0, ADC_Filtered_3);
 
-    // run in 100Hz
-    static uint8_t i = 0;
-    if (i < 1) {
-        i++;
-    } else {
-        i = 0;
-
+    /*AUTONOMOUS MODE*/
+    if (DrivingMode) {
         /*AUTONOMOUS MODE*/
-        if (DrivingMode) {
-            /*AUTONOMOUS MODE*/
-            if (R2D.isR2D) {
-                if (RPM_TOJAL > MAX_AD_RPM) {
-                    RPM_TOJAL = MAX_AD_RPM;
-                } else if (RPM_TOJAL < 0) {
-                    RPM_TOJAL = 0;
-                }
-                // TODO if autonomous mode is on, start does not need to be activated with the brake
-                can_bus_send_HV500_SetDriveEnable(1);
-                can_bus_send_HV500_SetERPM(RPM_TOJAL * 10);
+        if (R2D.isR2D) {
+            if (RPM_TOJAL > MAX_AD_RPM) {
+                RPM_TOJAL = MAX_AD_RPM;
+            } else if (RPM_TOJAL < 0) {
+                RPM_TOJAL = 0;
             }
+            // TODO if autonomous mode is on, start does not need to be activated with the brake
+            can_bus_send_HV500_SetDriveEnable(1);
+            can_bus_send_HV500_SetERPM(RPM_TOJAL * 10);
+        }
+    } else {
+        /*MANUAL MODE*/
+        if (R2D.isR2D) {
+            can_bus_send_HV500_SetDriveEnable(1);
+            can_bus_send_HV500_SetRelCurrent(APPS_Percentage_1000);
         } else {
-            /*MANUAL MODE*/
-            if (R2D.isR2D) {
-                can_bus_send_HV500_SetDriveEnable(1);
-                can_bus_send_HV500_SetRelCurrent(APPS_Percentage_1000);
-            } else {
-                can_bus_send_HV500_SetDriveEnable(0);
-            }
+            can_bus_send_HV500_SetDriveEnable(0);
         }
     }
 }
@@ -205,9 +198,9 @@ void TMR2_100ms(uint32_t status, uintptr_t context) {
     can_bus_send_databus_4(RPM, Inverter_Voltage);
 
     // can_bus_send_HV500_SetERPM((RPM_TOJAL * 20));
-    
+
     can_data_t data;
-    data.id = 0x23; //0b100011
+    data.id = 0x23;  // 0b100011
     data.length = 8;
     for (int i = 0; i < 8; i++) {
         data.message[i] = 0;
@@ -302,7 +295,7 @@ int main(void) {
 
     // ADCHS_ChannelResultInterruptEnable(ADCHS_CH0);
     // ADCHS_ChannelResultInterruptEnable(ADCHS_CH3);
-    ADCHS_ChannelResultInterruptEnable(ADCHS_CH8);
+    ADCHS_ChannelResultInterruptEnable(ADCHS_CH8);  //?
     // ADCHS_ChannelResultInterruptEnable(ADCHS_CH9);
 
     TMR1_CallbackRegister(TMR1_5ms, (uintptr_t)NULL);     // 200Hz
@@ -313,9 +306,9 @@ int main(void) {
 
     fflush(stdout);
 
-    APPS_Init(__APPS_MIN, __APPS_MAX, __APPS_TOLERANCE);  // Initialize APPS
+    APPS_Init(__APPS_MIN, __APPS_MAX, __APPS_TOLERANCE, __APPS_DELTA);  // Initialize APPS
 
-    CORETIMER_DelayMs(1500);
+    CORETIMER_DelayMs(200);
 
     startupSequence();     // led sequence
     check_driving_mode();  // check the driving mode
@@ -563,35 +556,96 @@ void MissionEmergencyStop(void) {
         }
     }
 }
+/*
+    Debounce the ready to drive button
+*/
+bool debounceButton() {
+    static bool previous_state = false;    // the previous state of the button
+    static bool current_state = false;     // the current state of the button
+    static uint32_t lastDebounceTime = 0;  // the last time the output pin was toggled
+    const uint16_t debounceDelay = 30;     // the debounce time; increase if the output flickers
+    static bool start_button = false;      // the state of the R2D
 
-void UpdateR2DState(void) {
-    static bool previous_state = false;
-    static bool current_state = false;
-    static uint32_t lastDebounceTime = 0;
-    const uint16_t debounceDelay = 30;
-    static bool start_button = false;
-    /*Debounce*/
+    bool toggleState = false;  // toggle state of the R2D
+
     // current_state = GPIO_RB6_START_BUTTON_Get();
     current_state = GPIO_RE14_R2D_BT_Get();
 
+    // if the button state has changed
     if (current_state != previous_state) {
         lastDebounceTime = millis();
     }
+
+    // if the button state has been in the current state for longer than the debounce delay, toggle the state
     if ((millis() - lastDebounceTime) > debounceDelay) {
-        start_button = current_state;
+        if (current_state != start_button) {
+            start_button = current_state;
+
+            if (start_button) {
+                toggleState = !toggleState;
+            }
+        }
     }
     previous_state = current_state;
+    return toggleState;
+}
+
+/*
+    Fade led cockpit ready to drive button
+*/
+void fadeLed(void) {
+    /* Fade R2D LED */
+    static int brightness2000;
+    static int brightness = 0;
+    static int fadeAmount = 5;
+    static uint8_t wait = 0;
+    static uint32_t previous_millis = 0;
+    uint32_t milisegungos = millis();
+    if (milisegungos - previous_millis >= 10) {
+        if (!R2D.isR2D) {
+            // fade led
+            if (wait) {
+                static uint8_t i = 0;
+                MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 2000);
+                if (i < 20) {
+                    i++;
+                } else {
+                    i = 0;
+                    wait = 0;
+                }
+            } else {
+                brightness2000 = brightness * 7.843;
+
+                MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, brightness2000);
+                if (brightness == 250) {
+                    wait = 1;
+                }
+                brightness = brightness + fadeAmount;
+
+                if (brightness == 0 || brightness == 250) {
+                    fadeAmount = -fadeAmount;
+                }
+            }
+
+        } else {
+            // MCPWM_Start();
+            MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 0);
+        }
+        previous_millis = milisegungos;
+    }
+}
+
+void UpdateR2DState(void) {
+    static bool start_button = false;
+    start_button = debounceButton();
 
     // TODO VERIFICAR ISTO TUDO
     static bool hv_on = true;
     // bool hv_on = GPIO_RG9_Get();
 
     /*
-    CORETIMER_DelayUs(2);
-    bool start_button = GPIO_RB6_START_BUTTON_Get();
-    CORETIMER_DelayUs(2);
+    DrivingMode: 0 - manual mode, 1 - autonomous mode
     */
-
     if (DrivingMode) {
         /*AUTONOMOUS MODE*/
         if (IgnitionSwitch) {
@@ -604,54 +658,17 @@ void UpdateR2DState(void) {
     } else {
         /*MANUAL MODE*/
         if (IgnitionSwitch) {
-            static int brightness2000;
-            static int brightness = 0;
-            static int fadeAmount = 5;
-            static uint8_t wait = 0;
             // if (hv_on) {
+
             if (start_button) {
                 // if (GPIO_RB6_START_BUTTON_Get() && (Brake_Pressure >= __BRAKE_THRESHOLD)) {
                 R2D.isR2D = true;
+            } else {
+                R2D.isR2D = false;
+                R2D.R2DS_as_played = false;
+                MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 2000);
             }
-
-            /* Fade R2D LED */
-            static uint32_t previous_millis = 0;
-            uint32_t milisegungos = millis();
-            if (milisegungos - previous_millis >= 10) {
-                if (!R2D.isR2D) {
-                    // fade led
-
-                    if (wait) {
-                        static uint8_t i = 0;
-                        MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 2000);
-                        if (i < 20) {
-                            i++;
-                        } else {
-                            i = 0;
-                            wait = 0;
-                        }
-                    } else {
-                        brightness2000 = brightness * 7.843;
-
-                        MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, brightness2000);
-                        if (brightness == 250) {
-                            wait = 1;
-                        }
-                        brightness = brightness + fadeAmount;
-
-                        if (brightness == 0 || brightness == 250) {
-                            fadeAmount = -fadeAmount;
-                        }
-                    }
-
-                } else {
-                    // MCPWM_Start();
-                    MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 0);
-                }
-                previous_millis = milisegungos;
-            }
-
-            // }
+            fadeLed();  // fade cockpit led
         } else {
             R2D.isR2D = false;
             R2D.R2DS_as_played = false;
@@ -831,8 +848,8 @@ void AutonomousR2D(void) {
 }
 
 void check_driving_mode(void) {
-   //check the switch RB4 TWO times, if they are diferent check again
-   do {
-       DrivingMode = GPIO_RC10_DIP4_Get();
-   } while (DrivingMode != GPIO_RC10_DIP4_Get());
+    // check the switch RB4 TWO times, if they are diferent check again
+    do {
+        DrivingMode = GPIO_RC10_DIP4_Get();
+    } while (DrivingMode != GPIO_RC10_DIP4_Get());
 }
