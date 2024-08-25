@@ -8,6 +8,7 @@ void can_filter_id_bus4(can_data_t* data);
 
 uint16_t TOJAL_RX_RPM = 0;
 uint32_t RPM_TOJAL = 0;
+uint8_t powerPlan_volante = 0;
 
 // ############# RX CAN FRAME ###############################
 
@@ -171,7 +172,7 @@ void can_bus_send_databus_2(uint16_t motor_temperature, uint16_t inverter_temper
     can_bus_send(CAN_BUS1, &data);
 }
 
-void can_bus_send_databus_3(uint8_t vcu_state, uint8_t lmt2, uint8_t lmt1, uint16_t inverter_error) {
+void can_bus_send_databus_3(uint8_t vcu_state, uint8_t lmt2, uint8_t lmt1, uint16_t inverter_error, uint8_t apps_error, uint8_t power_plan) {
     can_data_t data;
     data.id = CAN_VCU_ID_3;
     data.length = 8;
@@ -179,19 +180,36 @@ void can_bus_send_databus_3(uint8_t vcu_state, uint8_t lmt2, uint8_t lmt1, uint1
     MAP_ENCODE_VCU_STATE(data.message, vcu_state);
     MAP_ENCODE_LMT2(data.message, lmt2);
     MAP_ENCODE_LMT1(data.message, lmt1);
-
     MAP_ENCODE_INVERTER_ERROR(data.message, inverter_error);
+    MAP_ENCODE_APPS_ERROR(data.message, apps_error);
+    MAP_ENCODE_POWER_PLAN(data.message, power_plan);
 
     can_bus_send(CAN_BUS1, &data);
 }
 
-void can_bus_send_databus_4(uint16_t rpm, uint16_t inverter_voltage) {
+void can_bus_send_databus_4(uint16_t rpm, uint16_t inverter_voltage, uint8_t ignition_state, uint8_t ready2drive_state) {
     can_data_t data;
     data.id = CAN_VCU_ID_4;
     data.length = 8;
 
     MAP_ENCODE_RPM(data.message, rpm);
     MAP_ENCODE_INVERTER_VOLTAGE(data.message, inverter_voltage);
+    MAP_ENCODE_IGNITION_STATE(data.message, ignition_state);
+    MAP_ENCODE_Ready2Drive_STATE(data.message, ready2drive_state);
+
+    can_bus_send(CAN_BUS1, &data);
+}
+
+void can_bus_send_databus_5(uint8_t tcu_state, uint8_t acu_state, uint8_t alc_state, uint16_t lv_soc, uint16_t lv_voltage) {
+    can_data_t data;
+    data.id = CAN_VCU_ID_5;
+    data.length = 8;
+
+    MAP_ENCODE_VCU_TCU_STATE(data.message, tcu_state);
+    MAP_ENCODE_VCU_ACU_STATE(data.message, acu_state);
+    MAP_ENCODE_VCU_ALC_STATE(data.message, alc_state);
+    MAP_ENCODE_LV_SOC(data.message, lv_soc);
+    MAP_ENCODE_LV_VOLTAGE(data.message, lv_voltage);
 
     can_bus_send(CAN_BUS1, &data);
 }
@@ -201,251 +219,262 @@ void can_filter_id_bus1(can_data_t* data) {
         case CAN_VCU_ID_1:
             TOJAL_RX_RPM = MAP_DECODE_TOJAL_RPM(data->message);
             break;
-        default:
-            break;
+        case CAN_STEERING_WHEEL:
+            powerPlan_volante = MAP_DECODE_POWER_PLAN(data->message);
     }
 }
 
-/*
-░█████╗░░█████╗░███╗░░██╗  ██████╗░  ░░░░░░██████╗░░█████╗░░██╗░░░░░░░██╗███████╗██████╗░████████╗██████╗░░█████╗░██╗███╗░░██╗
-██╔══██╗██╔══██╗████╗░██║  ╚════██╗  ░░░░░░██╔══██╗██╔══██╗░██║░░██╗░░██║██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██║████╗░██║
-██║░░╚═╝███████║██╔██╗██║  ░░███╔═╝  █████╗██████╔╝██║░░██║░╚██╗████╗██╔╝█████╗░░██████╔╝░░░██║░░░██████╔╝███████║██║██╔██╗██║
-██║░░██╗██╔══██║██║╚████║  ██╔══╝░░  ╚════╝██╔═══╝░██║░░██║░░████╔═████║░██╔══╝░░██╔══██╗░░░██║░░░██╔══██╗██╔══██║██║██║╚████║
-╚█████╔╝██║░░██║██║░╚███║  ███████╗  ░░░░░░██║░░░░░╚█████╔╝░░╚██╔╝░╚██╔╝░███████╗██║░░██║░░░██║░░░██║░░██║██║░░██║██║██║░╚███║
-░╚════╝░╚═╝░░╚═╝╚═╝░░╚══╝  ╚══════╝  ░░░░░░╚═╝░░░░░░╚════╝░░░░╚═╝░░░╚═╝░░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝
- */
-/*Receive*/
+    /*
+    ░█████╗░░█████╗░███╗░░██╗  ██████╗░  ░░░░░░██████╗░░█████╗░░██╗░░░░░░░██╗███████╗██████╗░████████╗██████╗░░█████╗░██╗███╗░░██╗
+    ██╔══██╗██╔══██╗████╗░██║  ╚════██╗  ░░░░░░██╔══██╗██╔══██╗░██║░░██╗░░██║██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██║████╗░██║
+    ██║░░╚═╝███████║██╔██╗██║  ░░███╔═╝  █████╗██████╔╝██║░░██║░╚██╗████╗██╔╝█████╗░░██████╔╝░░░██║░░░██████╔╝███████║██║██╔██╗██║
+    ██║░░██╗██╔══██║██║╚████║  ██╔══╝░░  ╚════╝██╔═══╝░██║░░██║░░████╔═████║░██╔══╝░░██╔══██╗░░░██║░░░██╔══██╗██╔══██║██║██║╚████║
+    ╚█████╔╝██║░░██║██║░╚███║  ███████╗  ░░░░░░██║░░░░░╚█████╔╝░░╚██╔╝░╚██╔╝░███████╗██║░░██║░░░██║░░░██║░░██║██║░░██║██║██║░╚███║
+    ░╚════╝░╚═╝░░╚═╝╚═╝░░╚══╝  ╚══════╝  ░░░░░░╚═╝░░░░░░╚════╝░░░░╚═╝░░░╚═╝░░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝
+     */
+    /*Receive*/
 
-/*Send*/
+    /*Send*/
 
-/*Send_CAN_HV500_SetAcCurrent*/
-void can_bus_send_HV500_SetAcCurrent(uint16_t ac_current) {
-    can_data_t data;
-    data.id = CAN_HV500_SetAcCurrent_ID;
-    data.length = 8;
+    /*Send_CAN_HV500_SetAcCurrent*/
+    void can_bus_send_HV500_SetAcCurrent(uint16_t ac_current) {
+        can_data_t data;
+        data.id = CAN_HV500_SetAcCurrent_ID;
+        data.length = 8;
 
-    MAP_ENCODE_CMD_AcCurrent(data.message, ac_current);
+        MAP_ENCODE_CMD_AcCurrent(data.message, ac_current);
 
-    can_bus_send(CAN_BUS2, &data);
-}
-
-/*Send_CAN_HV500_SetBrakeCurrent*/
-void can_bus_send_HV500_SetBrakeCurrent(uint16_t brake_current) {
-    can_data_t data;
-    data.id = CAN_HV500_SetBrakeCurrent_ID;
-    data.length = 8;
-
-    MAP_ENCODE_CMD_BrakeCurrent(data.message, brake_current);
-
-    can_bus_send(CAN_BUS2, &data);
-}
-
-/*Send_CAN_HV500_SetERPM*/
-void can_bus_send_HV500_SetERPM(uint32_t erpm) {
-    can_data_t data;
-    data.id = CAN_HV500_SetERPM_ID;
-    data.length = 4;
-
-    MAP_ENCODE_CMD_ERPM(data.message, erpm);
-
-    can_bus_send(CAN_BUS2, &data);
-}
-
-/*Send_CAN_HV500_SetPosition*/
-void can_bus_send_HV500_SetPosition(uint32_t position) {
-    can_data_t data;
-    data.id = CAN_HV500_SetPosition_ID;
-    data.length = 8;
-
-    MAP_ENCODE_CMD_Position(data.message, position);
-
-    can_bus_send(CAN_BUS2, &data);
-}
-
-/*Send_CAN_HV500_SetRelCurrent*/
-void can_bus_send_HV500_SetRelCurrent(uint32_t rel_current) {
-    can_data_t data;
-    data.id = CAN_HV500_SetRelCurrent_ID;
-    data.length = 2;
-
-    MAP_ENCODE_CMD_RelCurrent(data.message, rel_current);
-
-    can_bus_send(CAN_BUS2, &data);
-}
-
-/*Send_CAN_HV500_SetRelBrakeCurrent*/
-void can_bus_send_HV500_SetRelBrakeCurrent(uint32_t rel_brake_current) {
-    can_data_t data;
-    data.id = CAN_HV500_SetRelBrakeCurrent_ID;
-    data.length = 8;
-
-    MAP_ENCODE_CMD_RelBrakeCurrent(data.message, rel_brake_current);
-
-    can_bus_send(CAN_BUS2, &data);
-}
-
-/*Send_CAN_HV500_SetMaxAcCurrent*/
-void can_bus_send_HV500_SetMaxAcCurrent(uint32_t max_ac_current) {
-    can_data_t data;
-    data.id = CAN_HV500_SetMaxAcCurrent_ID;
-    data.length = 8;
-
-    MAP_ENCODE_CMD_MaxAcCurrent(data.message, max_ac_current);
-
-    can_bus_send(CAN_BUS2, &data);
-}
-
-/*Send_CAN_HV500_SetMaxAcBrakeCurrent*/
-void can_bus_send_HV500_SetMaxAcBrakeCurrent(uint32_t max_ac_brake_current) {
-    can_data_t data;
-    data.id = CAN_HV500_SetMaxAcBrakeCurrent_ID;
-    data.length = 8;
-
-    MAP_ENCODE_CMD_MaxAcBrakeCurrent(data.message, max_ac_brake_current);
-
-    can_bus_send(CAN_BUS2, &data);
-}
-
-/*CAN_HV500_SetMaxDcCurrent_ID*/
-void can_bus_send_HV500_SetMaxDcCurrent(uint32_t max_dc_current) {
-    can_data_t data;
-    data.id = CAN_HV500_SetMaxDcCurrent_ID;
-    data.length = 8;
-
-    MAP_ENCODE_CMD_MaxDcCurrent(data.message, max_dc_current);
-
-    can_bus_send(CAN_BUS2, &data);
-}
-
-/*CAN_HV500_SetMaxDcBrakeCurrent_ID*/
-void can_bus_send_HV500_SetMaxDcBrakeCurrent(uint32_t max_dc_brake_current) {
-    can_data_t data;
-    data.id = CAN_HV500_SetMaxDcBrakeCurrent_ID;
-    data.length = 8;
-
-    MAP_ENCODE_CMD_MaxDcBrakeCurrent(data.message, max_dc_brake_current);
-
-    can_bus_send(CAN_BUS2, &data);
-}
-
-/*Send_CAN_HV500_SetDriveEnable*/
-void can_bus_send_HV500_SetDriveEnable(uint32_t drive_enable) {
-    can_data_t data;
-    data.id = CAN_HV500_SetDriveEnable_ID;
-    data.length = 1;
-
-    MAP_ENCODE_CMD_DriveEnable(data.message, drive_enable);
-
-    can_bus_send(CAN_BUS2, &data);
-}
-
-// ############# PWTDB CAN VARS ###################################
-
-// Receive
-
-void can_filter_id_bus2(can_data_t* data) {
-    switch (data->id) {
-        case CAN_HV500_ERPM_DUTY_VOLTAGE_ID:
-            myHV500.Actual_ERPM = MAP_DECODE_Actual_ERPM(data->message);
-            myHV500.Actual_Duty = MAP_DECODE_Actual_Duty(data->message);
-            myHV500.Actual_InputVoltage = MAP_DECODE_Actual_InputVoltage(data->message);
-            break;
-        case CAN_HV500_AC_DC_current_ID:
-
-            myHV500.Actual_ACCurrent = MAP_DECODE_Actual_ACCurrent(data->message);
-            myHV500.Actual_DCCurrent = MAP_DECODE_Actual_DCCurrent(data->message);
-            break;
-        case CAN_HV500_Temperatures_ID:
-            myHV500.Actual_TempController = MAP_DECODE_Actual_TempController(data->message);
-            myHV500.Actual_TempMotor = MAP_DECODE_Actual_TempMotor(data->message);
-            myHV500.Actual_FaultCode = MAP_DECODE_Actual_FaultCode(data->message);
-            break;
-        case CAN_HV500_FOC_ID:
-            myHV500.Actual_FOC_id = MAP_DECODE_Actual_FOC_id(data->message);
-            myHV500.Actual_FOC_iq = MAP_DECODE_Actual_FOC_iq(data->message);
-            break;
-        case CAN_HV500_MISC_ID:
-            myHV500.Actual_Throttle = MAP_DECODE_Actual_Throttle(data->message);
-            myHV500.Actual_Brake = MAP_DECODE_Actual_Brake(data->message);
-            myHV500.Digital_input_1 = MAP_DECODE_Digital_input_1(data->message);
-            myHV500.Digital_input_2 = MAP_DECODE_Digital_input_2(data->message);
-            myHV500.Digital_input_3 = MAP_DECODE_Digital_input_3(data->message);
-            myHV500.Digital_input_4 = MAP_DECODE_Digital_input_4(data->message);
-            myHV500.Digital_output_1 = MAP_DECODE_Digital_output_1(data->message);
-            myHV500.Digital_output_2 = MAP_DECODE_Digital_output_2(data->message);
-            myHV500.Digital_output_3 = MAP_DECODE_Digital_output_3(data->message);
-            myHV500.Digital_output_4 = MAP_DECODE_Digital_output_4(data->message);
-            myHV500.Drive_enable = MAP_DECODE_Drive_enable(data->message);
-            myHV500.Capacitor_temp_limit = MAP_DECODE_Capacitor_temp_limit(data->message);
-            myHV500.DC_current_limit = MAP_DECODE_DC_current_limit(data->message);
-            myHV500.Drive_enable_limit = MAP_DECODE_Drive_enable_limit(data->message);
-            myHV500.IGBT_accel_limit = MAP_DECODE_IGBT_accel_limit(data->message);
-            myHV500.IGBT_temp_limit = MAP_DECODE_IGBT_temp_limit(data->message);
-            myHV500.Input_voltage_limit = MAP_DECODE_Input_voltage_limit(data->message);
-            myHV500.Motor_accel_limit = MAP_DECODE_Motor_accel_limit(data->message);
-            myHV500.Motor_temp_limit = MAP_DECODE_Motor_temp_limit(data->message);
-            myHV500.RPM_min_limit = MAP_DECODE_RPM_min_limit(data->message);
-            myHV500.RPM_max_limit = MAP_DECODE_RPM_max_limit(data->message);
-            myHV500.Power_limit = MAP_DECODE_Power_limit(data->message);
-            myHV500.CAN_map_version = MAP_DECODE_CAN_map_version(data->message);
-            break;
-
-        case 0x61:
-            TCU_Autonomous_ignition = data->message[2];
-            TCU_Precharge_done = data->message[5];
-            break;
-
-        default:
-            break;
+        can_bus_send(CAN_BUS2, &data);
     }
-}
 
-// #####################################################################
-// AUTONOUOMOUS FILTER IDS
+    /*Send_CAN_HV500_SetBrakeCurrent*/
+    void can_bus_send_HV500_SetBrakeCurrent(uint16_t brake_current) {
+        can_data_t data;
+        data.id = CAN_HV500_SetBrakeCurrent_ID;
+        data.length = 8;
 
-/*Receive*/
-void can_filter_id_bus4(can_data_t* data) {
-    switch (data->id) {
-        case 0x500:
-            RPM_TOJAL = MAP_DECODE_TOJAL_RPM(data->message);
-            AD_timeout = 0;
-            break;
-        case 0x50:
-            AS_Emergency = data->message[0];
-            break;
-        case 0x191:
-            RES_AD_Ignition = data->message[0];
-            // printf("Ignition: %d\n", AD_Ignition);
-            break;
+        MAP_ENCODE_CMD_BrakeCurrent(data.message, brake_current);
+
+        can_bus_send(CAN_BUS2, &data);
     }
-}
 
-/*Send*/
-void can_bus_send_AdBus_RPM(uint32_t rpm) {
-    can_data_t data;
-    memset(data.message, 0x00, sizeof(data.message));
-    data.id = 0x510;
-    data.length = 2;
-    rpm = rpm / 10;
-    MAP_ENCODE_TOJAL_RPM(data.message, rpm);
+    /*Send_CAN_HV500_SetERPM*/
+    void can_bus_send_HV500_SetERPM(uint32_t erpm) {
+        can_data_t data;
+        data.id = CAN_HV500_SetERPM_ID;
+        data.length = 4;
 
-    can_bus_send(CAN_BUS4, &data);
-}
+        MAP_ENCODE_CMD_ERPM(data.message, erpm);
 
-void can_open_init() {
-    can_data_t data;
+        can_bus_send(CAN_BUS2, &data);
+    }
 
-    data.id = NMT_ADDRESS_COBID();
-    data.message[0] = 0x80;
-    data.message[1] = 0x00;
-    data.length = 2;
-    can_bus_send(CAN_BUS4, &data);
+    /*Send_CAN_HV500_SetPosition*/
+    void can_bus_send_HV500_SetPosition(uint32_t position) {
+        can_data_t data;
+        data.id = CAN_HV500_SetPosition_ID;
+        data.length = 8;
 
-    CORETIMER_DelayMs(10);
+        MAP_ENCODE_CMD_Position(data.message, position);
 
-    data.id = NMT_ADDRESS_COBID();
-    data.message[0] = 0x01;
-    data.message[1] = 0x00;
-    data.length = 2;
-    can_bus_send(CAN_BUS4, &data);
-}
+        can_bus_send(CAN_BUS2, &data);
+    }
+
+    /*Send_CAN_HV500_SetRelCurrent*/
+    void can_bus_send_HV500_SetRelCurrent(uint32_t rel_current) {
+        can_data_t data;
+        data.id = CAN_HV500_SetRelCurrent_ID;
+        data.length = 2;
+
+        MAP_ENCODE_CMD_RelCurrent(data.message, rel_current);
+
+        can_bus_send(CAN_BUS2, &data);
+    }
+
+    /*Send_CAN_HV500_SetRelBrakeCurrent*/
+    void can_bus_send_HV500_SetRelBrakeCurrent(uint32_t rel_brake_current) {
+        can_data_t data;
+        data.id = CAN_HV500_SetRelBrakeCurrent_ID;
+        data.length = 8;
+
+        MAP_ENCODE_CMD_RelBrakeCurrent(data.message, rel_brake_current);
+
+        can_bus_send(CAN_BUS2, &data);
+    }
+
+    /*Send_CAN_HV500_SetMaxAcCurrent*/
+    void can_bus_send_HV500_SetMaxAcCurrent(uint32_t max_ac_current) {
+        can_data_t data;
+        data.id = CAN_HV500_SetMaxAcCurrent_ID;
+        data.length = 8;
+
+        MAP_ENCODE_CMD_MaxAcCurrent(data.message, max_ac_current);
+
+        can_bus_send(CAN_BUS2, &data);
+    }
+
+    /*Send_CAN_HV500_SetMaxAcBrakeCurrent*/
+    void can_bus_send_HV500_SetMaxAcBrakeCurrent(uint32_t max_ac_brake_current) {
+        can_data_t data;
+        data.id = CAN_HV500_SetMaxAcBrakeCurrent_ID;
+        data.length = 8;
+
+        MAP_ENCODE_CMD_MaxAcBrakeCurrent(data.message, max_ac_brake_current);
+
+        can_bus_send(CAN_BUS2, &data);
+    }
+
+    /*CAN_HV500_SetMaxDcCurrent_ID*/
+    void can_bus_send_HV500_SetMaxDcCurrent(uint32_t max_dc_current) {
+        can_data_t data;
+        data.id = CAN_HV500_SetMaxDcCurrent_ID;
+        data.length = 8;
+
+        MAP_ENCODE_CMD_MaxDcCurrent(data.message, max_dc_current);
+
+        can_bus_send(CAN_BUS2, &data);
+    }
+
+    /*CAN_HV500_SetMaxDcBrakeCurrent_ID*/
+    void can_bus_send_HV500_SetMaxDcBrakeCurrent(uint32_t max_dc_brake_current) {
+        can_data_t data;
+        data.id = CAN_HV500_SetMaxDcBrakeCurrent_ID;
+        data.length = 8;
+
+        MAP_ENCODE_CMD_MaxDcBrakeCurrent(data.message, max_dc_brake_current);
+
+        can_bus_send(CAN_BUS2, &data);
+    }
+
+    /*Send_CAN_HV500_SetDriveEnable*/
+    void can_bus_send_HV500_SetDriveEnable(uint32_t drive_enable) {
+        can_data_t data;
+        data.id = CAN_HV500_SetDriveEnable_ID;
+        data.length = 1;
+
+        MAP_ENCODE_CMD_DriveEnable(data.message, drive_enable);
+
+        can_bus_send(CAN_BUS2, &data);
+    }
+
+    void can_bus_send_pwtbus_1(uint8_t r2d, uint8_t ignition) {
+        can_data_t data;
+        data.id = CAN_PWT_VCU_ID_1;
+        data.length = 8;
+
+        MAP_ENCODE_PWT_R2D_STATE(data.message, r2d);
+        MAP_ENCODE_PWT_IGNITION_STATE(data.message, ignition);
+
+        can_bus_send(CAN_BUS2, &data);
+    }
+    // ############# PWTDB CAN VARS ###################################
+
+    // Receive
+
+    void can_filter_id_bus2(can_data_t * data) {
+        switch (data->id) {
+            case CAN_HV500_ERPM_DUTY_VOLTAGE_ID:
+                myHV500.Actual_ERPM = MAP_DECODE_Actual_ERPM(data->message);
+                myHV500.Actual_Duty = MAP_DECODE_Actual_Duty(data->message);
+                myHV500.Actual_InputVoltage = MAP_DECODE_Actual_InputVoltage(data->message);
+                break;
+            case CAN_HV500_AC_DC_current_ID:
+
+                myHV500.Actual_ACCurrent = MAP_DECODE_Actual_ACCurrent(data->message);
+                myHV500.Actual_DCCurrent = MAP_DECODE_Actual_DCCurrent(data->message);
+                break;
+            case CAN_HV500_Temperatures_ID:
+                myHV500.Actual_TempController = MAP_DECODE_Actual_TempController(data->message);
+                myHV500.Actual_TempMotor = MAP_DECODE_Actual_TempMotor(data->message);
+                myHV500.Actual_FaultCode = MAP_DECODE_Actual_FaultCode(data->message);
+                break;
+            case CAN_HV500_FOC_ID:
+                myHV500.Actual_FOC_id = MAP_DECODE_Actual_FOC_id(data->message);
+                myHV500.Actual_FOC_iq = MAP_DECODE_Actual_FOC_iq(data->message);
+                break;
+            case CAN_HV500_MISC_ID:
+                myHV500.Actual_Throttle = MAP_DECODE_Actual_Throttle(data->message);
+                myHV500.Actual_Brake = MAP_DECODE_Actual_Brake(data->message);
+                myHV500.Digital_input_1 = MAP_DECODE_Digital_input_1(data->message);
+                myHV500.Digital_input_2 = MAP_DECODE_Digital_input_2(data->message);
+                myHV500.Digital_input_3 = MAP_DECODE_Digital_input_3(data->message);
+                myHV500.Digital_input_4 = MAP_DECODE_Digital_input_4(data->message);
+                myHV500.Digital_output_1 = MAP_DECODE_Digital_output_1(data->message);
+                myHV500.Digital_output_2 = MAP_DECODE_Digital_output_2(data->message);
+                myHV500.Digital_output_3 = MAP_DECODE_Digital_output_3(data->message);
+                myHV500.Digital_output_4 = MAP_DECODE_Digital_output_4(data->message);
+                myHV500.Drive_enable = MAP_DECODE_Drive_enable(data->message);
+                myHV500.Capacitor_temp_limit = MAP_DECODE_Capacitor_temp_limit(data->message);
+                myHV500.DC_current_limit = MAP_DECODE_DC_current_limit(data->message);
+                myHV500.Drive_enable_limit = MAP_DECODE_Drive_enable_limit(data->message);
+                myHV500.IGBT_accel_limit = MAP_DECODE_IGBT_accel_limit(data->message);
+                myHV500.IGBT_temp_limit = MAP_DECODE_IGBT_temp_limit(data->message);
+                myHV500.Input_voltage_limit = MAP_DECODE_Input_voltage_limit(data->message);
+                myHV500.Motor_accel_limit = MAP_DECODE_Motor_accel_limit(data->message);
+                myHV500.Motor_temp_limit = MAP_DECODE_Motor_temp_limit(data->message);
+                myHV500.RPM_min_limit = MAP_DECODE_RPM_min_limit(data->message);
+                myHV500.RPM_max_limit = MAP_DECODE_RPM_max_limit(data->message);
+                myHV500.Power_limit = MAP_DECODE_Power_limit(data->message);
+                myHV500.CAN_map_version = MAP_DECODE_CAN_map_version(data->message);
+                break;
+
+            case CAN_TCU_ID_2:
+                tcu.TCU_STATE = MAP_DECODE_TCU_STATE(data->message);
+                tcu.Precharge_done = MAP_DECODE_PRECHARGE_DONE(data->message);
+                tcu.SDC_State = MAP_DECODE_SDC_STATE(data->message);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    // #####################################################################
+    // AUTONOUOMOUS FILTER IDS
+
+    /*Receive*/
+    void can_filter_id_bus4(can_data_t * data) {
+        switch (data->id) {
+            case 0x500:
+                RPM_TOJAL = MAP_DECODE_TOJAL_RPM(data->message);
+                AD_timeout = 0;
+                break;
+            case 0x50:
+                AS_Emergency = data->message[0];
+                break;
+            case 0x191:
+                RES_AD_Ignition = data->message[0];
+                // printf("Ignition: %d\n", AD_Ignition);
+                break;
+        }
+    }
+
+    /*Send*/
+    void can_bus_send_AdBus_RPM(uint32_t rpm) {
+        can_data_t data;
+        memset(data.message, 0x00, sizeof(data.message));
+        data.id = 0x510;
+        data.length = 2;
+        rpm = rpm / 10;
+        MAP_ENCODE_TOJAL_RPM(data.message, rpm);
+
+        can_bus_send(CAN_BUS4, &data);
+    }
+
+    void can_open_init() {
+        can_data_t data;
+
+        data.id = NMT_ADDRESS_COBID();
+        data.message[0] = 0x80;
+        data.message[1] = 0x00;
+        data.length = 2;
+        can_bus_send(CAN_BUS4, &data);
+
+        CORETIMER_DelayMs(10);
+
+        data.id = NMT_ADDRESS_COBID();
+        data.message[0] = 0x01;
+        data.message[1] = 0x00;
+        data.length = 2;
+        can_bus_send(CAN_BUS4, &data);
+    }

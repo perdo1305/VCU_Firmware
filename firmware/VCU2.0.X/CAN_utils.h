@@ -18,10 +18,10 @@
 #include <stdint.h>
 #include <stdlib.h>  // Defines EXIT_FAILURE
 
+#include "Can-Header-Map/CANOPEN_db.h"
 #include "Can-Header-Map/CAN_asdb.h"
 #include "Can-Header-Map/CAN_datadb.h"
 #include "Can-Header-Map/CAN_pwtdb.h"
-#include "Can-Header-Map/CANOPEN_maxondb.h"
 #include "definitions.h"
 
 typedef struct {
@@ -38,8 +38,9 @@ void can_open_init(void);
 /* Send to DataBus*/
 void can_bus_send_databus_1(uint16_t consumed_power, uint16_t target_power, uint8_t brake_pressure, uint8_t throttle_position);
 void can_bus_send_databus_2(uint16_t motor_temperature, uint16_t inverter_temperature);
-void can_bus_send_databus_3(uint8_t vcu_state, uint8_t lmt2, uint8_t lmt1, uint16_t inverter_error);
-void can_bus_send_databus_4(uint16_t rpm, uint16_t inverter_voltage);
+void can_bus_send_databus_3(uint8_t vcu_state, uint8_t lmt2, uint8_t lmt1, uint16_t inverter_error, uint8_t apps_error, uint8_t power_plan);
+void can_bus_send_databus_4(uint16_t rpm, uint16_t inverter_voltage, uint8_t ignition_state, uint8_t ready2drive_state);
+void can_bus_send_databus_5(uint8_t tcu_state, uint8_t acu_state, uint8_t alc_state, uint16_t lv_soc, uint16_t lv_voltage);
 
 /* Send to PowerTrainBus*/
 void can_bus_send_HV500_SetAcCurrent(uint16_t ac_current);
@@ -53,6 +54,8 @@ void can_bus_send_HV500_SetMaxAcBrakeCurrent(uint32_t max_ac_brake_current);
 void can_bus_send_HV500_SetMaxDcCurrent(uint32_t max_dc_current);
 void can_bus_send_HV500_SetMaxDcBrakeCurrent(uint32_t max_dc_brake_current);
 void can_bus_send_HV500_SetDriveEnable(uint32_t drive_enable);
+
+void can_bus_send_pwtbus_1(uint8_t r2d, uint8_t ignition);
 
 /*Send Directly to AutonomousBus*/
 void can_bus_send_AdBus_RPM(uint32_t rpm);
@@ -110,33 +113,27 @@ typedef struct {
 extern HV500 myHV500;
 
 typedef struct {
-    bool VCU;
-    bool PDM;
-    bool IMU;
-    bool DynamicsRear;
-    bool DynamicsFront;
-} CAN1;
+    uint8_t BatteryFansTop;
+    uint8_t BatteryFansBottom;
+    uint8_t RadFan_Left;
+    uint8_t RadFan_Right;
+    uint8_t Liquid_temp_1;
+    uint8_t Liquid_temp_2;
+    uint8_t Liquid_temp_3;
+
+    uint8_t Contactors_State;
+    uint8_t Contactors_Error;
+    uint8_t Autonomous_Ignition;
+    uint8_t Precharge_done;
+    uint8_t SDC_State;
+    uint8_t TCU_STATE;
+} TCUvars_t;
+extern TCUvars_t tcu;
 
 typedef struct {
-    bool VCU;
-    bool Inverter;
-    bool TCU;
-    bool BMS;
-} CAN2;
-
-typedef struct {
-    bool ACU;
-    bool FSG_Datalogger;
-    bool ALC;
-    bool SteeringWheel;
-} CAN3;
-
-typedef struct {
-    CAN1 can1;
-    CAN2 can2;
-    CAN3 can3;
-} BoardStatus;
-extern BoardStatus myboardStatus;
+    
+}ALCvars_t;
+extern ALCvars_t alc;
 
 extern bool CANRX_ON[4];  // flag to check if CAN is receiving
 extern bool CANTX_ON[4];  // flag to check if CAN is transmitting
@@ -148,6 +145,7 @@ extern uint8_t RES_AD_Ignition;
 extern bool TCU_Autonomous_ignition;
 extern uint8_t TCU_Precharge_done;
 extern uint16_t Actual_InputVoltage;
+extern uint8_t powerPlan_volante;
 
 extern uint32_t AD_timeout;
 

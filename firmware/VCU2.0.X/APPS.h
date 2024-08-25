@@ -30,10 +30,14 @@ extern uint16_t APPS_functional_region;
 extern bool APPS_Error;
 
 
+long map(long x, long in_min, long in_max, long out_min, long out_max);
+
+
 void APPS_Init(float min_volts, float max_volts, float APPS_Tolerance_Volts, uint16_t APPS_Delta);
 bool APPS_Function(uint16_t apps1, uint16_t apps2);
 bool APPS_TimedOut(uint16_t apps1, uint16_t apps2);
 void APPS_PrintValues(void);
+
 
 #ifdef	__cplusplus
 extern "C" {
