@@ -37,7 +37,7 @@ void can_open_init(void);
 
 /* Send to DataBus*/
 void can_bus_send_databus_1(uint16_t consumed_power, uint16_t target_power, uint8_t brake_pressure, uint8_t throttle_position);
-void can_bus_send_databus_2(uint16_t motor_temperature, uint16_t inverter_temperature);
+void can_bus_send_databus_2(uint16_t motor_temperature, uint16_t inverter_temperature, uint16_t hv_voltage, uint8_t hv_soc);
 void can_bus_send_databus_3(uint8_t vcu_state, uint8_t lmt2, uint8_t lmt1, uint16_t inverter_error, uint8_t apps_error, uint8_t power_plan);
 void can_bus_send_databus_4(uint16_t rpm, uint16_t inverter_voltage, uint8_t ignition_state, uint8_t ready2drive_state);
 void can_bus_send_databus_5(uint8_t tcu_state, uint8_t acu_state, uint8_t alc_state, uint16_t lv_soc, uint16_t lv_voltage);
@@ -130,6 +130,26 @@ typedef struct {
 } TCUvars_t;
 extern TCUvars_t tcu;
 
+typedef struct {
+    uint16_t instant_voltage;
+    uint16_t open_voltage;
+    uint8_t soc;
+    uint16_t pack_current;
+
+    uint16_t high_cell_voltage;
+    uint8_t high_cell_voltage_id;
+    uint16_t low_cell_voltage;
+    uint8_t low_cell_voltage_id;
+    uint16_t avg_cell_voltage;
+
+    uint16_t high_cell_temp;
+    uint8_t high_cell_temp_id;
+    uint16_t low_cell_temp;
+    uint8_t low_cell_temp_id;
+    uint8_t ambient_temp;
+
+}BMSvars_t;
+extern BMSvars_t bms;
 typedef struct {
     
 }ALCvars_t;

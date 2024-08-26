@@ -67,6 +67,7 @@ bool DrivingMode = false;  // 0 - manual mode, 1 - autonomous mode
 
 HV500 myHV500;  // Stuct to store HV500 data comming from CAN
 TCUvars_t tcu;  // Struct to store TCU data comming from CAN
+BMSvars_t bms;  // Struct to store BMS data comming from CAN
 
 bool CANRX_ON[4] = {0, 0, 0, 0};       // array to store the status of the CAN RX comming from can_utils
 bool CANTX_ON[4] = {0, 0, 0, 0};       // array to store the status of the CAN TX comming from can_utils
@@ -207,7 +208,7 @@ void TMR1_20ms(uint32_t status, uintptr_t context) {  // 50Hz
 
 void TMR2_100ms(uint32_t status, uintptr_t context) {
     can_bus_send_databus_1(Current_Power, Target_Power, Brake_Pressure, Throttle);                                           // id 0x20
-    can_bus_send_databus_2(myHV500.Actual_TempMotor, myHV500.Actual_TempController);                                         // id 0x21
+    can_bus_send_databus_2(myHV500.Actual_TempMotor, myHV500.Actual_TempController,bms.instant_voltage, bms.soc);                                       // id 0x21
     can_bus_send_databus_3(VcuState, LMT2, LMT1, Inverter_Faults, 0, PowerPlan);                                             // id 0x22
     can_bus_send_databus_4(RPM, Inverter_Voltage, IgnitionSwitch, R2D.isR2D);                                                // id 0x23
     can_bus_send_databus_5(tcu.TCU_STATE, 0,0, LV_SOC, PDM_Voltage);           // id 0x24

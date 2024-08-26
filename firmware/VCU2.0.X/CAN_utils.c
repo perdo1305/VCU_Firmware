@@ -161,13 +161,15 @@ void can_bus_send_databus_1(uint16_t consumed_power, uint16_t target_power, uint
     can_bus_send(CAN_BUS1, &data);
 }
 
-void can_bus_send_databus_2(uint16_t motor_temperature, uint16_t inverter_temperature) {
+void can_bus_send_databus_2(uint16_t motor_temperature, uint16_t inverter_temperature, uint16_t hv_voltage, uint8_t hv_soc) {
     can_data_t data;
     data.id = CAN_VCU_ID_2;
     data.length = 8;
 
     MAP_ENCODE_MOTOR_TEMPERATURE(data.message, motor_temperature);
     MAP_ENCODE_INVERTER_TEMPERATURE(data.message, inverter_temperature);
+    MAP_ENCODE_HV_VOLTAGE(data.message, hv_voltage);
+    MAP_ENCODE_HV_SOC(data.message, hv_soc);
 
     can_bus_send(CAN_BUS1, &data);
 }
@@ -423,6 +425,10 @@ void can_filter_id_bus1(can_data_t* data) {
                 tcu.Precharge_done = MAP_DECODE_PRECHARGE_DONE(data->message);
                 tcu.SDC_State = MAP_DECODE_SDC_STATE(data->message);
                 break;
+            
+            case CAN_PWT_BMS_ID_1:
+                bms.instant_voltage = MAP_DECODE_PWT_BMS_PACK_INSTANT_VOLTAGE(data->message);
+                bms.soc = MAP_DECODE_PWT_BMS_PACK_SOC(data->message);
 
             default:
                 break;
