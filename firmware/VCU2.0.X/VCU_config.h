@@ -24,13 +24,13 @@ extern "C" {
 
 
 /*APPS CONFIG*/
-#define __APPS_MIN 1.23055f
-#define __APPS_MAX 2.06159f
+#define __APPS_MIN 0.938828f
+#define __APPS_MAX 1.97476f
 #define __APPS_TOLERANCE 0.2f // offset de tolerancia para prevenir
-#define __APPS_DELTA 445U // usado para normalizar o valor do APPS
+#define __APPS_DELTA 434U // usado para normalizar o valor do APPS
 
 /*BRAKE CONFIG*/
-#define __BRAKE_THRESHOLD 10U
+#define __BRAKE_THRESHOLD 30U
 
 /*DEFINE POWER LIMTIS*/
 

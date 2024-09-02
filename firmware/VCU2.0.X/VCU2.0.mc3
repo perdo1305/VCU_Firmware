@@ -2279,11 +2279,11 @@
   &lt;adchs dnOrder=&quot;0&quot; id=&quot;ADCGIRQEN1__AGIEN14&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/adchs&gt;
 &lt;/adchs&gt;
@@ -2295,11 +2295,11 @@
   &lt;adchs dnOrder=&quot;0&quot; id=&quot;ADCGIRQEN1__AGIEN15&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/adchs&gt;
 &lt;/adchs&gt;
@@ -2708,7 +2708,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;adchs&gt;
   &lt;adchs dnOrder=&quot;0&quot; id=&quot;ADCHS_ADCGIRQEN1&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;16665&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;33049&quot;/&gt;
     &lt;/Values&gt;
   &lt;/adchs&gt;
 &lt;/adchs&gt;
@@ -2863,7 +2863,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;adchs&gt;
   &lt;adchs dnOrder=&quot;0&quot; id=&quot;ADCHS_ADCTRG4&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;393216&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;100663296&quot;/&gt;
     &lt;/Values&gt;
   &lt;/adchs&gt;
 &lt;/adchs&gt;
@@ -3214,7 +3214,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;adchs&gt;
   &lt;adchs dnOrder=&quot;0&quot; id=&quot;ADCHS_IEC0&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;17064960&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;33842176&quot;/&gt;
     &lt;/Values&gt;
   &lt;/adchs&gt;
 &lt;/adchs&gt;
@@ -4134,7 +4134,7 @@
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;6&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/adchs&gt;
 &lt;/adchs&gt;
@@ -4150,7 +4150,7 @@
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;0&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;6&quot;/&gt;
     &lt;/Values&gt;
   &lt;/adchs&gt;
 &lt;/adchs&gt;
@@ -4480,7 +4480,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;adchs&gt;
   &lt;adchs dnOrder=&quot;0&quot; id=&quot;AN14&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/adchs&gt;
 &lt;/adchs&gt;
@@ -4491,7 +4491,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;adchs&gt;
   &lt;adchs dnOrder=&quot;0&quot; id=&quot;AN15&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/adchs&gt;
 &lt;/adchs&gt;
@@ -19596,7 +19596,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;ADC_DATA14_INTERRUPT_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -19607,7 +19607,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;ADC_DATA14_INTERRUPT_ENABLE_UPDATE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -19618,7 +19618,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;ADC_DATA14_INTERRUPT_HANDLER&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;ADC_DATA14_InterruptHandler&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;ADC_DATA14_Handler&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -19629,7 +19629,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;ADC_DATA14_INTERRUPT_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -19640,7 +19640,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;ADC_DATA15_INTERRUPT_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;false&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -19651,7 +19651,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;ADC_DATA15_INTERRUPT_ENABLE_UPDATE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -19662,7 +19662,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;ADC_DATA15_INTERRUPT_HANDLER&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;ADC_DATA15_Handler&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;ADC_DATA15_InterruptHandler&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -19673,7 +19673,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;ADC_DATA15_INTERRUPT_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;false&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;adchs&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -22586,7 +22586,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;EVIC_120_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -22597,7 +22597,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;EVIC_120_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -22608,7 +22608,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;EVIC_120_INTERRUPT_HANDLER&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;ADC_DATA14_InterruptHandler&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;ADC_DATA14_Handler&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -22619,7 +22619,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;EVIC_121_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -22630,7 +22630,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;EVIC_121_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -22641,7 +22641,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;EVIC_121_INTERRUPT_HANDLER&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;ADC_DATA15_Handler&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;ADC_DATA15_InterruptHandler&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -35306,7 +35306,7 @@
    <generatedFileHashHistoryMap class="java.util.TreeMap">
       <entry>
          <file>..\src\config\default\definitions.h</file>
-         <hash>b0dd47540fe0bfe1c545c4d4d0191f38560706f0fc7a4e85f5c24accdc9093ba</hash>
+         <hash>6d28e77d02745bc801518fc3728d7590fd7d512f31a298e77a9989b4a6422c98</hash>
       </entry>
       <entry>
          <file>..\src\config\default\device.h</file>
@@ -35318,15 +35318,15 @@
       </entry>
       <entry>
          <file>..\src\config\default\initialization.c</file>
-         <hash>b65b24fa5e7be444deba9873edcca9e541a578369671395ed3fdb3f1a807aa1b</hash>
+         <hash>e771d9d489c33056fb640ed75a66ea5f13db8531b45233dee8b4ffc4e5c117ac</hash>
       </entry>
       <entry>
          <file>..\src\config\default\interrupts.c</file>
-         <hash>9921b846d377000f3f0eda2daee8a283e2bb0446e34687304c624b34e1888426</hash>
+         <hash>c2e965ac96bb2b4459ef8e114718aeeeaa1e4da95efd526e645a158d212d0d89</hash>
       </entry>
       <entry>
          <file>..\src\config\default\interrupts.h</file>
-         <hash>819aa964d0d9bba117965e6fdcd3a4eee6064441fca247d21d3050920c60fb0f</hash>
+         <hash>c590c60d317f2b59adf9ce7f4f1698da0ccd6e6657422de8a74360077c6312b0</hash>
       </entry>
       <entry>
          <file>..\src\config\default\p32MK1024MCM064.ld</file>
@@ -35334,7 +35334,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\adchs\plib_adchs.c</file>
-         <hash>b0b6919c03db5aa503f7860157f4852e4b0a72bdc53765d4ee9e064eceec7b0a</hash>
+         <hash>9431e495364bb9d81b69a15efae4f7675bfed759edf9b667036ff48028983ea2</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\adchs\plib_adchs.h</file>
@@ -35406,7 +35406,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\evic\plib_evic.c</file>
-         <hash>cff9e1073d0f894b673765d365f77918b7e4fc54408264ed0227ad1b00b65fa1</hash>
+         <hash>72c2032fdc496c26980fc6509b45f7ce31383340b2666d839bb81cce22dcade2</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\evic\plib_evic.h</file>

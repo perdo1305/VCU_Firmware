@@ -211,7 +211,7 @@ void TMR2_100ms(uint32_t status, uintptr_t context) {
     can_bus_send_databus_2(myHV500.Actual_TempMotor, myHV500.Actual_TempController,bms.instant_voltage, bms.soc);                                       // id 0x21
     can_bus_send_databus_3(VcuState, LMT2, LMT1, Inverter_Faults, 0, PowerPlan);                                             // id 0x22
     can_bus_send_databus_4(RPM, Inverter_Voltage, IgnitionSwitch, R2D.isR2D);                                                // id 0x23
-    can_bus_send_databus_5(tcu.TCU_STATE, 0,0, LV_SOC, PDM_Voltage);           // id 0x24
+    can_bus_send_databus_5(tcu.TCU_STATE, 0,0,LV_SOC, PDM_Voltage);           // id 0x24
 
     can_bus_send_pwtbus_1(R2D.isR2D, IgnitionSwitch);
 }
@@ -219,7 +219,7 @@ void TMR2_100ms(uint32_t status, uintptr_t context) {
 void TMR4_500ms(uint32_t status, uintptr_t context) {  // 2Hz
     GPIO_RC11_LED_HeartBeat_Toggle();
 
-    can_bus_send_HV500_SetMaxAcCurrent(ChangePowerPlan(powerPlan_volante));
+    //can_bus_send_HV500_SetMaxAcCurrent(ChangePowerPlan(powerPlan_volante));
 
     if (R2D.isR2D) {
         GPIO_RB10_LED_Set();  // PCB LED
@@ -274,6 +274,11 @@ void ADCHS_CH14_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
     adc_flag[channel] = 1;
 }
 
+void ADCHS_CH15_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
+    ADC[channel] = ADCHS_ChannelResultGet(channel);
+    adc_flag[channel] = 1;
+}
+
 /*#############################################################################################################################*/
 /*######################################################### SETUP #############################################################*/
 /*#############################################################################################################################*/
@@ -297,12 +302,13 @@ int main(void) {
     ADCHS_CallbackRegister(ADCHS_CH8, ADCHS_CH8_Callback, (uintptr_t)NULL);  // Voltage Measurement
     // ADCHS_CallbackRegister(ADCHS_CH9, ADCHS_CH9_Callback, (uintptr_t)NULL);  // Current Measurement
 
-    ADCHS_CallbackRegister(ADCHS_CH14, ADCHS_CH14_Callback, (uintptr_t)NULL);  // Brake Pressure
-    // ADCHS_CallbackRegister(ADCHS_CH15, ADCHS_CH15_Callback, (uintptr_t) NULL); //extra ADC channel
+    //ADCHS_CallbackRegister(ADCHS_CH14, ADCHS_CH14_Callback, (uintptr_t)NULL);  
+    ADCHS_CallbackRegister(ADCHS_CH15, ADCHS_CH15_Callback, (uintptr_t) NULL);
 
     // ADCHS_ChannelResultInterruptEnable(ADCHS_CH0);
     // ADCHS_ChannelResultInterruptEnable(ADCHS_CH3);
     ADCHS_ChannelResultInterruptEnable(ADCHS_CH8);  //?
+    ADCHS_ChannelResultInterruptEnable(ADCHS_CH15);
     // ADCHS_ChannelResultInterruptEnable(ADCHS_CH9);
 
     TMR1_CallbackRegister(TMR1_20ms, (uintptr_t)NULL);     // 200Hz
@@ -317,7 +323,6 @@ int main(void) {
 
     CORETIMER_DelayMs(200);
 
-    startupSequence();     // led sequence
     check_driving_mode();  // check the driving mode
 
     VcuState = 1;  // Set VCU state to 1
@@ -327,9 +332,12 @@ int main(void) {
     TMR3_Start();  // Used trigger source for ADC conversion
     TMR4_Start();
 
-    WDT_Enable();
-    can_open_init();
     MCPWM_Start();
+
+    WDT_Enable();
+    startupSequence();     // led sequence
+    //can_open_init();
+    
 
     // the car does not start until the start button is pressed a the brake is pressed
     /*
@@ -363,7 +371,7 @@ int main(void) {
 
         MeasureCurrent(ADCHS_CH9);
         MeasureVoltage(ADCHS_CH8);
-        MeasureBrakePressure(ADCHS_CH14);
+        MeasureBrakePressure(ADCHS_CH15);
 
         can_bus_read(CAN_BUS1);
         can_bus_read(CAN_BUS2);
@@ -454,7 +462,7 @@ void PrintToConsole(uint8_t time) {
 
         printf("I%d", (uint16_t)(PDM_Current * 100));
         printf("V%d", (uint16_t)(PDM_Voltage * 100));
-        printf("BP%d", Brake_Pressure);
+       printf("BP%d", Brake_Pressure);
 
         // Ready to drive & is autonomous
 
@@ -480,6 +488,15 @@ void PrintToConsole(uint8_t time) {
         printf("PM%d", PowerPlan);
 
         printf("TS%d", tcu.TCU_STATE);
+
+        printf("LVSOC%d", LV_SOC);
+        printf("bmsIV%d", bms.instant_voltage);
+        printf("bmsSOC%d", bms.soc);
+        printf("bmsHC%d", bms.high_cell_voltage);
+        printf("bmsLC%d", bms.low_cell_voltage);
+        printf("bmsAC%d", bms.avg_cell_voltage);
+        printf("bmsHT%d", bms.high_cell_temp);
+        printf("bmsLT%d", bms.low_cell_temp);
 
         printf("\r\n");
 
@@ -551,7 +568,8 @@ void MeasureCurrent(uint16_t channel) {
 /// @param channel  ADC channel to measure the voltage
 void MeasureVoltage(uint16_t channel) {
     PDM_Voltage = ((float)ADC[channel] * 3.30 / 4095.000) / 0.1155;
-    LV_SOC = map(PDM_Voltage, 24, 28, 0, 1000);
+    //24.0 = 0% and 28.0 = 100%
+    LV_SOC = (uint16_t)((PDM_Voltage - 24.0) * 1000 / 4.0);
 
     if (PDM_Voltage >= 25) {
         // set pin
@@ -703,6 +721,8 @@ void UpdateR2DState(void) {
     // current_state = GPIO_RB6_START_BUTTON_Get();
     current_state = GPIO_RE14_R2D_BT_Get();
 
+
+
     if (current_state != previous_state) {
         lastDebounceTime = millis();
     }
@@ -737,17 +757,19 @@ void UpdateR2DState(void) {
         }
     } else {
         /*MANUAL MODE*/
-        if (IgnitionSwitch) {
+        if (IgnitionSwitch && tcu.Precharge_done) {
             static int brightness2000;
             static int brightness = 0;
             static int fadeAmount = 5;
             static uint8_t wait = 0;
-            // if (hv_on) {
-            if (toggleState) {
+            // if (hv_on) { 
+            
+            if (toggleState && (Brake_Pressure >= __BRAKE_THRESHOLD) ){
                 // if (GPIO_RB6_START_BUTTON_Get() && (Brake_Pressure >= __BRAKE_THRESHOLD)) {
                 R2D.isR2D = true;
             } else {
                 R2D.isR2D = false;
+                R2D.R2DS_as_played = false;
             }
 
             /* Fade R2D LED */
@@ -816,10 +838,10 @@ void MeasureBrakePressure(uint16_t channel) {
 
     /*(28.57mV/bar  + 500mv)*/
     static float volts = 0;
-    static float pressure = 0;
+static float pressure = 0;
     volts = (float)ADC[channel] * 3.300 / 4095.000;
     volts = volts / 0.667;  // conversao 3.3 para 5
-
+/*
     if (volts < 0) {
         volts = 0;
     } else if (volts > 5) {
@@ -831,10 +853,11 @@ void MeasureBrakePressure(uint16_t channel) {
     } else if (volts > 3.0) {
         pressure = 50;
     }
-
-    // pressure = (volts - 0.5) / 0.02857;
+*/
+    pressure = (volts - 0.5) / 0.02857;
 
     Brake_Pressure = (uint8_t)pressure;
+    //Brake_Pressure = ADC[channel];
 }
 
 // when received AT command to autocalibrate APPS
@@ -941,7 +964,7 @@ void UpdateIgnitionState() {
     const uint16_t debounceDelay = 30;
 
     // current_state = GPIO_RD6_IGN_SWITCH_Get();
-    current_state = !GPIO_RA8_IGN_SW_Get();
+    current_state = GPIO_RA8_IGN_SW_Get();
 
     if (current_state != previous_state) {
         lastDebounceTime = millis();

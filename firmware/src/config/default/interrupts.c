@@ -76,7 +76,7 @@ void TIMER_6_Handler (void);
 void ADC_DATA0_Handler (void);
 void ADC_DATA3_Handler (void);
 void ADC_DATA8_Handler (void);
-void ADC_DATA14_Handler (void);
+void ADC_DATA15_Handler (void);
 
 
 // *****************************************************************************
@@ -134,9 +134,9 @@ void __ISR(_ADC_DATA8_VECTOR, ipl1SRS) ADC_DATA8_Handler (void)
     ADC_DATA8_InterruptHandler();
 }
 
-void __ISR(_ADC_DATA14_VECTOR, ipl1SRS) ADC_DATA14_Handler (void)
+void __ISR(_ADC_DATA15_VECTOR, ipl1SRS) ADC_DATA15_Handler (void)
 {
-    ADC_DATA14_InterruptHandler();
+    ADC_DATA15_InterruptHandler();
 }
 
 

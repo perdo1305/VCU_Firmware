@@ -75,7 +75,7 @@ void ADCHS_Initialize(void)
     ADCTRG1 = 0x6000006U; 
     ADCTRG2 = 0x6U; 
     ADCTRG3 = 0x6U; 
-    ADCTRG4 = 0x60000U; 
+    ADCTRG4 = 0x6000000U; 
     ADCTRG5 = 0x0U; 
     
     ADCTRG7 = 0x0U; 
@@ -95,10 +95,10 @@ void ADCHS_Initialize(void)
 
 
 /* Result interrupt enable */
-ADCGIRQEN1 = 0x4119U;
+ADCGIRQEN1 = 0x8119U;
 ADCGIRQEN2 = 0x0U;
 /* Interrupt Enable */
-IEC3SET = 0x1046400U;
+IEC3SET = 0x2046400U;
 IEC4SET = 0x0U;
 
 
@@ -305,15 +305,15 @@ void __attribute__((used)) ADC_DATA8_InterruptHandler(void)
 
     IFS3CLR = _IFS3_AD1D8IF_MASK;
 }
-void __attribute__((used)) ADC_DATA14_InterruptHandler(void)
+void __attribute__((used)) ADC_DATA15_InterruptHandler(void)
 {
-    if (ADCHS_CallbackObj[14].callback_fn != NULL)
+    if (ADCHS_CallbackObj[15].callback_fn != NULL)
     {
-        uintptr_t context = ADCHS_CallbackObj[14].context;
-        ADCHS_CallbackObj[14].callback_fn(ADCHS_CH14, context);
+        uintptr_t context = ADCHS_CallbackObj[15].context;
+        ADCHS_CallbackObj[15].callback_fn(ADCHS_CH15, context);
     }
 
 
-    IFS3CLR = _IFS3_AD1D14IF_MASK;
+    IFS3CLR = _IFS3_AD1D15IF_MASK;
 }
 
