@@ -1,12 +1,13 @@
 {
     "importedFrom": "file:///c:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/firmware/VCU2.0.X",
-    "version": "1.1",
+    "version": "1.3",
     "configurations": [
         {
             "name": "default",
             "id": "conf1",
             "targetDevice": "PIC32MK1024MCM064",
             "imageType": "application",
+            "imagePath": "./out/VCU_firmware/default.elf",
             "platformTool": "default-pickit3",
             "packs": [
                 {
@@ -16,110 +17,52 @@
                 }
             ],
             "fileSet": "MPLAB X Virtual Filesystem",
-            "outputFiles": [
-                {
-                    "name": "build",
-                    "toolchain": "default-XC32",
-                    "imagePath": "./out/VCU_firmware/default.elf"
-                }
-            ]
+            "toolchain": "default-XC32"
         }
     ],
     "propertyGroups": [
         {
             "name": "default-XC32",
             "type": "toolchain",
-            "provider": "microchip.toolchains:xc32-toolchain@4.35",
+            "provider": "microchip.toolchains:xc32@4.45",
             "properties": {
-                "compiler": "default-C32",
-                "compiler++": "default-C32CPP",
-                "assembler": "default-C32-AS",
-                "archiver": "default-C32-AR",
-                "linker": "default-C32-LD",
-                "coverage": "default-C32-CO",
-                "global": "default-C32Global"
-            }
-        },
-        {
-            "name": "default-C32",
-            "type": "translator",
-            "provider": "microchip.toolchains:xc32-compiler@4.35",
-            "properties": {
-                "isolate-each-function": true,
-                "place-data-into-section": true,
-                "optimization-level": "-O1",
-                "preprocessor-macros": [],
-                "extra-include-directories": [
+                "compiler.isolate-each-function": true,
+                "compiler.place-data-into-section": true,
+                "compiler.optimization-level": "-O1",
+                "compiler.extra-include-directories": [
                     "firmware/src",
                     "firmware/src/config/default"
                 ],
-                "make-warnings-into-errors": true,
-                "additional-warnings": true
-            }
-        },
-        {
-            "name": "default-C32CPP",
-            "type": "translator",
-            "provider": "microchip.toolchains:xc32-compiler++@4.35",
-            "properties": {
-                "isolate-each-function": true,
-                "optimization-level": "-O1",
-                "preprocessor-macros": [],
-                "extra-include-directories": [
+                "compiler.make-warnings-into-errors": true,
+                "compiler.additional-warnings": true,
+                "compiler++.isolate-each-function": true,
+                "compiler++.optimization-level": "-O1",
+                "compiler++.extra-include-directories": [
                     "firmware/src",
                     "firmware/src/config/default"
-                ]
+                ],
+                "linker.heap-size": "512",
+                "linker.remove-unused-sections": true,
+                "linker.no-device-startup-code": true,
+                "linker.fill-flash-options-inc-const": "1",
+                "linker.map-file": "",
+                "linker.report-memory-usage": false,
+                "global.relaxed-math": true
             }
         },
         {
-            "name": "default-C32-AS",
-            "type": "translator",
-            "provider": "microchip.toolchains:xc32-assembler@4.35",
-            "properties": {
-                "preprocessor-macros": [],
-                "assembler-symbols": [],
-                "extra-include-directories-for-preprocessor": [],
-                "extra-include-directories-for-assembler": []
-            }
-        },
-        {
-            "name": "default-C32-AR",
-            "type": "translator",
-            "provider": "microchip.toolchains:xc32-archiver@4.35",
+            "name": "default-pickit3",
+            "extend": "default-tool-base",
+            "type": "tool",
+            "provider": "microchip.tool-*:pickit3",
             "properties": {}
         },
         {
-            "name": "default-C32-LD",
-            "type": "translator",
-            "provider": "microchip.toolchains:xc32-linker@4.35",
-            "properties": {
-                "heap-size": "512",
-                "remove-unused-sections": true,
-                "input-libraries": [],
-                "extra-lib-directories": [],
-                "no-device-startup-code": true,
-                "fill-flash-options-inc-const": "1",
-                "map-file": "",
-                "report-memory-usage": false,
-                "trace-symbols": [],
-                "linker-symbols": [],
-                "preprocessor-macros": []
-            }
-        },
-        {
-            "name": "default-C32-CO",
-            "type": "translator",
-            "provider": "microchip.toolchains:xc32-coverage@4.35",
+            "name": "default-tool-base",
+            "extend": "tool-base",
+            "type": "tool",
+            "provider": "microchip.tool-*:generic",
             "properties": {}
-        },
-        {
-            "name": "default-C32Global",
-            "type": "translator",
-            "provider": "microchip.toolchains:xc32-global@4.35",
-            "properties": {
-                "relaxed-math": true,
-                "common-include-directories": []
-            }
         },
         {
             "name": "tool-base",
@@ -250,20 +193,6 @@
                 "programoptions.uselvpprogramming": false,
                 "voltagevalue": "3.25"
             }
-        },
-        {
-            "name": "default-tool-base",
-            "extend": "tool-base",
-            "type": "tool",
-            "provider": "microchip.tool-*:generic",
-            "properties": {}
-        },
-        {
-            "name": "default-pickit3",
-            "extend": "default-tool-base",
-            "type": "tool",
-            "provider": "microchip.tool-*:pickit3",
-            "properties": {}
         }
     ],
     "fileSets": [

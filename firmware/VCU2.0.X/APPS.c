@@ -97,7 +97,8 @@ uint16_t APPS_MeanValue(uint16_t apps1, uint16_t apps2) {
 /// @return true if the value is in the tolerance range, false otherwise
 
 bool APPS_IsInTolerance(uint16_t value) {
-    return (value >= (APPS_MIN_bits - APPS_Tolerance_bits)) && (value <= (APPS_MAX_bits + APPS_Tolerance_bits));
+    //return (value >= (APPS_MIN_bits - APPS_Tolerance_bits)) && (value <= (APPS_MAX_bits + APPS_Tolerance_bits));
+    return (value >= (APPS_MIN_bits - APPS_Tolerance_bits)) && (value <= (APPS_MAX_bits + (2*APPS_Tolerance_bits)));
 }
 
 /// @brief Update the APPS1 value
@@ -250,12 +251,15 @@ bool APPS_Function(uint16_t apps1, uint16_t apps2) {
             APPS_Percentage = 0;
             APPS_Percentage_1000 = 0;
             //} else if ((APPS_Mean <= APPS_MAX_bits) && (APPS_Mean >= (APPS_MAX_bits - APPS_Tolerance_bits))) {
+        //}else if (APPS_Mean >= (APPS_MAX_bits)) {
         } else if (APPS_Mean >= (APPS_MAX_bits - APPS_Tolerance_bits)) {
             APPS_Percentage = 100;
             APPS_Percentage_1000 = 1000;
         } else {
-            APPS_Percentage = map(APPS_Mean, APPS_MIN_bits + APPS_Tolerance_bits, APPS_MAX_bits - APPS_Tolerance_bits, 0, 100);
-            APPS_Percentage_1000 = map(APPS_Mean, APPS_MIN_bits + APPS_Tolerance_bits, APPS_MAX_bits - APPS_Tolerance_bits, 0, 1000);
+            //APPS_Percentage = map(APPS_Mean, APPS_MIN_bits + APPS_Tolerance_bits, APPS_MAX_bits - APPS_Tolerance_bits, 0, 100);
+            //APPS_Percentage_1000 = map(APPS_Mean, APPS_MIN_bits + APPS_Tolerance_bits, APPS_MAX_bits - APPS_Tolerance_bits, 0, 1000);
+            APPS_Percentage = map(APPS_Mean, APPS_MIN_bits + APPS_Tolerance_bits, APPS_MAX_bits , 0, 100);
+            APPS_Percentage_1000 = map(APPS_Mean, APPS_MIN_bits + APPS_Tolerance_bits, APPS_MAX_bits , 0, 1000);
         }
 
         // limit the percentage

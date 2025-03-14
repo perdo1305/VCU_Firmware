@@ -76,11 +76,11 @@ bool BUZZER_ON = false;                // variable to enable or disable the buzz
 bool R2DS_as_played = false;           // variable to store if the ready to drive sound was played
 bool AS_Emergency_as_played = false;   // variable to store if the AS Emergency sound was played
 uint8_t RES_AD_Ignition;               // variable to store the ignition state comming from the AD
-bool TCU_Autonomous_ignition = false;  // variable to store the ignition state comming from the TCU
+bool ACU_Autonomous_ignition = false;  // variable to store the ignition state comming from the TCU
 uint8_t TCU_Precharge_done = false;    // variable to store the precharge state comming from the TCU
 uint16_t Actual_InputVoltage = 0;      // variable to store the input voltage comming from the AD
 uint32_t AD_timeout = 0;               // variable to store the timeout of the AD
-
+uint8_t AS_Status = 0;                 // variable to store the status of the autonomous system (1- OFF, 2-Ready, 3-Driving, 4-Emergency, 5-Finished)
 bool GO_Signal = false;                // indicates if the car is ready to drive in autonomous mode
 volatile bool IgnitionSwitch = false;  // indicates if the ignition switch is on
 
@@ -185,15 +185,18 @@ void TMR1_20ms(uint32_t status, uintptr_t context) {  // 50Hz
     /*AUTONOMOUS MODE*/
     if (DrivingMode) {
         /*AUTONOMOUS MODE*/
+
         if (R2D.isR2D) {
             if (RPM_TOJAL > MAX_AD_RPM) {
                 RPM_TOJAL = MAX_AD_RPM;
             } else if (RPM_TOJAL < 0) {
                 RPM_TOJAL = 0;
             }
+
             // TODO if autonomous mode is on, start does not need to be activated with the brake
             can_bus_send_HV500_SetDriveEnable(1);
             can_bus_send_HV500_SetERPM(RPM_TOJAL * 10);
+            can_bus_send_AdBus_RPM(myHV500.Actual_ERPM);  // send rpm feedback to ad bus
         }
     } else {
         /*MANUAL MODE*/
@@ -207,20 +210,35 @@ void TMR1_20ms(uint32_t status, uintptr_t context) {  // 50Hz
 }
 
 void TMR2_100ms(uint32_t status, uintptr_t context) {
-    can_bus_send_databus_1(Current_Power, Target_Power, Brake_Pressure, Throttle);                                           // id 0x20
-    can_bus_send_databus_2(myHV500.Actual_TempMotor, myHV500.Actual_TempController,bms.instant_voltage, bms.soc);                                       // id 0x21
-    can_bus_send_databus_3(VcuState, LMT2, LMT1, Inverter_Faults, 0, PowerPlan);                                             // id 0x22
-    can_bus_send_databus_4(RPM, Inverter_Voltage, IgnitionSwitch, R2D.isR2D);                                                // id 0x23
-    can_bus_send_databus_5(tcu.TCU_STATE, 0,0,LV_SOC, PDM_Voltage);           // id 0x24
+    can_bus_send_databus_1(Current_Power, Target_Power, Brake_Pressure, Throttle);                                  // id 0x20
+    can_bus_send_databus_2(myHV500.Actual_TempMotor, myHV500.Actual_TempController, bms.instant_voltage, bms.soc);  // id 0x21
+    can_bus_send_databus_3(VcuState, LMT2, LMT1, Inverter_Faults, 0, PowerPlan);                                    // id 0x22
+    can_bus_send_databus_4(RPM, Inverter_Voltage, IgnitionSwitch, R2D.isR2D);                                       // id 0x23
+    can_bus_send_databus_5(tcu.TCU_STATE, 0, 0, LV_SOC, PDM_Voltage);                                               // id 0x24
 
-    can_bus_send_pwtbus_1(R2D.isR2D, IgnitionSwitch);
+    // send heatbeat to the AD can bus
+    can_data_t data;
+    data.id = 0x333;
+    data.length = 1;
+    data.message[0] = 0x01;
+    can_bus_send(CAN_BUS3, &data);
+
+    if (DrivingMode) {
+        // send feebback to the AD of the precharge state
+        can_data_t data;
+        data.id = 0x81;
+        data.length = 1;
+        data.message[0] = tcu.Precharge_done;
+        can_bus_send(CAN_BUS3, &data);
+    } else {
+        can_bus_send_pwtbus_1(R2D.isR2D, IgnitionSwitch);
+    }
 }
 
 void TMR4_500ms(uint32_t status, uintptr_t context) {  // 2Hz
     GPIO_RC11_LED_HeartBeat_Toggle();
 
-    //can_bus_send_HV500_SetMaxAcCurrent(ChangePowerPlan(powerPlan_volante));
-
+    // can_bus_send_HV500_SetMaxAcCurrent(ChangePowerPlan(powerPlan_volante));
     if (R2D.isR2D) {
         GPIO_RB10_LED_Set();  // PCB LED
     } else {
@@ -229,7 +247,9 @@ void TMR4_500ms(uint32_t status, uintptr_t context) {  // 2Hz
     }
 }
 
-/*R2D SOUND*/
+/// @brief Play the R2D sound
+/// @param status
+/// @param context
 void TMR5_1200ms(uint32_t status, uintptr_t context) {
     GPIO_RF0_pin_Set();
     TMR5_Stop();
@@ -285,7 +305,7 @@ void ADCHS_CH15_Callback(ADCHS_CHANNEL_NUM channel, uintptr_t context) {
 int main(void) {
     /* Initialize all modules */
     SYS_Initialize(NULL);
-    GPIO_RF0_pin_Set();  //Buzzer pin
+    GPIO_RF0_pin_Set();  // Buzzer pin
 
     printf("\r\n------RESET------");
 
@@ -302,8 +322,8 @@ int main(void) {
     ADCHS_CallbackRegister(ADCHS_CH8, ADCHS_CH8_Callback, (uintptr_t)NULL);  // Voltage Measurement
     // ADCHS_CallbackRegister(ADCHS_CH9, ADCHS_CH9_Callback, (uintptr_t)NULL);  // Current Measurement
 
-    //ADCHS_CallbackRegister(ADCHS_CH14, ADCHS_CH14_Callback, (uintptr_t)NULL);  
-    ADCHS_CallbackRegister(ADCHS_CH15, ADCHS_CH15_Callback, (uintptr_t) NULL);
+    // ADCHS_CallbackRegister(ADCHS_CH14, ADCHS_CH14_Callback, (uintptr_t)NULL);
+    ADCHS_CallbackRegister(ADCHS_CH15, ADCHS_CH15_Callback, (uintptr_t)NULL);
 
     // ADCHS_ChannelResultInterruptEnable(ADCHS_CH0);
     // ADCHS_ChannelResultInterruptEnable(ADCHS_CH3);
@@ -311,7 +331,7 @@ int main(void) {
     ADCHS_ChannelResultInterruptEnable(ADCHS_CH15);
     // ADCHS_ChannelResultInterruptEnable(ADCHS_CH9);
 
-    TMR1_CallbackRegister(TMR1_20ms, (uintptr_t)NULL);     // 200Hz
+    TMR1_CallbackRegister(TMR1_20ms, (uintptr_t)NULL);    // 200Hz
     TMR2_CallbackRegister(TMR2_100ms, (uintptr_t)NULL);   // 10Hz
     TMR4_CallbackRegister(TMR4_500ms, (uintptr_t)NULL);   // 2Hz heartbeat led
     TMR5_CallbackRegister(TMR5_1200ms, (uintptr_t)NULL);  // USED for 3seg R2D SOUND
@@ -335,9 +355,8 @@ int main(void) {
     MCPWM_Start();
 
     WDT_Enable();
-    startupSequence();     // led sequence
-    //can_open_init();
-    
+    startupSequence();  // led sequence
+    // can_open_init();
 
     // the car does not start until the start button is pressed a the brake is pressed
     /*
@@ -439,7 +458,6 @@ void startupSequence() {
     GPIO_RF1_LED_Clear();
 }
 
-
 /// @brief debug interface to print data to LABVIEW
 /// @param time  time in ms to print the data
 void PrintToConsole(uint8_t time) {
@@ -462,7 +480,7 @@ void PrintToConsole(uint8_t time) {
 
         printf("I%d", (uint16_t)(PDM_Current * 100));
         printf("V%d", (uint16_t)(PDM_Voltage * 100));
-       printf("BP%d", Brake_Pressure);
+        printf("BP%d", Brake_Pressure);
 
         // Ready to drive & is autonomous
 
@@ -568,7 +586,7 @@ void MeasureCurrent(uint16_t channel) {
 /// @param channel  ADC channel to measure the voltage
 void MeasureVoltage(uint16_t channel) {
     PDM_Voltage = ((float)ADC[channel] * 3.30 / 4095.000) / 0.1155;
-    //24.0 = 0% and 28.0 = 100%
+    // 24.0 = 0% and 28.0 = 100%
     LV_SOC = (uint16_t)((PDM_Voltage - 24.0) * 1000 / 4.0);
 
     if (PDM_Voltage >= 25) {
@@ -717,11 +735,11 @@ void UpdateR2DState(void) {
     const uint16_t debounceDelay = 30;
     static bool start_button = false;
     static bool toggleState = false;
+    static bool r2d_toggle_flag = false;
+
     /*Debounce*/
     // current_state = GPIO_RB6_START_BUTTON_Get();
     current_state = GPIO_RE14_R2D_BT_Get();
-
-
 
     if (current_state != previous_state) {
         lastDebounceTime = millis();
@@ -730,14 +748,20 @@ void UpdateR2DState(void) {
         if (current_state != start_button) {
             start_button = current_state;
             if (start_button) {
+                // so passa de 0 para 1 se brake pressure for maior que x
                 toggleState = !toggleState;
+                if (toggleState && (Brake_Pressure >= __BRAKE_THRESHOLD)) {
+                    r2d_toggle_flag = true;
+                } else {
+                    r2d_toggle_flag = false;
+                }
             }
         }
     }
     previous_state = current_state;
 
     // TODO VERIFICAR ISTO TUDO
-    static bool hv_on = true;
+    // static bool hv_on = true;
     // bool hv_on = GPIO_RG9_Get();
 
     /*
@@ -748,23 +772,23 @@ void UpdateR2DState(void) {
 
     if (DrivingMode) {
         /*AUTONOMOUS MODE*/
-        if (IgnitionSwitch) {
-            if (GO_Signal) {
-                if (hv_on) {
-                    R2D.isR2D = true;
-                }
+        if (ACU_Autonomous_ignition && tcu.Precharge_done) {
+            // if the jetson sends drive
+            if (AS_Status == 3) {
+                R2D.isR2D = true;
             }
         }
     } else {
         /*MANUAL MODE*/
         if (IgnitionSwitch && tcu.Precharge_done) {
+            // if (IgnitionSwitch) {
             static int brightness2000;
             static int brightness = 0;
             static int fadeAmount = 5;
             static uint8_t wait = 0;
-            // if (hv_on) { 
-            
-            if (toggleState && (Brake_Pressure >= __BRAKE_THRESHOLD) ){
+            // if (hv_on) {
+
+            if (r2d_toggle_flag) {
                 // if (GPIO_RB6_START_BUTTON_Get() && (Brake_Pressure >= __BRAKE_THRESHOLD)) {
                 R2D.isR2D = true;
             } else {
@@ -814,6 +838,7 @@ void UpdateR2DState(void) {
             R2D.isR2D = false;
             R2D.R2DS_as_played = false;
             toggleState = false;
+            r2d_toggle_flag = false;
             MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 2000);
         }
     }
@@ -835,29 +860,28 @@ void SOUND_R2DS(void) {
 /// @brief Measure the brake pressure from a ADC channel
 /// @param channel ADC channel to measure the brake pressure
 void MeasureBrakePressure(uint16_t channel) {
-
     /*(28.57mV/bar  + 500mv)*/
     static float volts = 0;
-static float pressure = 0;
+    static float pressure = 0;
     volts = (float)ADC[channel] * 3.300 / 4095.000;
     volts = volts / 0.667;  // conversao 3.3 para 5
-/*
-    if (volts < 0) {
-        volts = 0;
-    } else if (volts > 5) {
-        volts = 5;
-    }
-
-    if (volts < 0.5) {
-        pressure = 0;
-    } else if (volts > 3.0) {
-        pressure = 50;
-    }
-*/
+                            /*
+                                if (volts < 0) {
+                                    volts = 0;
+                                } else if (volts > 5) {
+                                    volts = 5;
+                                }
+                        
+                                if (volts < 0.5) {
+                                    pressure = 0;
+                                } else if (volts > 3.0) {
+                                    pressure = 50;
+                                }
+                            */
     pressure = (volts - 0.5) / 0.02857;
 
     Brake_Pressure = (uint8_t)pressure;
-    //Brake_Pressure = ADC[channel];
+    // Brake_Pressure = ADC[channel];
 }
 
 // when received AT command to autocalibrate APPS
@@ -907,8 +931,7 @@ void DIP_Switch() {
 
 /// @brief Calculate the moving average of the ADC channels
 void CalculateMean() {
-   
-    if (adc_flag[0]) { // APPS1
+    if (adc_flag[0]) {  // APPS1
         static uint16_t buffer[BUFFER_SIZE];
         static uint16_t sum = 0;
         static int oldestIndex = 0;
@@ -922,7 +945,7 @@ void CalculateMean() {
         adc_flag[0] = 0;
     }
 
-    if (adc_flag[3]) { // APPS2
+    if (adc_flag[3]) {  // APPS2
         static uint16_t buffer[BUFFER_SIZE];
         static uint16_t sum = 0;
         static int oldestIndex = 0;
@@ -939,7 +962,6 @@ void CalculateMean() {
         adc_flag[3] = 0;
     }
 }
-
 
 /// @brief Blink the CAN LED according to the CAN RX and TX status
 void BlinkCANLED() {
@@ -988,7 +1010,6 @@ void UpdateIgnitionState() {
     }
     */
 }
-
 
 /// @brief Activate R2D Autonomous mode by receiving the GO signal from the AD
 void AutonomousR2D() {

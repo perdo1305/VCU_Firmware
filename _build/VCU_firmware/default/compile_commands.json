@@ -1,0 +1,26 @@
+[
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build/VCU_firmware/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.45\\bin\\xc32-gcc.exe -DXPRJ_default=default -IC:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/cmake/VCU_firmware/default/../../../firmware/src -IC:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/cmake/VCU_firmware/default/../../../firmware/src/config/default -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\VCU_firmware_default_default_XC32_compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller_Library\\PIC32\\Library\\cansart.c.o -c \"C:\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller Library\\PIC32\\Library\\cansart.c\"",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller Library\\PIC32\\Library\\cansart.c",
+  "output": "CMakeFiles\\VCU_firmware_default_default_XC32_compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller_Library\\PIC32\\Library\\cansart.c.o"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build/VCU_firmware/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.45\\bin\\xc32-gcc.exe -DXPRJ_default=default -IC:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/cmake/VCU_firmware/default/../../../firmware/src -IC:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/cmake/VCU_firmware/default/../../../firmware/src/config/default -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\VCU_firmware_default_default_XC32_compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller_Library\\PIC32\\Library\\cansartP.c.o -c \"C:\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller Library\\PIC32\\Library\\cansartP.c\"",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller Library\\PIC32\\Library\\cansartP.c",
+  "output": "CMakeFiles\\VCU_firmware_default_default_XC32_compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\Documents\\git\\CANSART\\Controller_Library\\PIC32\\Library\\cansartP.c.o"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build/VCU_firmware/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.45\\bin\\xc32-gcc.exe -DXPRJ_default=default -IC:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/cmake/VCU_firmware/default/../../../firmware/src -IC:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/cmake/VCU_firmware/default/../../../firmware/src/config/default -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\VCU_firmware_default_default_XC32_compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\VCU2.0.X\\TorqueControl.c.o -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\VCU2.0.X\\TorqueControl.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\VCU2.0.X\\TorqueControl.c",
+  "output": "CMakeFiles\\VCU_firmware_default_default_XC32_compile.dir\\C_\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\VCU2.0.X\\TorqueControl.c.o"
+},
+{
+  "directory": "C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build/VCU_firmware/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc32\\v4.45\\bin\\xc32-gcc.exe -DXPRJ_default=default -IC:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/cmake/VCU_firmware/default/../../../firmware/src -IC:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/cmake/VCU_firmware/default/../../../firmware/src/config/default -g -x c -c -mprocessor=32MK1024MCM064 -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -mdfp=C:/Users/pedro/.mchp_packs/Microchip/PIC32MK-MC_DFP/1.11.151 -o CMakeFiles\\VCU_firmware_default_default_XC32_compile.dir\\285f9b7eacd0fc684d50d57a7aaf22a8\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\mcpwm\\plib_mcpwm.c.o -c C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\mcpwm\\plib_mcpwm.c",
+  "file": "C:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\mcpwm\\plib_mcpwm.c",
+  "output": "CMakeFiles\\VCU_firmware_default_default_XC32_compile.dir\\285f9b7eacd0fc684d50d57a7aaf22a8\\VCU_Firmware\\firmware\\src\\config\\default\\peripheral\\mcpwm\\plib_mcpwm.c.o"
+}
+]

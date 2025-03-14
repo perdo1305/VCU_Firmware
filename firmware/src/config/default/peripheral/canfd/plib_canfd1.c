@@ -66,7 +66,7 @@
 #define CANFD_FIFO_MESSAGE_BUFFER_MAX 32
 
 #define CANFD_CONFIGURATION_MODE      0x4UL
-#define CANFD_OPERATION_MODE          (0x0UL)
+#define CANFD_OPERATION_MODE          (0x6UL)
 #define CANFD_NUM_OF_FILTER           1U
 /* FIFO Offset in word (4 bytes) */
 #define CANFD_FIFO_OFFSET             0xcU
@@ -93,44 +93,6 @@
 static uint8_t __attribute__((coherent, aligned(16))) can_message_buffer[CANFD_MESSAGE_RAM_CONFIG_SIZE];
 static const uint8_t dlcToLength[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 12, 16, 20, 24, 32, 48, 64};
 
-/******************************************************************************
-Local Functions
-******************************************************************************/
-static void CANLengthToDlcGet(uint8_t length, uint8_t *dlc)
-{
-    if (length <= 8U)
-    {
-        *dlc = length;
-    }
-    else if (length <= 12U)
-    {
-        *dlc = 0x9U;
-    }
-    else if (length <= 16U)
-    {
-        *dlc = 0xAU;
-    }
-    else if (length <= 20U)
-    {
-        *dlc = 0xBU;
-    }
-    else if (length <= 24U)
-    {
-        *dlc = 0xCU;
-    }
-    else if (length <= 32U)
-    {
-        *dlc = 0xDU;
-    }
-    else if (length <= 48U)
-    {
-        *dlc = 0xEU;
-    }
-    else
-    {
-        *dlc = 0xFU;
-    }
-}
 
 static inline void CAN1_ZeroInitialize(volatile void* pData, size_t dataSize)
 {
@@ -178,12 +140,6 @@ void CAN1_Initialize(void)
         /* Do Nothing */
     }
 
-    /* Set the Data bitrate to 1000 Kbps */
-    CFD1DBTCFG = ((2UL << _CFD1DBTCFG_BRP_POSITION) & _CFD1DBTCFG_BRP_MASK)
-               | ((28UL << _CFD1DBTCFG_TSEG1_POSITION) & _CFD1DBTCFG_TSEG1_MASK)
-               | ((9UL << _CFD1DBTCFG_TSEG2_POSITION) & _CFD1DBTCFG_TSEG2_MASK)
-               | ((5UL << _CFD1DBTCFG_SJW_POSITION) & _CFD1DBTCFG_SJW_MASK);
-
     /* Set the Nominal bitrate to 1000 Kbps */
     CFD1NBTCFG = ((2UL << _CFD1NBTCFG_BRP_POSITION) & _CFD1NBTCFG_BRP_MASK)
                | ((28UL << _CFD1NBTCFG_TSEG1_POSITION) & _CFD1NBTCFG_TSEG1_MASK)
@@ -215,11 +171,11 @@ void CAN1_Initialize(void)
     CFD1FLTCON0 |= (((0x2UL << _CFD1FLTCON0_F0BP_POSITION) & _CFD1FLTCON0_F0BP_MASK)| _CFD1FLTCON0_FLTEN0_MASK);
 
     /* Switch the CAN module to CANFD_OPERATION_MODE. Wait until the switch is complete */
-    CFD1CON = (CFD1CON & ~_CFD1CON_REQOP_MASK) | ((CANFD_OPERATION_MODE << _CFD1CON_REQOP_POSITION) & _CFD1CON_REQOP_MASK);
-    while(((CFD1CON & _CFD1CON_OPMOD_MASK) >> _CFD1CON_OPMOD_POSITION) != CANFD_OPERATION_MODE)
-    {
-        /* Do Nothing */
-    }
+//    CFD1CON = (CFD1CON & ~_CFD1CON_REQOP_MASK) | ((CANFD_OPERATION_MODE << _CFD1CON_REQOP_POSITION) & _CFD1CON_REQOP_MASK);
+//    while(((CFD1CON & _CFD1CON_OPMOD_MASK) >> _CFD1CON_OPMOD_POSITION) != CANFD_OPERATION_MODE)
+//    {
+//        /* Do Nothing */
+//    }
 }
 
 // *****************************************************************************
@@ -250,7 +206,6 @@ bool CAN1_MessageTransmit(uint32_t id, uint8_t length, uint8_t* data, uint8_t fi
     CANFD_TX_MSG_OBJECT *txMessage = NULL;
     static uint32_t sequence = 0;
     uint8_t count = 0;
-    uint8_t dlc = 0;
     bool status = false;
 
     if (fifoQueueNum == 0U)
@@ -288,27 +243,10 @@ bool CAN1_MessageTransmit(uint32_t id, uint8_t length, uint8_t* data, uint8_t fi
             txMessage->t0 = id;
             txMessage->t1 = 0;
         }
-        if (length > 64U)
-        {
-            length = 64;
-        }
-
-        CANLengthToDlcGet(length, &dlc);
-
-        txMessage->t1 |= ((uint32_t)dlc & (uint32_t)CANFD_MSG_DLC_MASK);
-
-        if(mode == CANFD_MODE_FD_WITH_BRS)
-        {
-            txMessage->t1 |= CANFD_MSG_FDF_MASK | CANFD_MSG_BRS_MASK;
-        }
-        else if (mode == CANFD_MODE_FD_WITHOUT_BRS)
-        {
-            txMessage->t1 |= CANFD_MSG_FDF_MASK;
-        }
-        else
-        {
-            /* Do Nothing */
-        }
+        /* Limit length */
+        if (length > 8U)
+            length = 8;
+        txMessage->t1 |= length;
         if (msgAttr == CANFD_MSG_TX_REMOTE_FRAME)
         {
             txMessage->t1 |= CANFD_MSG_RTR_MASK;
@@ -888,31 +826,6 @@ bool CAN1_BitTimingCalculationGet(CANFD_BIT_TIMING_SETUP *setup, CANFD_BIT_TIMIN
                 bitTiming->nominalBitTimingSet = false;
             }
         }
-        if (setup->dataBitTimingSet == true)
-        {
-            numOfTimeQuanta = CAN1_CLOCK_FREQUENCY / (setup->dataBitRate * ((uint32_t)setup->dataPrescaler + 1U));
-            if ((numOfTimeQuanta >= 4U) && (numOfTimeQuanta <= 49U))
-            {
-                if (setup->dataSamplePoint < 50.0f)
-                {
-                    setup->dataSamplePoint = 50.0f;
-                }
-                temp1 = (float)numOfTimeQuanta;
-                temp2 = (temp1 * setup->dataSamplePoint) / 100.0f;
-                tseg1 = (uint8_t)temp2;
-                bitTiming->dataBitTiming.dataTimeSegment2 = (uint8_t)(numOfTimeQuanta - tseg1 - 1U);
-                bitTiming->dataBitTiming.dataTimeSegment1 = tseg1 - 2U;
-                bitTiming->dataBitTiming.dataSJW = bitTiming->dataBitTiming.dataTimeSegment2;
-                bitTiming->dataBitTiming.dataPrescaler = setup->dataPrescaler;
-                bitTiming->dataBitTimingSet = true;
-                status = true;
-            }
-            else
-            {
-                bitTiming->dataBitTimingSet = false;
-                status = false;
-            }
-        }
     }
 
     return status;
@@ -922,7 +835,6 @@ bool CAN1_BitTimingSet(CANFD_BIT_TIMING *bitTiming)
 {
     bool status = false;
     bool nominalBitTimingSet = false;
-    bool dataBitTimingSet = false;
 
     if ((bitTiming->nominalBitTimingSet == true)
     && (bitTiming->nominalBitTiming.nominalTimeSegment1 >= 0x1U)
@@ -932,30 +844,13 @@ bool CAN1_BitTimingSet(CANFD_BIT_TIMING *bitTiming)
         nominalBitTimingSet = true;
     }
 
-    if  ((bitTiming->dataBitTimingSet == true)
-    &&  (bitTiming->dataBitTiming.dataTimeSegment1 <= 0x1FU)
-    &&  (bitTiming->dataBitTiming.dataTimeSegment2 <= 0xFU)
-    &&  (bitTiming->dataBitTiming.dataSJW <= 0xFU))
-    {
-        dataBitTimingSet = true;
-    }
-
-    if ((nominalBitTimingSet == true) || (dataBitTimingSet == true))
+    if (nominalBitTimingSet == true)
     {
         /* Switch the CAN module to Configuration mode. Wait until the switch is complete */
         CFD1CON = (CFD1CON & ~_CFD1CON_REQOP_MASK) | ((CANFD_CONFIGURATION_MODE << _CFD1CON_REQOP_POSITION) & _CFD1CON_REQOP_MASK);
         while(((CFD1CON & _CFD1CON_OPMOD_MASK) >> _CFD1CON_OPMOD_POSITION) != CANFD_CONFIGURATION_MODE)
         {
             /* Do Nothing */
-        }
-
-        if (dataBitTimingSet == true)
-        {
-            /* Set the Data bitrate */
-            CFD1DBTCFG = (((uint32_t)bitTiming->dataBitTiming.dataPrescaler << _CFD1DBTCFG_BRP_POSITION) & _CFD1DBTCFG_BRP_MASK)
-                       | (((uint32_t)bitTiming->dataBitTiming.dataTimeSegment1 << _CFD1DBTCFG_TSEG1_POSITION) & _CFD1DBTCFG_TSEG1_MASK)
-                       | (((uint32_t)bitTiming->dataBitTiming.dataTimeSegment2 << _CFD1DBTCFG_TSEG2_POSITION) & _CFD1DBTCFG_TSEG2_MASK)
-                       | (((uint32_t)bitTiming->dataBitTiming.dataSJW << _CFD1DBTCFG_SJW_POSITION) & _CFD1DBTCFG_SJW_MASK);
         }
 
         if (nominalBitTimingSet == true)

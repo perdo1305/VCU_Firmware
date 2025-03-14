@@ -178,10 +178,10 @@ void CAN3_Initialize(void)
         /* Do Nothing */
     }
 
-    /* Set the Data bitrate to 5000 Kbps */
-    CFD3DBTCFG = ((0UL << _CFD3DBTCFG_BRP_POSITION) & _CFD3DBTCFG_BRP_MASK)
-               | ((21UL << _CFD3DBTCFG_TSEG1_POSITION) & _CFD3DBTCFG_TSEG1_MASK)
-               | ((0UL << _CFD3DBTCFG_TSEG2_POSITION) & _CFD3DBTCFG_TSEG2_MASK)
+    /* Set the Data bitrate to 1000 Kbps */
+    CFD3DBTCFG = ((2UL << _CFD3DBTCFG_BRP_POSITION) & _CFD3DBTCFG_BRP_MASK)
+               | ((28UL << _CFD3DBTCFG_TSEG1_POSITION) & _CFD3DBTCFG_TSEG1_MASK)
+               | ((9UL << _CFD3DBTCFG_TSEG2_POSITION) & _CFD3DBTCFG_TSEG2_MASK)
                | ((14UL << _CFD3DBTCFG_SJW_POSITION) & _CFD3DBTCFG_SJW_MASK);
 
     /* Set the Nominal bitrate to 1000 Kbps */

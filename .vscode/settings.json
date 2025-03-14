@@ -4,5 +4,9 @@
     },
     "clangd.arguments": [
         "--compile-commands-dir=c:\\Users\\pedro\\Documents\\GIT\\2_FIRMWARE\\VCU_Firmware\\_build_mplab\\VCU_firmware\\default\\image_default.elf"
-    ]
+    ],
+    "mplab.clangd.arguments": [
+        "--compile-commands-dir=${workspaceRoot}\\_build\\VCU_firmware\\default"
+    ],
+    "mplab.clangd.path": "c:\\Program Files\\Microchip\\xc32\\v4.45\\bin\\xc32-clangd.exe"
 }

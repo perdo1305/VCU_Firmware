@@ -141,9 +141,9 @@ void CAN2_Initialize(void)
     }
 
     /* Set the Nominal bitrate to 1000 Kbps */
-    CFD2NBTCFG = ((1UL << _CFD2NBTCFG_BRP_POSITION) & _CFD2NBTCFG_BRP_MASK)
-               | ((43UL << _CFD2NBTCFG_TSEG1_POSITION) & _CFD2NBTCFG_TSEG1_MASK)
-               | ((14UL << _CFD2NBTCFG_TSEG2_POSITION) & _CFD2NBTCFG_TSEG2_MASK)
+    CFD2NBTCFG = ((2UL << _CFD2NBTCFG_BRP_POSITION) & _CFD2NBTCFG_BRP_MASK)
+               | ((28UL << _CFD2NBTCFG_TSEG1_POSITION) & _CFD2NBTCFG_TSEG1_MASK)
+               | ((9UL << _CFD2NBTCFG_TSEG2_POSITION) & _CFD2NBTCFG_TSEG2_MASK)
                | ((5UL << _CFD2NBTCFG_SJW_POSITION) & _CFD2NBTCFG_SJW_MASK);
 
     /* Set Message memory base address for all FIFOs/Queue */

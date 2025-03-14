@@ -1,0 +1,73 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/pedro/.mplab/app-finder/apps/cmake/v3.27.1/cmake-3.27.1-windows-x86_64/share/cmake-3.27/Modules/CMakeDetermineSystem.cmake:206 (message)"
+      - "CMakeLists.txt:17 (project)"
+    message: |
+      The target system is: Generic -  - 
+      The host system is: Windows - 10.0.26100 - 
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/pedro/.mplab/app-finder/apps/cmake/v3.27.1/cmake-3.27.1-windows-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/pedro/.mplab/app-finder/apps/cmake/v3.27.1/cmake-3.27.1-windows-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/pedro/.mplab/app-finder/apps/cmake/v3.27.1/cmake-3.27.1-windows-x86_64/share/cmake-3.27/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:17 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: c:/Program Files/Microchip/xc32/v4.45/bin/xc32-gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Warning: dinit optimization threshholds not set; dinit may not function
+      c:\\program files\\microchip\\xc32\\v4.45\\bin\\bin\\gcc\\pic32mx\\8.3.1\\..\\..\\..\\..\\bin/pic32m-ld.exe: warning: cannot find entry symbol _reset; defaulting to 000000009d000000
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+      
+      The C compiler identification is GNU, found in:
+        C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build/VCU_firmware/default/CMakeFiles/3.27.1/CompilerIdC/a.out
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/pedro/.mplab/app-finder/apps/cmake/v3.27.1/cmake-3.27.1-windows-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/pedro/.mplab/app-finder/apps/cmake/v3.27.1/cmake-3.27.1-windows-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/pedro/.mplab/app-finder/apps/cmake/v3.27.1/cmake-3.27.1-windows-x86_64/share/cmake-3.27/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:17 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: c:/Program Files/Microchip/xc32/v4.45/bin/xc32-g++.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Warning: dinit optimization threshholds not set; dinit may not function
+      c:\\program files\\microchip\\xc32\\v4.45\\bin\\bin\\gcc\\pic32mx\\8.3.1\\..\\..\\..\\..\\bin/pic32m-ld.exe: warning: cannot find entry symbol _reset; defaulting to 000000009d000000
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+      
+      The CXX compiler identification is GNU, found in:
+        C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build/VCU_firmware/default/CMakeFiles/3.27.1/CompilerIdCXX/a.out
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/pedro/.mplab/app-finder/apps/cmake/v3.27.1/cmake-3.27.1-windows-x86_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:1107 (message)"
+      - "C:/Users/pedro/.mplab/app-finder/apps/cmake/v3.27.1/cmake-3.27.1-windows-x86_64/share/cmake-3.27/Modules/CMakeDetermineASMCompiler.cmake:127 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:17 (project)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      pic32m-gcc.exe (Microchip XC32 Compiler v4.45) 8.3.1 Build date: Jun 13 2024
+      Copyright (C) 2018 Free Software Foundation, Inc.
+      This is free software; see the source for copying conditions.  There is NO
+      warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+      
+...

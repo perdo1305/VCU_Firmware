@@ -4,17 +4,17 @@
 
 
 project: VCU_Firmware
-creation_date: 2024-09-01T17:45:40.613+01:00[Europe/London]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-03-14T19:19:53.335Z[Europe/London]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: IDE            # [IDE|Standalone|Headless]
-mcc_version: v5.4.1
-mcc_core_version: v5.6.1
-mplabx_version: v6.15        # if MPLAB X plugin only
+mcc_version: v5.5.0
+mcc_core_version: v5.7.0
+mplabx_version: v6.20        # if MPLAB X plugin only
 harmony_version: v1.4.1
 compiler: XC32 4.45
 
 modules:
-    - {name: "csp", version: "v3.19.3"}
+    - {name: "csp", version: "v3.19.6"}
 
 packs:
     - {name: "PIC32MK-MC_DFP", version: "1.11.151"}

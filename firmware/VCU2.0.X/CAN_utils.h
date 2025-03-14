@@ -148,11 +148,12 @@ typedef struct {
     uint8_t low_cell_temp_id;
     uint8_t ambient_temp;
 
-}BMSvars_t;
+    uint16_t max_discharge_current;
+
+} BMSvars_t;
 extern BMSvars_t bms;
 typedef struct {
-    
-}ALCvars_t;
+} ALCvars_t;
 extern ALCvars_t alc;
 
 extern bool CANRX_ON[4];  // flag to check if CAN is receiving
@@ -162,11 +163,11 @@ extern bool AS_Emergency;
 extern uint16_t TOJAL_RX_RPM;
 extern uint32_t RPM_TOJAL;
 extern uint8_t RES_AD_Ignition;
-extern bool TCU_Autonomous_ignition;
+extern bool ACU_Autonomous_ignition;
 extern uint8_t TCU_Precharge_done;
 extern uint16_t Actual_InputVoltage;
 extern uint8_t powerPlan_volante;
-
+extern uint8_t AS_Status;  // 1- OFF, 2-Ready, 3-Driving, 4-Emergency, 5-Finished
 extern uint32_t AD_timeout;
 
 #ifdef __cplusplus

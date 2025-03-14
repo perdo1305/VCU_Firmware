@@ -14,26 +14,24 @@ extern "C" {
 
 #define AUTONOMOUS_MODE 1
 
-#define MAX_RPM 416U
-#define MAX_AD_RPM 416U //10km/h
+#define MAX_RPM 420U
+#define MAX_AD_RPM 420U  // 10km/h
 #define AD_Timeout 1000U
 
 #define MAX_CURRENT 40U
 #define MAX_TORQUE 100U
-#define Kt_CONST 0.94 // Nm/A
-
+#define Kt_CONST 0.94  // Nm/A
 
 /*APPS CONFIG*/
-#define __APPS_MIN 0.938828f
-#define __APPS_MAX 1.97476f
-#define __APPS_TOLERANCE 0.2f // offset de tolerancia para prevenir
-#define __APPS_DELTA 434U // usado para normalizar o valor do APPS
+#define __APPS_MIN 0.944469f
+#define __APPS_MAX 1.75275f
+#define __APPS_TOLERANCE 0.035f  // offset de tolerancia para prevenir
+#define __APPS_DELTA 420U        // usado para normalizar o valor do APPS
 
 /*BRAKE CONFIG*/
-#define __BRAKE_THRESHOLD 30U
+#define __BRAKE_THRESHOLD 15U
 
 /*DEFINE POWER LIMTIS*/
-
 
 #ifdef __cplusplus
 }

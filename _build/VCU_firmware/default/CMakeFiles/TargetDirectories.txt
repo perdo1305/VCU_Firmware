@@ -1,0 +1,5 @@
+C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build/VCU_firmware/default/CMakeFiles/VCU_firmware_default_default_XC32_compile.dir
+C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build/VCU_firmware/default/CMakeFiles/VCU_firmware_default_default.elf.dir
+C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build/VCU_firmware/default/CMakeFiles/VCU_firmware_default_Bin2Hex.dir
+C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build/VCU_firmware/default/CMakeFiles/edit_cache.dir
+C:/Users/pedro/Documents/GIT/2_FIRMWARE/VCU_Firmware/_build/VCU_firmware/default/CMakeFiles/rebuild_cache.dir

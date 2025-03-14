@@ -56,6 +56,7 @@ can_data_t can_bus_read(uint8_t bus) {
                 if (CAN3_MessageReceive(&data.id, &data.length, data.message, 0, 2, &msgAttr)) {
                     CANRX_ON[CAN_BUS3] = 1;
                     // can_filter_id_bus3(&data);
+                    can_filter_id_bus4(&data);
                 }
             } else {
                 CANRX_ON[CAN_BUS3] = 0;
@@ -358,7 +359,7 @@ void can_bus_send_HV500_SetMaxDcBrakeCurrent(uint32_t max_dc_brake_current) {
     data.length = 8;
     memset(data.message, 0x00, sizeof(data.message));
 
-    MAP_ENCODE_CMD_MaxDcBrakeCurrent(data.message, max_dc_brake_current);
+    //    MAP_ENCODE_CMD_MaxDcBrakeCurrent(data.message, max_dc_brake_current);
 
     can_bus_send(CAN_BUS2, &data);
 }
@@ -396,6 +397,7 @@ void can_filter_id_bus2(can_data_t* data) {
             myHV500.Actual_ERPM = MAP_DECODE_Actual_ERPM(data->message);
             myHV500.Actual_Duty = MAP_DECODE_Actual_Duty(data->message);
             myHV500.Actual_InputVoltage = MAP_DECODE_Actual_InputVoltage(data->message);
+
             break;
         case CAN_HV500_AC_DC_current_ID:
 
@@ -468,7 +470,7 @@ void can_filter_id_bus2(can_data_t* data) {
 /*Receive*/
 void can_filter_id_bus4(can_data_t* data) {
     switch (data->id) {
-        case 0x500:
+        case CAN_TOJAL_TEST:
             RPM_TOJAL = MAP_DECODE_TOJAL_RPM(data->message);
             AD_timeout = 0;
             break;
@@ -476,8 +478,21 @@ void can_filter_id_bus4(can_data_t* data) {
             AS_Emergency = data->message[0];
             break;
         case 0x191:
-            RES_AD_Ignition = data->message[0];
-            // printf("Ignition: %d\n", AD_Ignition);
+            // RES_AD_Ignition = data->message[0];
+            //  printf("Ignition: %d\n", AD_Ignition);
+            break;
+        case 0x71:  // Received Ignition from ACU switch on the side panel
+            ACU_Autonomous_ignition = (bool)data->message[0];
+            break;
+        case CAN_AS_STATUS:  // status of the autonomous system (1- OFF, 2-Ready, 3-Driving, 4-Emergency, 5-Finished)
+            AS_Status = MAP_DECODE_AS_STATE(data->message);
+            if (AS_Status == 4) {
+                AS_Emergency = 1;
+            } else {
+                AS_Emergency = 0;
+            }
+            break;
+        default:
             break;
     }
 }
@@ -486,12 +501,12 @@ void can_filter_id_bus4(can_data_t* data) {
 void can_bus_send_AdBus_RPM(uint32_t rpm) {
     can_data_t data;
     memset(data.message, 0x00, sizeof(data.message));
-    data.id = 0x510;
+    data.id = CAN_TOJAL_SEND_RPM;
     data.length = 2;
     rpm = rpm / 10;
     MAP_ENCODE_TOJAL_RPM(data.message, rpm);
 
-    can_bus_send(CAN_BUS4, &data);
+    can_bus_send(CAN_BUS3, &data);
 }
 
 void can_open_init() {
