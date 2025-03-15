@@ -19455,7 +19455,7 @@
     &lt;/PowerProfiles&gt;
     &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;adchs&quot; x=&quot;601&quot; y=&quot;27&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;adchs&quot; x=&quot;600&quot; y=&quot;27&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;can1&quot; x=&quot;906&quot; y=&quot;22&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;can2&quot; x=&quot;910&quot; y=&quot;90&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;can3&quot; x=&quot;907&quot; y=&quot;162&quot;/&gt;

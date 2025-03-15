@@ -34,6 +34,7 @@
 // #include "../VCU_BANCADA.X/cansart_db_lc.h"
 #include "../VCU2.0.X/VCU_config.h"
 #include "../VCU2.0.X/utils.h"
+#include "peripheral/gpio/plib_gpio.h"
 
 // Define a macro DEBUG para ativar ou desativar o debug_printf
 #define DEBUG 0
@@ -496,9 +497,9 @@ void PrintToConsole(uint8_t time) {
         printf("R2D%d", R2D.isR2D);
         printf("IGN%d", IgnitionSwitch);
         printf("AD%d", IsAutonomous);
-        printf("TCU_PRECHARGE%d", TCU_Precharge_done);
+        printf("TCU_PRECHARGE%d", tcu.Precharge_done);
 
-        printf("AD_IGN%d", RES_AD_Ignition);
+        printf("AD_IGN%d", ACU_Autonomous_ignition);
         printf("HV%d", Actual_InputVoltage);
 
         printf("DM%d", DrivingMode);
@@ -776,7 +777,18 @@ void UpdateR2DState(void) {
             // if the jetson sends drive
             if (AS_Status == 3) {
                 R2D.isR2D = true;
+                MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 0);  // led ons
+            } else {
+                R2D.isR2D = false;
+                R2D.R2DS_as_played = false;
+                MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 2000);  // led off
             }
+        } else {
+            R2D.isR2D = false;
+            R2D.R2DS_as_played = false;
+            toggleState = false;
+            r2d_toggle_flag = false;
+            MCPWM_ChannelPrimaryDutySet(MCPWM_CH_12, 2000);
         }
     } else {
         /*MANUAL MODE*/

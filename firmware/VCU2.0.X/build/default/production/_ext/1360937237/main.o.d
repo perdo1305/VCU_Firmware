@@ -35,7 +35,8 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
  ../src/../VCU2.0.X/Can-Header-Map/CAN_datadb.h \
  ../src/../VCU2.0.X/Can-Header-Map/CAN_pwtdb.h \
  ../src/../VCU2.0.X/TorqueControl.h ../src/../VCU2.0.X/VCU_config.h \
- ../src/../VCU2.0.X/utils.h
+ ../src/../VCU2.0.X/utils.h \
+ ../src/config/default/peripheral/gpio/plib_gpio.h
 
 ../src/../VCU2.0.X/main.h:
 
@@ -114,3 +115,5 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
 ../src/../VCU2.0.X/VCU_config.h:
 
 ../src/../VCU2.0.X/utils.h:
+
+../src/config/default/peripheral/gpio/plib_gpio.h:
